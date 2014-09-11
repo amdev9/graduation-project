@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  professor_id: 1
+  course_id: 1
+  group_id: 1
+  duration: 1
+  lab: false
+
+two:
+  professor_id: 1
+  course_id: 1
+  group_id: 1
+  duration: 1
+  lab: false

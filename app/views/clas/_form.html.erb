@@ -1,0 +1,39 @@
+<%= form_for(@cla) do |f| %>
+  <% if @cla.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cla.errors.count, "error") %> prohibited this cla from being saved:</h2>
+
+      <ul>
+      <% @cla.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :professor_id %><br>
+    <%=  f.collection_select(:professor_id, Professor.all, :id, :name,
+                           { :prompt => true }) %> 
+  </div>
+  <div class="field">
+    <%= f.label :course_id %><br>
+    <%= f.collection_select(:course_id, Course.all, :id, :name,
+                           { :prompt => true })%>
+  </div>
+  <div class="field">
+    <%= f.label :group_id %><br>
+    <%= f.collection_select(:group_id, Group.all, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br>
+    <%= f.number_field :duration %>
+  </div>
+  <div class="field">
+    <%= f.label :lab %><br>
+    <%= f.check_box :lab %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

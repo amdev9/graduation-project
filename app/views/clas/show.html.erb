@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Professor:</strong>
+  <%= @cla.professor.tname %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= # @cla.course_id
+  @cla.course.tname %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @cla.group.tname %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @cla.duration %>
+</p>
+
+<p>
+  <strong>Lab:</strong>
+  <%= @cla.lab %>
+</p>
+
+<%= link_to 'Edit', edit_cla_path(@cla) %> |
+<%= link_to 'Back', clas_path %>

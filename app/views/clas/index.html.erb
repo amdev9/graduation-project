@@ -1,0 +1,33 @@
+<h1>Listing clas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Professor</th>
+      <th>Course</th>
+      <th>Group</th>
+      <th>Duration</th>
+      <th>Lab</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clas.each do |cla| %>
+      <tr>
+        <td><%= cla.professor_name %></td>
+        <td><%= cla.course_name %></td>
+        <td><%= cla.group_name %></td>
+        <td><%= cla.duration %></td>
+        <td><%= cla.lab %></td>
+        <td><%= link_to 'Show', cla %></td>
+        <td><%= link_to 'Edit', edit_cla_path(cla) %></td>
+        <td><%= link_to 'Destroy', cla, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cla', new_cla_path %>

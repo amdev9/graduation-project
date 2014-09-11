@@ -23,7 +23,8 @@
   </div>
   <div class="field">
     <%= f.label :group_id %><br>
-    <%= f.collection_select(:group_id, Group.all, :id, :name) %>
+    <%= #f.collection_select(:group_id, Group.all, :id, :name)
+    f.collection_select(:cla, :group_id, Group.all, :id, :name, prompt: true) %>
   </div>
   <div class="field">
     <%= f.label :duration %><br>

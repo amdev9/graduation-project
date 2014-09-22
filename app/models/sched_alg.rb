@@ -21,28 +21,41 @@ class Schedule
 	  @criteria = []
 	  @classes = Hash.new
 	end
-
+	attr_accessor  :mutationSize, :numberOfCrossoverPoints, :crossoverProbability, :mutationProbability, :fitness
+	
+	def getFitness
+	    @fitness
+	end
+	def getClasses
+		@classes
+	end
+	def getCriteria
+		@criteria
+	end
+	def getSlots
+		@slots
+	end
 	def copy_constructor (  c, setupOnly)
 		 if !setupOnly  
-			@slots = c._slots
-			@classes = c._classes
-			@criteria = c._criteria
-			@fitness = c._fitness
+			@slots = c.slots
+			@classes = c.classes
+			@criteria = c.criteria
+			@fitness = c.fitness
 	 
 		end
-		@numberOfCrossoverPoints = c.@numberOfCrossoverPoints
-		@mutationSize = c.@mutationSize
-		@crossoverProbability = c.@crossoverProbability
-		@mutationProbability = c.@mutationProbability
+		@numberOfCrossoverPoints = c.numberOfCrossoverPoints
+		@mutationSize = c.mutationSize
+		@crossoverProbability = c.crossoverProbability
+		@mutationProbability = c.mutationProbability
 	end
    # copy constructor here NO NEED
     def makeCopy (setupOnly)	
     	Schedule.new(self, setupOnly)
     end
     def makeNewFromPrototype
-    	size = @slots.size
+    	size = slots.size
     	newChromosome = Schedule.new(self, true)
-    	c = Config.getCourseClasses			#create class Config
+    	c =  getCourseClasses							#############DATABASEreturn object with course classes
     	c.each do |it|
 			nr = Config.getNumberOfRooms
     		dur = it.getDuration
@@ -51,23 +64,23 @@ class Schedule
 		    time = rand( DAY_HOURS + 1 - dur )
 		    pos = day * nr * DAY_HOURS + room * DAY_HOURS + time
 		 
-		  	newChromosome.@slots.each_with_index do |i|
-				@slots[pos + i] = it 
+		  	newChromosome.slots.each_with_index do |i|
+				slots[pos + i] = it 
 			end
-			newChromosome.@classes[:it] = pos 
+			newChromosome.classes[:it] = pos 
 		end
    		newChromosome.calculateFitness
 		return newChromosome
    	end
 	 
 	def crossover (  parent2)
-		if  rand(100) > @crossoverProbability 
+		if  rand(100) > crossoverProbability 
 			return Schedule.new(self,false)
 		end
 		n = Shedule.new (self, true)
-		size = @classes.size
+		size = classes.size
 		cp = []
-		for i in @numberOfCrossoverPoints
+		for i in numberOfCrossoverPoints
 			if i > 0
 				while true
 					p = rand(size)
@@ -84,16 +97,16 @@ class Schedule
 		for  i in size
 			
 			if( first )
-			    @classes.each_with_index  {  |(cclass, int), cindex|  #index no need
-				n.@classes[:cclass]= int
+			    classes.each_with_index  {  |(cclass, int), cindex|  #index no need
+				n.classes[:cclass]= int
 				for   i in 0..cclass.GetDuration() - 1 
-				  n.@slots[ int + i ] << cclass
+				  n.slots[ int + i ] << cclass
 				end
 			else
-			    parent2.@classes.each_with_index  {  |(nclass, nint), nindex| #index no need
-				n.@classes[:nclass]= nint
-				for   i in 0.. nclass.GetDuration() - 1 		#getDuration
-				  n.@slots[ nint + i ] << nclass
+			    parent2.classes.each_with_index  {  |(nclass, nint), nindex| #index no need
+				n.classes[:nclass]= nint
+				for   i in 0.. nclass.getDuration - 1 		#getDuration
+				  n.slots[ nint + i ] << nclass
 				end
 			end
 			if( cp[ i ] )
@@ -107,38 +120,38 @@ class Schedule
 	end
 	
 	def mutation
-		if rand(100) > @mutationProbability
+		if rand(100) > mutationProbability
 			return
-		numberOfClasses = @classes.size
-		size  = @slots.size
-		for i in @mutationSize
+		numberOfClasses = classes.size
+		size  = slots.size
+		for i in mutationSize
 			mpos = rand(numberOfClasses)
 			pos1 = 0
-			@classes.each_with_index { |(k,v),it|
+			classes.each_with_index { |(k,v),it|
 				while mpos > 0
 				  mpos= mpos - 1
 				end
 				pos1 = v
 				cc1 = k
-				 nr = Configuration::GetInstance().GetNumberOfRooms
-					dur = cc1.GetDuration
+				 nr = getInstance.getNumberOfRooms   #####################DATABASE
+					dur = cc1.getDuration		#############################DATABASE
 					day = rand( DAYS_NUM)
 					room = rand( nr)
 					time = rand( DAY_HOURS + 1 - dur )
 					pos2 = day * nr * DAY_HOURS + room * DAY_HOURS + time
  
 	            for i in  0.. dur - 1 
-					cl = @slots[ pos1 + i ]
-					@slots.each { |it|  	
+					cl = slots[ pos1 + i ]
+					slots.each { |it|  	
 						if( it == cc1 )
-							cl.delete_at( it );
+							cl.delete_at( it )
 							break
 						end
 					}
 					end
-					@slots[ pos2 + i ]<< cc1
+					slots[ pos2 + i ]<< cc1
 				end
-				@classes[ :cc1 ] = pos2
+				classes[ :cc1 ] = pos2
 			}
 		end
 		calculateFitness
@@ -146,10 +159,10 @@ class Schedule
 	
 	def calculateFitness
 		score  = 0
-	    numberOfRooms = Configuration::GetInstance().GetNumberOfRooms ####
+	    numberOfRooms = getInstance.getNumberOfRooms #######################DATABASE
 		daySize = DAY_HOURS * numberOfRooms
 		ci = 0
-		@classes.each_with_index { |(k,v),index| 
+		classes.each_with_index { |(k,v),index| 
  
 		# coordinate of time-space slot
 		  p = v 
@@ -157,12 +170,12 @@ class Schedule
 		 time = p % daySize
 		 room = time / DAY_HOURS
 		time = time % DAY_HOURS
-		 dur = k.getDuration 		#####
+		 dur = k.getDuration 		###############DATABASE
 
 		# check for room overlapping of classes			 
 		ro = false
 		for i in 0..dur-1
-			if  @slots[ p + i ].size > 1 
+			if  slots[ p + i ].size > 1 
 				ro = true
 				break
 			end
@@ -172,19 +185,19 @@ class Schedule
 		if( !ro )
 			score = score + 1
 		end
-		@criteria[ ci + 0 ] = !ro
+		criteria[ ci + 0 ] = !ro
 
 		 cc =  k
-		 r = Configuration.getInstance.getRoomById( room )    #refferense! to roo,
+		 r =  getInstance.getRoomById( room )    #########################DATABASE
 		# does current room have enough seats
-		@criteria[ ci + 1 ] = r.GetNumberOfSeats >= cc.GetNumberOfSeats
-		if( @criteria[ ci + 1 ] )
+		criteria[ ci + 1 ] = r.getNumberOfSeats >= cc.getNumberOfSeats   #########################NEWCLASSDATABASE
+		if( criteria[ ci + 1 ] )
 			score = score +1
 			end
 
 		# does current room have computers if they are required
-		@criteria[ ci + 2 ] = !cc.IsLabRequired || ( cc.IsLabRequired && r.IsLab )
-		if( @criteria[ ci + 2 ] )
+		criteria[ ci + 2 ] = !cc.isLabRequired || ( cc.isLabRequired && r.isLab )     #########################NEWCLASSDATABASE
+		if( criteria[ ci + 2 ] )
 			score = score + 1
 			end
 
@@ -198,15 +211,15 @@ class Schedule
 			for  i in 0..dur - 1 
 			
 				# check for overlapping with other classes at same time
-				cl = @slots[ t + i ]
+				cl = slots[ t + i ]
 				cl.each do |it|
 					if  cc != it 
 						# professor overlaps?
-						if !po && cc.ProfessorOverlaps(it ) 
+						if !po && cc.professorOverlaps(it )   #########################NEWCLASSDATABASE
 							po = true
 						end
 						# student group overlaps?
-						if( !go && cc.GroupsOverlap(it) 
+						if( !go && cc.GroupsOverlap(it) #########################NEWCLASSDATABASE
 							go = true
 						end
 						# both type of overlapping? no need to check more
@@ -226,18 +239,18 @@ class Schedule
 		if( !po )
 			score = score  + 1
 			end
-		@criteria[ ci + 3 ] = !po
+		criteria[ ci + 3 ] = !po
 
 		# student groups has no overlaping classes?
 		if( !go )
 			score = score  + 1
 			end
-		@criteria[ ci + 4 ] = !go
-	 ci +=5
+		criteria[ ci + 4 ] = !go
+		ci +=5
 	 }
 	end
 	 
-	@fitness = score / ( Configuration.getInstance.getNumberOfCourseClasses * DAYS_NUM )
+	fitness = score / ( getInstance.getNumberOfCourseClasses * DAYS_NUM )   #########################NEWCLASSDATABASE
 	end
 end
 
@@ -252,12 +265,14 @@ class Algorithm
 	@bestChromosomes
 	@currentBestSize
 	@replaceByGeneration
-	@observer
+	#@observer
 	@prototype
 	@currentGeneration
 	@state
 	@instance
 	@instanceSect
+	attr_accessor :chromosomes, :bestFlags, :bestChromosomes, :currentBestSize, :replaceByGeneration, :prototype, :currentGeneration,
+		:state, :instance, :instanceSect
 	def initialize( numberOfChromosomes,  replaceByGeneration,  trackBest,
 					prototype) #ScheduleObserver* observer) 
 					 @replaceByGeneration = replaceByGeneration
@@ -272,25 +287,28 @@ class Algorithm
 	if trackBest < 1 
 		trackBest = 1
 	end
-		if @replaceByGeneration < 1 
-			@replaceByGeneration = 1
+		if replaceByGeneration < 1 
+			replaceByGeneration = 1
 			end
-		else if @replaceByGeneration > (numberOfChromosomes - trackBest)
-			@replaceByGeneration = numberOfChromosomes - trackBest;
+		else if replaceByGeneration > (numberOfChromosomes - trackBest)
+			replaceByGeneration = numberOfChromosomes - trackBest
 		end
-	for i in 0..@chromosomes.size - 1 
-		@chromosomes[ i ] = null
-		@bestFlags[ i ] = false
+	for i in 0..chromosomes.size - 1 
+		chromosomes[ i ] = null
+		bestFlags[ i ] = false
 	end
 		
 	end
-	
+	 
+	def getCurrentGeneration
+		@currentGeneration
+	end
    def getInstance
-	if  @instance == NULL 
+	if instance == null 
 		prototype = Schedule.new( 2, 2, 80, 3)
-		@instance = new Algorithm( 100, 8, 5, prototype, new ScheduleObserver() ); ##
+		instance = Algorithm.new( 100, 8, 5, prototype) ####, new ScheduleObserver() ); ##
 	 end
-	return @instance
+	return instance
    end
 	def freeInstance
 		@instance = null
@@ -299,103 +317,103 @@ class Algorithm
 		if !prototype
 			return
 	    end
-		if( @state == AS_RUNNING )
+		if( state == AS_RUNNING )
 			return
 			end
-			@state = AS_RUNNING	
+			state = AS_RUNNING	
 		
 	clearBest
 	i = 0
-	@chromosomes.each do |it|
-		it = @prototype.makeNewFromPrototype
+	chromosomes.each do |it|
+		it = prototype.makeNewFromPrototype
 		addToBest(i)
 		i = i + 1
 	end
-	@currentGeneration = 0 
+	currentGeneration = 0 
 	while( true )
 		best=getBestChromosomes
 		if best.getFitness >= 1
-		@state = AS_CRITERIA_STOPPED
+		state = AS_CRITERIA_STOPPED
 		break
 		end
 		
 		 
-		for  j in 0.. @replaceByGeneration 		 
-			 p1 = @chromosomes[ rand(@chromosomes.size)]	
-			p2 = @chromosomes[ rand( @chromosomes.size) ]
+		for  j in 0.. replaceByGeneration 		 
+			 p1 = chromosomes[ rand(chromosomes.size)]	
+			p2 = chromosomes[ rand( chromosomes.size) ]
 
 			offspring[ j ] = p1.crossover( p2 )	  
 			offspring[ j ].mutation						 
 		end
-	for  j in 0..@replaceByGeneration  
+	for  j in 0..replaceByGeneration  
 			loop do
 				#select chromosome for replacement randomly
-				ci = rand(@chromosomes.size)		
-			 break if( IsInBest( ci ) )	
+				ci = rand(chromosomes.size)		
+			 break if( isInBest( ci ) )	
 			end			 
   
-			@chromosomes[ ci ] = offspring[ j ]			 
+			chromosomes[ ci ] = offspring[ j ]			 
 			addToBest( ci )          #######realization
 		end
 
 		 
-		    if  best != getBestChromosome() && @observer 
-			@observer.NewBestChromosome( getBestChromosome)
+		    if  best != getBestChromosome && observer 					########################!11
+			observer.newBestChromosome( getBestChromosome)
 		    end
-		@currentGeneration = @currentGeneration + 1
+		currentGeneration = currentGeneration + 1
 	end
 	
-	    if( @observer )
+	    if( observer )
 		 
-		@observer.EvolutionStateChanged( @state )
+		observer.evolutionStateChanged( state )				###############################1!11
 	    end
 	
 end
 	def stop
-		if  @state == AS_RUNNING  
-			@state = AS_USER_STOPED
+		if  state == AS_RUNNING  
+			state = AS_USER_STOPED
 	end
 	def getBestChromosome
-		@chromosomes[ @bestChromosomes[ 0 ] ]
+		chromosomes[ bestChromosomes[ 0 ] ]
 	end
 	def addToBest (chromosomeIndex)
-		if ( @currentBestSize == @bestChromosomes.size && 
-		@chromosomes[ @bestChromosomes[ @currentBestSize - 1 ] ].getFitness >= 
-		@chromosomes[ chromosomeIndex ].getFitness ) || @bestFlags[ chromosomeIndex ] 
+		if ( currentBestSize == bestChromosomes.size && 
+		chromosomes[ bestChromosomes[ currentBestSize - 1 ] ].getFitness >= 
+		chromosomes[ chromosomeIndex ].getFitness ) || bestFlags[ chromosomeIndex ] 
 			return
 		end
 		
-		i = @currentBestSize
+		i = currentBestSize
     while i > 0
-		if  i < @bestChromosomes.size
-			if @chromosomes[ @bestChromosomes[ i - 1 ] ].getFitness > 
-				@chromosomes[ chromosomeIndex ].GetFitness 
+		if  i < bestChromosomes.size
+			if chromosomes[ bestChromosomes[ i - 1 ] ].getFitness > 
+				chromosomes[ chromosomeIndex ].getFitness 
 				break
 			end
-			@bestChromosomes[ i ] = _bestChromosomes[ i - 1 ]
+			bestChromosomes[ i ] = bestChromosomes[ i - 1 ]
 		
 		else
-			@bestFlags[ @bestChromosomes[ i - 1 ] ] = false
+			bestFlags[ bestChromosomes[ i - 1 ] ] = false
 		end
-		@bestChromosomes[ i ] = chromosomeIndex
-		@bestFlags[ chromosomeIndex ] = true
+		bestChromosomes[ i ] = chromosomeIndex
+		bestFlags[ chromosomeIndex ] = true
 
-	if @currentBestSize < @bestChromosomes.size 
-		@currentBestSize= @currentBestSize + 1
+	if currentBestSize < bestChromosomes.size 
+		currentBestSize= currentBestSize + 1
 	end
 	i = i-1
 	end
 	end
 	
 	def isInBest( chromosomeIndex)
-		return @bestFlags[ chromosomeIndex ]
+		return bestFlags[ chromosomeIndex ]
 	end
 	
-	def clearBest()
-	for i in 0.. @bestFlags.size() - 1 
-		@bestFlags[ i ] = false
+	def clearBest
+	for i in 0.. bestFlags.size - 1 
+		bestFlags[ i ] = false
 	end
-	@currentBestSize = 0
+	currentBestSize = 0
 	end
 
 end

@@ -7,6 +7,10 @@ class Test
 		rooms = Room.order(:id)
 		rooms
 	end
+	def getBest
+		c = Algorithm.new.start
+		c
+	end
 end
 
 

@@ -13,5 +13,4 @@ class Cla < ActiveRecord::Base
 		group.tname if group
 	end
 	
-
 end

@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
       <th>Name</th>
       <th>Size</th>
       <th colspan="3"></th>
@@ -12,6 +13,7 @@
   <tbody>
     <% @groups.each do |group| %>
       <tr>
+       <td><%= group.id %></td>
         <td><%= group.name %></td>
         <td><%= group.size %></td>
         <td><%= link_to 'Show', group %></td>

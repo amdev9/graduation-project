@@ -4,7 +4,8 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    #@rooms = Room.all
+    @rooms = Test.new.method
   end
 
   # GET /rooms/1

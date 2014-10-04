@@ -55,10 +55,10 @@ class Schedule
     def makeNewFromPrototype
     	size = slots.size
     	newChromosome = Schedule.new(self, true)
-    	c =  getCourseClasses							#############DATABASEreturn object with course classes
+    	c =  Cla.order(:id) #getCourseClasses					 
     	c.each do |it|
-			nr = Config.getNumberOfRooms
-    		dur = it.getDuration
+			nr = Room.all.size #getNumberOfRooms				#room.all.size
+    		dur = it.duration # getDuration                         # cla.duration
     		day = rand(DAYS_NUM)  
 		    room = rand(nr)
 		    time = rand( DAY_HOURS + 1 - dur )
@@ -77,7 +77,7 @@ class Schedule
 		if  rand(100) > crossoverProbability 
 			return Schedule.new(self,false)
 		end
-		n = Shedule.new (self, true)
+		n = Shedule.copy_constructor (self, true)  ####&&&
 		size = classes.size
 		cp = []
 		for i in numberOfCrossoverPoints
@@ -99,21 +99,23 @@ class Schedule
 			if( first )
 			    classes.each_with_index  {  |(cclass, int), cindex|  #index no need
 				n.classes[:cclass]= int
-				for   i in 0..cclass.GetDuration() - 1 
+				for   i in 0..cclass.duration - 1 			#cla.duration.GetDuration()
 				  n.slots[ int + i ] << cclass
 				end
+				}
 			else
 			    parent2.classes.each_with_index  {  |(nclass, nint), nindex| #index no need
 				n.classes[:nclass]= nint
-				for   i in 0.. nclass.getDuration - 1 		#getDuration
+				for   i in 0.. nclass.duration - 1 		#cla.duration
 				  n.slots[ nint + i ] << nclass
 				end
+			}
 			end
 			if( cp[ i ] )
 				first = !first
 			end
-			}
-			}
+			
+			
 		end 
 		n.calculateFitness
 		return n
@@ -124,7 +126,7 @@ class Schedule
 			return
 		numberOfClasses = classes.size
 		size  = slots.size
-		for i in mutationSize
+		for i in 0..mutationSize
 			mpos = rand(numberOfClasses)
 			pos1 = 0
 			classes.each_with_index { |(k,v),it|
@@ -133,8 +135,8 @@ class Schedule
 				end
 				pos1 = v
 				cc1 = k
-				 nr = getInstance.getNumberOfRooms   #####################DATABASE
-					dur = cc1.getDuration		#############################DATABASE
+				 nr = Room.all.size #getNumberOfRooms   			#Room.all.size 
+					dur = cc1.duration #getDuration			#cla.duration
 					day = rand( DAYS_NUM)
 					room = rand( nr)
 					time = rand( DAY_HOURS + 1 - dur )
@@ -148,9 +150,8 @@ class Schedule
 							break
 						end
 					}
-					end
-					slots[ pos2 + i ]<< cc1
 				end
+					slots[ pos2 + i ]<< cc1
 				classes[ :cc1 ] = pos2
 			}
 		end
@@ -159,7 +160,7 @@ class Schedule
 	
 	def calculateFitness
 		score  = 0
-	    numberOfRooms = getInstance.getNumberOfRooms #######################DATABASE
+	    numberOfRooms = Room.all.size #getNumberOfRooms		 #Room.all.size
 		daySize = DAY_HOURS * numberOfRooms
 		ci = 0
 		classes.each_with_index { |(k,v),index| 
@@ -170,7 +171,7 @@ class Schedule
 		 time = p % daySize
 		 room = time / DAY_HOURS
 		time = time % DAY_HOURS
-		 dur = k.getDuration 		###############DATABASE
+		 dur = k.duration #getDuration 				#cla.duration 
 
 		# check for room overlapping of classes			 
 		ro = false
@@ -188,15 +189,15 @@ class Schedule
 		criteria[ ci + 0 ] = !ro
 
 		 cc =  k
-		 r =  getInstance.getRoomById( room )    #########################DATABASE
+		 r =  Room.find(room) #getInstance.getRoomById( room )    #Room.find(room)
 		# does current room have enough seats
-		criteria[ ci + 1 ] = r.getNumberOfSeats >= cc.getNumberOfSeats   #########################NEWCLASSDATABASE
+		criteria[ ci + 1 ] = (r.size >= cc.size) #getNumberOfSeats >= cc.getNumberOfSeats   #r.size ..
 		if( criteria[ ci + 1 ] )
 			score = score +1
 			end
 
 		# does current room have computers if they are required
-		criteria[ ci + 2 ] = !cc.isLabRequired || ( cc.isLabRequired && r.isLab )     #########################NEWCLASSDATABASE
+		criteria[ ci + 2 ] = !cc.lab || ( cc.lab && r.lab )     #r.lab cc.lab
 		if( criteria[ ci + 2 ] )
 			score = score + 1
 			end
@@ -215,15 +216,15 @@ class Schedule
 				cl.each do |it|
 					if  cc != it 
 						# professor overlaps?
-						if !po && cc.professorOverlaps(it )   #########################NEWCLASSDATABASE
+						if !po && (cc.professor == it.professor )   #cc.professor = it.professor
 							po = true
 						end
 						# student group overlaps?
-						if( !go && cc.GroupsOverlap(it) #########################NEWCLASSDATABASE
+						if !go && (cc.group == it.group) #groupsOverlap
 							go = true
 						end
 						# both type of overlapping? no need to check more
-						if( po && go )
+						if  po && go 
 							throw :total_overlap
 							end
 					end
@@ -233,26 +234,27 @@ class Schedule
 			t += DAY_HOURS 
 		end
 
-    catch (:total_overlap) do
+     catch (:total_overlap) do
 
 		# professors have no overlaping classes?
-		if( !po )
+		if !po 
 			score = score  + 1
 			end
 		criteria[ ci + 3 ] = !po
 
 		# student groups has no overlaping classes?
-		if( !go )
+		if  !go 
 			score = score  + 1
-			end
-		criteria[ ci + 4 ] = !go
-		ci +=5
-	 }
-	end
+		    end
+		   
+		   criteria [ci + 4 ] = !go
+		ci +=5 
+	 end
+	}
 	 
-	fitness = score / ( getInstance.getNumberOfCourseClasses * DAYS_NUM )   #########################NEWCLASSDATABASE
+	  fitness = score / ( Cla.all.size * DAYS_NUM )   #C etInstance.getNumberOfCourseClasses
 	end
-end
+end  
 
 end
 
@@ -290,9 +292,9 @@ class Algorithm
 		if replaceByGeneration < 1 
 			replaceByGeneration = 1
 			end
-		else if replaceByGeneration > (numberOfChromosomes - trackBest)
+		if replaceByGeneration > (numberOfChromosomes - trackBest)   #ELSE IF
 			replaceByGeneration = numberOfChromosomes - trackBest
-		end
+			end
 	for i in 0..chromosomes.size - 1 
 		chromosomes[ i ] = null
 		bestFlags[ i ] = false
@@ -331,7 +333,7 @@ class Algorithm
 	end
 	currentGeneration = 0 
 	while( true )
-		best=getBestChromosomes
+		best=getBestChromosome
 		if best.getFitness >= 1
 		state = AS_CRITERIA_STOPPED
 		break
@@ -358,7 +360,7 @@ class Algorithm
 
 		 
 		    if  best != getBestChromosome && observer 					########################!11
-			observer.newBestChromosome( getBestChromosome)
+			observer.newBestChromosome( getBestChromosome)   ###ITOG
 		    end
 		currentGeneration = currentGeneration + 1
 	end
@@ -368,14 +370,16 @@ class Algorithm
 		observer.evolutionStateChanged( state )				###############################1!11
 	    end
 	
-end
+
 	def stop
 		if  state == AS_RUNNING  
 			state = AS_USER_STOPED
 	end
+	
 	def getBestChromosome
 		chromosomes[ bestChromosomes[ 0 ] ]
 	end
+
 	def addToBest (chromosomeIndex)
 		if ( currentBestSize == bestChromosomes.size && 
 		chromosomes[ bestChromosomes[ currentBestSize - 1 ] ].getFitness >= 
@@ -410,10 +414,12 @@ end
 	end
 	
 	def clearBest
-	for i in 0.. bestFlags.size - 1 
+	    for i in 0.. bestFlags.size - 1 
 		bestFlags[ i ] = false
+	    end
+	    currentBestSize = 0
+	    return
 	end
-	currentBestSize = 0
-	end
-
+  end
 end
+ 

@@ -13,17 +13,15 @@
 
   <div class="field">
     <%= f.label :professor_id %><br>
-    <%=  f.collection_select(:professor_id, Professor.all, :id, :name,
-                           { :prompt => true }) %> 
+    <%=  f.number_field  :professor_id %> 
   </div>
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.collection_select(:course_id, Course.all, :id, :name,
-                           { :prompt => true })%>
+    <%= f.number_field  :course_id %> 
   </div>
   <div class="field">
     <%= f.label :group_id %><br>
-    <%= f.collection_select(:group_id, Group.all, :id, :name,  { :prompt => true }) %>
+    <%= f.number_field  :group_id %>
               
   </div>
   <div class="field">

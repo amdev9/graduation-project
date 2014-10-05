@@ -15,8 +15,8 @@
   <tbody>
     <% @clas.each do |cla| %>
       <tr>
-        <td><%= cla.professor_name %></td>
-        <td><%= cla.course_name %></td>
+        <td><%= cla.professor_id %></td>
+        <td><%= cla.course_id %></td>
         <td> <dd><%= cla.groups.map(&:name).join(', ')  %></dd></td>
         <td><%= cla.duration %></td>
         <td><%= cla.lab %></td>

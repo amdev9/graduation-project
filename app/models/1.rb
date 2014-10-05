@@ -5,6 +5,7 @@ class CChildView
 def initialize
 	_schedule = nil
 	_running  = false
+	Algorithm.getInstance.getObserver.setWindow(self)
 end
 	def setSchedule(  schedule)
 	if _schedule != nil
@@ -43,6 +44,31 @@ module AlgorithmState
 	AS_RUNNING = 3
 end
 
+
+class ScheduleObserver
+def initialize
+	_window = nil
+	 
+end
+def setWindow( window) 
+ _window = window
+ end
+
+
+#Handles event that is raised when algorithm finds new best chromosome
+def newBestChromosome( newChromosome)
+	if _window != nil
+		_window.setSchedule( newChromosome )
+end
+
+#Handles event that is raised when state of execution of algorithm is changed
+def evolutionStateChanged( newState)
+
+	if _window != nil
+		_window.setNewState( newState )
+	newState != AS_RUNNING ? releaseEvent : blockEvent  ##????
+
+end
  
 include AlgorithmState
 Algorithm._instance = nil

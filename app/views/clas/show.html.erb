@@ -2,18 +2,17 @@
 
 <p>
   <strong>Professor:</strong>
-  <%= @cla.professor.tname %>
+  <%= @cla.professor_name %>
 </p>
 
 <p>
   <strong>Course:</strong>
-  <%= # @cla.course_id
-  @cla.course %>
+  <%= @cla.course %>
 </p>
 
 <p>
   <strong>Group:</strong>
-  <%= @cla.group %>
+  <dd> <%= @cla.groups.map(&:name).join(', ') %></dd>
 </p>
 
 <p>

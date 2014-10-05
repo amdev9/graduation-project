@@ -5,7 +5,7 @@
     <tr>
       <th>Professor</th>
       <th>Course</th>
-      <th>Group</th>
+      <th>  Group</th>
       <th>Duration</th>
       <th>Lab</th>
       <th colspan="3"></th>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= cla.professor_name %></td>
         <td><%= cla.course_name %></td>
-        <td><%= cla.group_name  %></td>
+        <td> <dd><%= cla.groups.map(&:name).join(', ')  %></dd></td>
         <td><%= cla.duration %></td>
         <td><%= cla.lab %></td>
         <td><%= link_to 'Show', cla %></td>

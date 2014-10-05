@@ -1,5 +1,5 @@
 class Professor < ActiveRecord::Base
-	has_one :cla
+	belongs_to :cla
 	def tname
 		"#{name}"
 	end

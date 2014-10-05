@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :group_id %><br>
-    <%= f.number_field  :group_id %>
+    <%= f.select :group_ids, Group.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
               
   </div>
   <div class="field">

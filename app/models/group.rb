@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
-	has_many :clas, :dependent => :destroy
+	has_many :cla_groups
+	has_many :cla, :through => :cla_groups
 	
 	def tname 
 		"#{name}"

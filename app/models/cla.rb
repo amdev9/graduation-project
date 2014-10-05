@@ -1,7 +1,8 @@
 class Cla < ActiveRecord::Base
-	belongs_to :professor   #fk - proffessor_id	
-	belongs_to :course 		#fk - course_id
-	belongs_to :group  		#fk - group_id
+	has_one :professor    	
+	has_one :course
+	has_many :cla_groups
+	has_many :groups , :through => :cla_groups 
 
 	def professor_name
 		professor.tname if professor
@@ -9,8 +10,6 @@ class Cla < ActiveRecord::Base
    def course_name
 		course.tname if course
 	end
-	def group_name
-		group.tname if group
-	end
+	 
 	
 end

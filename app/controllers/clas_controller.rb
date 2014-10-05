@@ -69,6 +69,6 @@ class ClasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cla_params
-      params.require(:cla).permit(:professor_id, :course_id, :group_id, :duration, :lab)
+      params.require(:cla).permit(:professor_id, :course_id,  :duration, :lab, :group_ids => [])
     end
 end

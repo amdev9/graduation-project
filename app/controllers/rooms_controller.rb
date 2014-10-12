@@ -6,6 +6,7 @@ class RoomsController < ApplicationController
   def index
     #@rooms = Room.all
     @rooms = Room.order(:id)
+
   end
 
   # GET /rooms/1

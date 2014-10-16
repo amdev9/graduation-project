@@ -1,20 +1,17 @@
-// ChildView.cpp : implementation of the CChildView class
-//
-
  
 
 #include "ChildView.h"
 
-#include "Algorithm\Configuration.h"
-#include "Algorithm\Room.h"
-#include "Algorithm\Schedule.h"
+#include "Configuration.h"
+#include "Room.h"
+#include "Schedule.h"
 #include <iostream>
 
 
 CChildView::CChildView() : _schedule(NULL),
 	_running(false)
 {
-	Algorithm::GetInstance().GetObserver()->SetWindow( this );
+	//Algorithm::GetInstance().GetObserver()->SetWindow( this );
 }
 
 CChildView::~CChildView()
@@ -32,7 +29,6 @@ void CChildView::SetSchedule(const Schedule* schedule)
 	_schedule = schedule->MakeCopy( false );
 
 
-	Invalidate();
 }
 
 void CChildView::SetNewState(AlgorithmState state)
@@ -40,6 +36,7 @@ void CChildView::SetNewState(AlgorithmState state)
 	_running = state == AS_RUNNING;
 }
 
+/*
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
 	ON_COMMAND(ID_FILE_START, &CChildView::OnFileStart)
@@ -49,7 +46,6 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 END_MESSAGE_MAP()
 
 // CChildView message handlers
-
 BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs) 
 {
 	if (!CWnd::PreCreateWindow(cs))
@@ -62,7 +58,7 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 
 	return TRUE;
 }
-
+*/
 const int ROOM_CELL_WIDTH = 85;
 const int ROOM_CELL_HEIGHT = 50;
 
@@ -75,19 +71,9 @@ const int ROOM_ROW_NUMBER = DAY_HOURS + 1;
 const int ROOM_TABLE_WIDTH = ROOM_CELL_WIDTH * ROOM_COLUMN_NUMBER + ROOM_MARGIN_WIDTH;
 const int ROOM_TABLE_HEIGHT = ROOM_CELL_HEIGHT * ROOM_ROW_NUMBER + ROOM_MARGIN_HEIGHT;
 
-void CChildView::OnPaint() 
+void CChildView::Printer() 
 {
-	CPaintDC wndDC(this);
 	 
-	CRect clientRect;
-	GetClientRect( clientRect );
-
-	CDC dc;
-	CBitmap bmp;
-	dc.CreateCompatibleDC( &wndDC );
-	bmp.CreateCompatibleBitmap( &wndDC, clientRect.Width(), clientRect.Height() );
-	dc.SelectObject( &bmp );
-
 
 	int nr = Configuration::GetInstance().GetNumberOfRooms();
 	for( int k = 0; k < nr; k++ )
@@ -98,7 +84,7 @@ void CChildView::OnPaint()
 			{
 				int l = k % 2;
 				int m = k / 2;
-
+/*
 				CRect rect( 
 					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1,
 					 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + j * ROOM_CELL_HEIGHT - 1,
@@ -149,6 +135,7 @@ void CChildView::OnPaint()
 
 					dc.DrawText( days[ i - 1 ], 3, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
+			*/
 			}
 		}
 	}
@@ -157,18 +144,17 @@ void CChildView::OnPaint()
 
 	if( _schedule )
 	{
-		CString fit;
-		fit.Format( "Fitness: %f, Generation: %d", _schedule->GetFitness(),
+		printf( "Fitness: %f, Generation: %d", _schedule->GetFitness(),
 			Algorithm::GetInstance().GetCurrentGeneration() );
 
-		dc.TextOutA( 10,  10, fit );
+		 
 
-		const hash_map<CourseClass*, int>& classes = _schedule->GetClasses();
+		const unordered_map<CourseClass*, int>& classes = _schedule->GetClasses();
 		int ci = 0;
 
 	 
 		if (_schedule->GetFitness()>=1) {
-		for( hash_map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it, ci += 5 )
+		for( unordered_map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it, ci += 5 )
 		{
 			CourseClass* c = ( *it ).first;
 			int p = ( *it ).second;
@@ -180,7 +166,7 @@ void CChildView::OnPaint()
 
 			int l = r % 2;
 			int m = r / 2;
-
+/*
 			CRect rect( 
 				 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
 				 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
@@ -211,6 +197,7 @@ void CChildView::OnPaint()
 			dc.DrawText( str, rect, DT_CENTER | DT_WORDBREAK );
   
 			dc.SetTextColor( RGB( 0, 0, 0 ) );
+			*/
 		
 		}
 		 
@@ -228,7 +215,7 @@ void CChildView::OnPaint()
 
 				int l = r % 2;
 				int m = r / 2;
-
+/*
 				CRect rect( 
 					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
 					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
@@ -236,38 +223,32 @@ void CChildView::OnPaint()
 					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT );
 
 				dc.Rectangle( rect );
+				*/
 			}
 		}
 	}
 	}	
-	wndDC.BitBlt( 0, 0, clientRect.Width(), clientRect.Height(), &dc, 0, 0, SRCCOPY );
+	//wndDC.BitBlt( 0, 0, clientRect.Width(), clientRect.Height(), &dc, 0, 0, SRCCOPY );
 }
-
-DWORD WINAPI StartAlg(LPVOID param)
+/*
+int main()
 {
 	Algorithm::GetInstance().Start();
 	return 0;
-}
-
+}*/
+/*
 void CChildView::OnFileStart()
 {
 	DWORD tid;
 	HANDLE thread = CreateThread( NULL, 0, StartAlg, NULL, 0, &tid );	//one thread exec . no need ahother
 	CloseHandle( thread );
-}
+}*/
 
 
 
-void CChildView::OnFileOpenConfiguration()
+void CChildView::ReadDataFromDB()
 {
-	CFileDialog dlg( TRUE, NULL, NULL, 0, 
-		"Class Schedule Config Files (*.cfg)|*.cfg|All Files (*.*)|*.*|", this );
-
 	 
-	if( dlg.DoModal() == IDOK )
-	{
-		Configuration::GetInstance().ParseFile( dlg.GetFileName().GetBuffer() );
-
-	Invalidate();
-	}
+		Configuration::GetInstance().ReadDatabase();
+	
 }

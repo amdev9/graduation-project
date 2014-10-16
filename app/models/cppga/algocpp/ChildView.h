@@ -1,10 +1,16 @@
 
 class Schedule;
-enum AlgorithmState;
+//enum AlgorithmState;
+
+enum AlgorithmState
+{
+	//AS_USER_STOPED,
+	AS_CRITERIA_STOPPED,
+	AS_RUNNING
+};
 
 
-
-class CChildView : public CWnd
+class CChildView  
 {
 
 public:
@@ -15,8 +21,7 @@ public:
 
 private:
 
-	CCriticalSection _sect;
-
+ 
 	Schedule* _schedule;
 
 	bool _running;
@@ -30,18 +35,17 @@ public:
 	
 protected:
 
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	 
 
 protected:
 
-	afx_msg void OnPaint();					// basic output function
-	DECLARE_MESSAGE_MAP()
-
+	 void Printer();					// basic output function
+ 
 public:
 
-	afx_msg void OnFileStart();
+	  void OnFileStart();
 	
-	afx_msg void OnFileOpenConfiguration();
+  void ReadDataFromDB();
 	
  
  

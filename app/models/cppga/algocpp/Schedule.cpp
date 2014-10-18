@@ -259,7 +259,7 @@ void Schedule::CalculateFitness()
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
-
+	cout << "---" << endl;
 	// check criterias and calculate scores for each class in schedule
 	for( unordered_map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 5 )
 	{
@@ -297,7 +297,7 @@ void Schedule::CalculateFitness()
  		room++;
 		Room* r = Configuration::GetInstance().GetRoomById( room );
 		// does current room have enough seats
-		cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl;
+		cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
 		if( _criteria[ ci + 1 ] )
 			score++;

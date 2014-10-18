@@ -16,11 +16,11 @@
  
    
 void    Configuration::ReadDatabase() {
-  //_professors.clear();
-  //_studentGroups.clear();
- // _courses.clear();
- // _rooms.clear();
-  //_courseClasses.clear();
+  _professors.clear();
+  _studentGroups.clear();
+  _courses.clear();
+   _rooms.clear();
+  _courseClasses.clear();
 
    
 
@@ -133,39 +133,20 @@ void    Configuration::ReadDatabase() {
  
  
 list<StudentsGroup*> groups;
-
-             res = PQexec(conn,
-                 "select * from clas order by id");
-    
-
-       if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+             
+    res = PQexec(conn, "select * from clas order by id");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         puts("We did not get any data!");
-        }
-          rec_count = PQntuples(res);  
+    }
+    rec_count = PQntuples(res);  
                
-     resgr = PQexec(conn,
-"select clas.id, cla_groups.group_id from cla_groups INNER JOIN clas ON  cla_groups.cla_id = clas.id");
+    resgr = PQexec(conn,
+    "select clas.id, cla_groups.group_id from cla_groups INNER JOIN clas ON  cla_groups.cla_id = clas.id");
                        
-
     if (PQresultStatus(resgr) != PGRES_TUPLES_OK) {
-                        puts("We did not get any data!");
-        }
-
+         puts("We did not get any data!");  }
         rec_countgr = PQntuples(resgr);
 
-/*
-          for (row1=0; row1<rec_countgr; row1++) {
-
-    cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
-            if (claid == atoi(PQgetvalue(resgr, row1 , 0))) {
-               StudentsGroup* g = GetStudentsGroupById( atoi(PQgetvalue(resgr, row1 , 1)));
-                     if( g )
-                    groups.push_back( g );
-                  cout << PQgetvalue(resgr, row1 , 1) <<endl ;
-                }
-                 
-            }
-            */
       for (row=0; row<rec_count; row++) {
                    int claid = atoi(PQgetvalue(res, row , 0));
                    int pid =   atoi(PQgetvalue(res, row , 1));
@@ -176,21 +157,20 @@ list<StudentsGroup*> groups;
                 Professor* p = GetProfessorById( pid );
                 Course* c = GetCourseById( cid );
                  for (row1=0; row1<rec_countgr; row1++) {
-               if (claid ==atoi(PQgetvalue(resgr, row1 , 0))) {
+                  if (claid ==atoi(PQgetvalue(resgr, row1 , 0))) {
        StudentsGroup* g = GetStudentsGroupById(  atoi(PQgetvalue(resgr, row1 , 1)));
-                 if( g ) {
-                    groups.push_back( g );
-              //    cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
-}
-}
+                      if( g ) {
+                         groups.push_back( g );
+                          cout <<row <<"-"<< claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
+                      }
+                  }
                 }
-              CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
-
-              if( cc )
-                   _courseClasses.push_back( cc );
-  
-        }
-    
+                 CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
+                if( cc )
+                  _courseClasses.push_back( cc );
+                groups.clear();
+    }
+    cout <<_courseClasses.size() <<endl;
 
  
     PQclear(resgr);

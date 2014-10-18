@@ -12,6 +12,7 @@ CourseClass::CourseClass(Professor* professor, Course* course, const list<Studen
 						 _requiresLab(requiresLab),
 						 _duration(duration)
 {
+	 _numberOfSeats = 0;
 	// bind professor to class
 	_professor->AddCourseClass( this );
 

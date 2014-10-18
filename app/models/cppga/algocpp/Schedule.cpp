@@ -297,7 +297,7 @@ void Schedule::CalculateFitness()
  		room++;
 		Room* r = Configuration::GetInstance().GetRoomById( room );
 		// does current room have enough seats
-		cout  << r->GetNumberOfSeats() << "-------------"<<cc->GetNumberOfSeats() <<endl;
+		cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl;
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
 		if( _criteria[ ci + 1 ] )
 			score++;
@@ -613,7 +613,6 @@ void Algorithm::ClearBest()
 
 	_currentBestSize = 0;
 }
-
 
 int main()
 {

@@ -613,14 +613,16 @@ void Algorithm::ClearBest()
 
 	_currentBestSize = 0;
 }
-
+/*
 int main()
 {
 	 
  
    Configuration::GetInstance().ReadDatabase();
    Algorithm::GetInstance().Start();
- 
+	//CChildView *a = new CChildView();
+	//a->Printer();
 
 	return 0;
 }
+*/

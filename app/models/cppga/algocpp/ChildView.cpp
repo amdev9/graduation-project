@@ -6,7 +6,9 @@
 #include "Room.h"
 #include "Schedule.h"
 #include <iostream>
+#include <stdio.h>
 
+using namespace std;
 
 CChildView::CChildView() : _schedule(NULL),
 	_running(false)
@@ -74,8 +76,9 @@ const int ROOM_TABLE_HEIGHT = ROOM_CELL_HEIGHT * ROOM_ROW_NUMBER + ROOM_MARGIN_H
 void CChildView::Printer() 
 {
 	 
-
+ 
 	int nr = Configuration::GetInstance().GetNumberOfRooms();
+	//cout << nr;
 	for( int k = 0; k < nr; k++ )
 	{
 		for( int i = 0; i < ROOM_COLUMN_NUMBER; i++ )
@@ -84,6 +87,7 @@ void CChildView::Printer()
 			{
 				int l = k % 2;
 				int m = k / 2;
+			 
 /*
 				CRect rect( 
 					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1,
@@ -141,9 +145,11 @@ void CChildView::Printer()
 	}
  
 
-
+//cout << _schedule << endl;
+_schedule  = Algorithm::GetInstance().GetBestChromosome();
 	if( _schedule )
 	{
+		 
 		printf( "Fitness: %f, Generation: %d", _schedule->GetFitness(),
 			Algorithm::GetInstance().GetCurrentGeneration() );
 
@@ -251,18 +257,21 @@ void CChildView::ReadDataFromDB()
 		Configuration::GetInstance().ReadDatabase();
 	
 }
-/*
+
 
 int main()
 {
 
-      Configuration::GetInstance().ReadDatabase();
-	 Algorithm::GetInstance().Start();
 
-	//CChildView *a = new CChildView();
+	CChildView *a = new CChildView();
+	a->ReadDataFromDB();
+	a->OnFileStart();
+		a->Printer();
+  //     Configuration::GetInstance().ReadDatabase();
+	 // Algorithm::GetInstance().Start();
+
 	//a->ReadDataFromDB();
 
 //	a->OnFileStart();
 	return 0;
 } 
-*/

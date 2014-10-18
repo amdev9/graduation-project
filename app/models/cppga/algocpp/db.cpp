@@ -161,7 +161,7 @@ list<StudentsGroup*> groups;
        StudentsGroup* g = GetStudentsGroupById(  atoi(PQgetvalue(resgr, row1 , 1)));
                       if( g ) {
                          groups.push_back( g );
-                          cout <<row <<"-"<< claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
+                   //       cout <<row <<"-"<< claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
                       }
                   }
                 }
@@ -170,7 +170,7 @@ list<StudentsGroup*> groups;
                   _courseClasses.push_back( cc );
                 groups.clear();
     }
-    cout <<_courseClasses.size() <<endl;
+   // cout <<_courseClasses.size() <<endl;
 
  
     PQclear(resgr);

@@ -39,10 +39,10 @@ protected:
 
 protected:
 
-	 void Printer();					// basic output function
+	// void Printer();					// basic output function
  
 public:
-
+void Printer();
 	  void OnFileStart();
 	
   void ReadDataFromDB();

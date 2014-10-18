@@ -53,12 +53,12 @@ void    Configuration::ReadDatabase() {
                     char* name =  PQgetvalue(res, row , 1) ;
                     bool lab = !strcmp ( PQgetvalue(res, row , 2), "t" );
                     int size = atoi(PQgetvalue(res, row , 3));
-     cout <<id << ">" <<name << "rr"<< size <<endl;
-                    Room* r =  new Room(id, name, lab, size );  
-            if( r )
+                     Room* r =  new Room(id, name, lab, size ); 
+                   
+            if( r ) {
               _rooms.insert( pair<int, Room*>( r->GetId(), r ) );
-
-
+      
+}
 
            //  puts ("rooms");
 
@@ -153,8 +153,19 @@ list<StudentsGroup*> groups;
 
         rec_countgr = PQntuples(resgr);
 
+/*
+          for (row1=0; row1<rec_countgr; row1++) {
 
-      
+    cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
+            if (claid == atoi(PQgetvalue(resgr, row1 , 0))) {
+               StudentsGroup* g = GetStudentsGroupById( atoi(PQgetvalue(resgr, row1 , 1)));
+                     if( g )
+                    groups.push_back( g );
+                  cout << PQgetvalue(resgr, row1 , 1) <<endl ;
+                }
+                 
+            }
+            */
       for (row=0; row<rec_count; row++) {
                    int claid = atoi(PQgetvalue(res, row , 0));
                    int pid =   atoi(PQgetvalue(res, row , 1));
@@ -164,35 +175,23 @@ list<StudentsGroup*> groups;
 
                 Professor* p = GetProfessorById( pid );
                 Course* c = GetCourseById( cid );
-           for (row1=0; row1<rec_countgr; row1++) {
-
-           //cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
-            if (claid == atoi(PQgetvalue(resgr, row1 , 0))) {
-               StudentsGroup* g = GetStudentsGroupById( atoi(PQgetvalue(resgr, row1 , 1)));
-                     if( g )
+                 for (row1=0; row1<rec_countgr; row1++) {
+               if (claid ==atoi(PQgetvalue(resgr, row1 , 0))) {
+       StudentsGroup* g = GetStudentsGroupById(  atoi(PQgetvalue(resgr, row1 , 1)));
+                 if( g ) {
                     groups.push_back( g );
-                //  cout << PQgetvalue(resgr, row1 , 1) <<endl ;
+              //    cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
+}
+}
                 }
-                 
-            }
-         
               CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
 
               if( cc )
                    _courseClasses.push_back( cc );
- 
+  
         }
-      //  cout <<"size cc-" << (int)_courseClasses.size() << endl;
-     //   cout <<"size r-" << (int)_rooms.size() << endl;
-       // cout <<"size cou-" << (int)_courses.size() << endl;
-       // cout <<"size p-" << (int)_professors.size() << endl;
-       // cout <<"size sg-" << (int)_studentGroups.size() << endl;
+    
 
-
-
-
-
-     
  
     PQclear(resgr);
     PQclear(res);
@@ -201,8 +200,7 @@ list<StudentsGroup*> groups;
     _isEmpty = false;
      
  }
-
-
+/*
 int main() 
 {
   Configuration*  a = new Configuration();
@@ -212,4 +210,4 @@ int main()
 //  cout << a->GetNumberOfRooms();
   //a->~Configuration();
   return 0;
-}
+}*/

@@ -101,8 +101,8 @@ Schedule* Schedule::MakeNewFromPrototype() const
 		int dur = ( *it )->GetDuration();
 		int day = rand() % DAYS_NUM;
 		int room = rand() % nr;
-		int time = rand() % ( DAY_HOURS + 1 - dur );
-		int pos = day * nr * DAY_HOURS + room * DAY_HOURS + time;
+		int timeS = rand() % ( DAY_HOURS + 1 - dur );
+		int pos = day * nr * DAY_HOURS + room * DAY_HOURS + timeS;
  
 		// fill time-space slots, for each hour of class
 		for( int i = dur - 1; i >= 0; i-- )
@@ -220,8 +220,8 @@ void Schedule::Mutation()
 		int dur = cc1->GetDuration();
 		int day = rand() % DAYS_NUM;
 		int room = rand() % nr;
-		int time = rand() % ( DAY_HOURS + 1 - dur );
-		int pos2 = day * nr * DAY_HOURS + room * DAY_HOURS + time;
+		int timeS = rand() % ( DAY_HOURS + 1 - dur );
+		int pos2 = day * nr * DAY_HOURS + room * DAY_HOURS + timeS;
 
 		// move all time-space slots
 		for( int i = dur - 1; i >= 0; i-- )
@@ -265,10 +265,13 @@ void Schedule::CalculateFitness()
 	{
 		// coordinate of time-space slot
 		int p = ( *it ).second;
+
 		int day = p / daySize;
-		int time = p % daySize;
-		int room = time / DAY_HOURS;
-		time = time % DAY_HOURS;
+		int timeS = p % daySize;
+	 
+		int room = timeS / DAY_HOURS;
+
+		timeS = timeS % DAY_HOURS;
 
 		int dur = ( *it ).first->GetDuration();
 
@@ -290,10 +293,12 @@ void Schedule::CalculateFitness()
 		_criteria[ ci + 0 ] = !ro;
 
 		CourseClass* cc = ( *it ).first;
+		
+ 		room++;
 		Room* r = Configuration::GetInstance().GetRoomById( room );
 		// does current room have enough seats
-		cout  << r->GetNumberOfSeats() << cc->GetNumberOfSeats() <<endl;
-		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); ////
+		cout  << r->GetNumberOfSeats() << "-------------"<<cc->GetNumberOfSeats() <<endl;
+		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
 		if( _criteria[ ci + 1 ] )
 			score++;
 
@@ -304,7 +309,7 @@ void Schedule::CalculateFitness()
 
 		bool po = false, go = false;
 		// check overlapping of classes for professors and student groups
-		for( int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += DAY_HOURS )
+		for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		{
 			// for each hour of class
 			for( int i = dur - 1; i >= 0; i-- )
@@ -319,6 +324,7 @@ void Schedule::CalculateFitness()
 						if( !po && cc->ProfessorOverlaps( **it ) )
 							po = true;
 
+			
 						// student group overlaps?
 						if( !go && cc->GroupsOverlap( **it ) )
 							go = true;
@@ -347,7 +353,7 @@ total_overlap:
 
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5);// DAYS_NUM );
-cout << _fitness << endl;
+cout <<  " fitess: "<< _fitness << endl;
 }
 
 // Pointer to global instance of algorithm
@@ -608,15 +614,14 @@ void Algorithm::ClearBest()
 	_currentBestSize = 0;
 }
 
-/*
-int main()
 
+int main()
 {
-	cout << "asd" << endl;
+	 
  
    Configuration::GetInstance().ReadDatabase();
    Algorithm::GetInstance().Start();
  
 
 	return 0;
-}*/
+}

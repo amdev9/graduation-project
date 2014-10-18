@@ -2,9 +2,7 @@
 
 #include <string>
 
-#pragma once
-
-using namespace std;
+ using namespace std;
 
 // Stores data about classroom
 class Room

@@ -5,7 +5,7 @@ DAYS_NUM=5     #Number of days in week
 
 class Schedule
 def res 
-	result = `/home/alex/diplom/gaschedule/app/models/a.out` 
+	result = 3 #`/home/alex/diplom/gaschedule/app/models/a.out` 
 	result
 end 
 	end

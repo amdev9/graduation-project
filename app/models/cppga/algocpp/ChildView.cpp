@@ -252,10 +252,15 @@ void CChildView::ReadDataFromDB()
 	
 }
 /*
+
 int main()
 {
-	CChildView *a = new CChildView();
-	a->ReadDataFromDB();
+
+      Configuration::GetInstance().ReadDatabase();
+	 Algorithm::GetInstance().Start();
+
+	//CChildView *a = new CChildView();
+	//a->ReadDataFromDB();
 
 //	a->OnFileStart();
 	return 0;

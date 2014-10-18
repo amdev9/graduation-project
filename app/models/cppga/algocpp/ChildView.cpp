@@ -78,7 +78,7 @@ void CChildView::Printer()
 	 
  
 	int nr = Configuration::GetInstance().GetNumberOfRooms();
-	//cout << nr;
+	 
 	for( int k = 0; k < nr; k++ )
 	{
 		for( int i = 0; i < ROOM_COLUMN_NUMBER; i++ )
@@ -88,8 +88,8 @@ void CChildView::Printer()
 				int l = k % 2;
 				int m = k / 2;
 			 
-/*
-				CRect rect( 
+
+/*				CRect rect( 
 					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1,
 					 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + j * ROOM_CELL_HEIGHT - 1,
 					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( i + 1 ) * ROOM_CELL_WIDTH,
@@ -97,49 +97,50 @@ void CChildView::Printer()
 
 				if( i == 0 || j == 0 )
 					dc.Rectangle( rect );
-
+*/
 				if( i == 0 && j == 0 )
 				{
+					k++;
 			
-					rect.bottom -= rect.Height() / 2;
-					dc.Rectangle( rect );
+					// rect.bottom -= rect.Height() / 2;
+					// dc.Rectangle( rect );
+ 
+					string str;
+					printf( "\nRoom: %s", Configuration::GetInstance().GetRoomById( k )->GetName().c_str() );
+					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 
-					CString str;
-					str.Format( "Room: %s", Configuration::GetInstance().GetRoomById( k )->GetName().c_str() );
-					dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					// rect.MoveToY( rect.bottom - 1 );
 
-					rect.MoveToY( rect.bottom - 1 );
+					// rect.right -= rect.Width() / 2 + 7;
+					// dc.Rectangle( rect );
 
-					rect.right -= rect.Width() / 2 + 7;
-					dc.Rectangle( rect );
+					printf( " Lab: %c", Configuration::GetInstance().GetRoomById( k )->IsLab() ? 'Y' : 'N' );
+					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 
-					str.Format( "Lab: %c", Configuration::GetInstance().GetRoomById( k )->IsLab() ? 'Y' : 'N' );
-					dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					// rect.MoveToX( rect.right - 1 );
+					// rect.right += 14;
 
-					rect.MoveToX( rect.right - 1 );
-					rect.right += 14;
-
-					str.Format( "Seats: %d", Configuration::GetInstance().GetRoomById( k )->GetNumberOfSeats() );
-					dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					printf( " Seats: %d \n", Configuration::GetInstance().GetRoomById( k )->GetNumberOfSeats() );
+					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
 
 
 
 				if( i == 0 && j > 0 )
 				{
-					CString str;
-					str.Format( "%d - %d", 9 + j - 1, 9 + j );
+					//string str;
+					 //printf( "%d - %d", 9 + j - 1, 9 + j );
 
-					dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
 
 				if( j == 0 && i > 0 )
 				{
 					static const char* days[] = { "MON", "THU", "WED", "THR", "FRI", "SAT" };
 
-					dc.DrawText( days[ i - 1 ], 3, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					cout << days[ i - 1 ] << " ";//, 3, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
-			*/
+			
 			}
 		}
 	}
@@ -150,7 +151,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 	if( _schedule )
 	{
 		 
-		printf( "Fitness: %f, Generation: %d", _schedule->GetFitness(),
+		printf( "\nFitness: %f, Generation: %d\n", _schedule->GetFitness(),
 			Algorithm::GetInstance().GetCurrentGeneration() );
 
 		 
@@ -172,18 +173,20 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 			int l = r % 2;
 			int m = r / 2;
-/*
-			CRect rect( 
-				 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
-				 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
-				ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
-				 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT );
 
-			dc.Rectangle( rect );
 
-			CString str;
-			str.Format( "%s\n%s\n/", c->GetCourse().GetName().c_str(), c->GetProfessor().GetName().c_str() );
+			// CRect rect( 
+			// 	 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
+			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
+			// 	ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
+			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT );
 
+			// dc.Rectangle( rect );
+
+			string str;
+			printf( "%s\n%s\n/", c->GetCourse().GetName().c_str(), c->GetProfessor().GetName().c_str() );
+
+			//string str;
 			for( list<StudentsGroup*>::const_iterator it = c->GetGroups().begin(); 
 				it != c->GetGroups().end(); ++it )
 			{
@@ -194,7 +197,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			if( c->IsLabRequired() )
 				str += "\nLab";
 
-			rect.top += 5;
+/*			rect.top += 5;
 			rect.bottom -= 5;
 			rect.left += 5;
 			rect.right -= 5;
@@ -203,8 +206,8 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			dc.DrawText( str, rect, DT_CENTER | DT_WORDBREAK );
   
 			dc.SetTextColor( RGB( 0, 0, 0 ) );
-			*/
-		
+*/			
+			cout << str << endl;
 		}
 		 
 
@@ -221,6 +224,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 				int l = r % 2;
 				int m = r / 2;
+
 /*
 				CRect rect( 
 					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
@@ -230,6 +234,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 				dc.Rectangle( rect );
 				*/
+			
 			}
 		}
 	}

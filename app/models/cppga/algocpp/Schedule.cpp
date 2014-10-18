@@ -353,7 +353,7 @@ total_overlap:
 
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5);// DAYS_NUM );
-cout <<  " fitess: "<< _fitness << endl;
+//cout <<  " fitess: "<< _fitness << endl;
 }
 
 // Pointer to global instance of algorithm

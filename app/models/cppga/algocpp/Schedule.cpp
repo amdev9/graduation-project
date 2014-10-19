@@ -36,7 +36,7 @@ Schedule::Schedule(int numberOfCrossoverPoints, int mutationSize,
 				   _fitness(0)
 {
 	// reserve space for time-space slots in chromosomes code
-	//cout << "conf.get.getnr "<<Configuration::GetInstance().GetNumberOfRooms() <<" "<< Configuration::GetInstance().GetNumberOfCourseClasses() * 5 << endl;
+	
 	_slots.resize( DAYS_NUM * DAY_HOURS * Configuration::GetInstance().GetNumberOfRooms() );
  
 	// reserve space for flags of class requirements
@@ -87,7 +87,7 @@ Schedule* Schedule::MakeNewFromPrototype() const
 {
 	// number of time-space slots
 	int size = (int)_slots.size();
-
+ 
 	// make new chromosome, copy chromosome setup
 	Schedule* newChromosome = new Schedule( *this, true );
 
@@ -131,8 +131,8 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 
 	// number of classes
 	int size = (int)_classes.size();
-	//cout << size << endl;
-  //cout <<  size << endl; ////
+ 
+	 
 	vector<bool> cp( size );
 
 	// determine crossover point (randomly)
@@ -149,28 +149,39 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 		}
 	}
 
-	unordered_map<CourseClass*, int>::const_iterator it1 = _classes.begin();
-	unordered_map<CourseClass*, int>::const_iterator it2 = parent2._classes.begin();
 
+	
+	//unordered_map<CourseClass*, int>::const_iterator it2 = parent2._classes.begin();
+auto it1 = _classes.begin();
+auto it2 = parent2._classes.begin();
 	// make new code by combining parent codes
 	bool first = rand() % 2 == 0;
-	for( int i = 0; i < size; i++ )
-	{
+	for( int i = 0; i < size; i++ ) {
+	
+
+		 
 		if( first )
 		{
+			
+			 cout << it1->first <<"--it1" << endl;
 			// insert class from first parent into new chromosome's calss table
-			n->_classes.insert( pair<CourseClass*, int>( ( *it1 ).first, ( *it1 ).second ) );
+			n->_classes.insert( pair<CourseClass*, int>(  it1->first, it1->second ) );
 			// all time-space slots of class are copied
-			for( int i = ( *it1 ).first->GetDuration() - 1; i >= 0; i-- )
-				n->_slots[ ( *it1 ).second + i ].push_back( ( *it1 ).first );
+			for( int i = it1->first->GetDuration() - 1; i >= 0; i-- )
+				n->_slots[ it1->second + i ].push_back( it1->first );
+		 
 		}
 		else
 		{
+			for (;it2!=parent2._classes.end();++it2)
+	{
+				 cout << it2->first <<"--it2" << endl;
 			// insert class from second parent into new chromosome's calss table
-			n->_classes.insert( pair<CourseClass*, int>( ( *it2 ).first, ( *it2 ).second ) );
+			n->_classes.insert( pair<CourseClass*, int>( it2 ->first, it2->second ) );
 			// all time-space slots of class are copied
-			for( int i = ( *it2 ).first->GetDuration() - 1; i >= 0; i-- )
-				n->_slots[ ( *it2 ).second + i ].push_back( ( *it2 ).first );
+			for( int i = it2->first->GetDuration() - 1; i >= 0; i-- )
+				n->_slots[ it2->second + i ].push_back( it2->first );
+		}
 		}
 
 		// crossover point
@@ -178,9 +189,12 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 			// change soruce chromosome
 			first = !first;
 
-		it1++;
-		it2++;
+	 if(it1!=_classes.end())
+	{++it1;}
+		//it1++;//++;
+		//it2++;
 	}
+
 
 	n->CalculateFitness();
 
@@ -259,7 +273,6 @@ void Schedule::CalculateFitness()
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
-	cout << "---" << endl;
 	// check criterias and calculate scores for each class in schedule
 	for( unordered_map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 5 )
 	{
@@ -297,7 +310,7 @@ void Schedule::CalculateFitness()
  		room++;
 		Room* r = Configuration::GetInstance().GetRoomById( room );
 		// does current room have enough seats
-		cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
+		//cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
 		if( _criteria[ ci + 1 ] )
 			score++;

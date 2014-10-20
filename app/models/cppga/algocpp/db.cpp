@@ -166,8 +166,10 @@ list<StudentsGroup*> groups;
                   }
                 }
                  CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
-                if( cc )
+                if( cc ) {
                   _courseClasses.push_back( cc );
+                  cout << "row" << row << endl;
+                  }
                 groups.clear();
     }
    // cout <<_courseClasses.size() <<endl;

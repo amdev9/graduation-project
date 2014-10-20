@@ -94,6 +94,7 @@ Schedule* Schedule::MakeNewFromPrototype() const
 	// place classes at random position
  
 	const list<CourseClass*>& c = Configuration::GetInstance().GetCourseClasses();
+	cout <<"s-"<<c.size()<< endl;
 	for( list<CourseClass*>::const_iterator it = c.begin(); it != c.end(); it++ )
 	{
 		// determine random position of class

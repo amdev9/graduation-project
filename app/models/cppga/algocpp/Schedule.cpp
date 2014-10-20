@@ -92,6 +92,7 @@ Schedule* Schedule::MakeNewFromPrototype() const
 	Schedule* newChromosome = new Schedule( *this, true );
 
 	// place classes at random position
+ 
 	const list<CourseClass*>& c = Configuration::GetInstance().GetCourseClasses();
 	for( list<CourseClass*>::const_iterator it = c.begin(); it != c.end(); it++ )
 	{
@@ -109,7 +110,7 @@ Schedule* Schedule::MakeNewFromPrototype() const
 			newChromosome->_slots.at( pos + i ).push_back( *it );
 		// insert in class table of chromosome
 		newChromosome->_classes.insert( pair<CourseClass*, int>( *it, pos ) );
-
+ 
 	}
 
 	newChromosome->CalculateFitness();
@@ -156,32 +157,34 @@ auto it1 = _classes.begin();
 auto it2 = parent2._classes.begin();
 	// make new code by combining parent codes
 	bool first = rand() % 2 == 0;
-	for( int i = 0; i < size; i++ ) {
-	
+	//cout << _classes.size() << parent2._classes.size() <<endl;
+	for( int i = 0;	 i < size  ; i++ ) {
 
-		 
 		if( first )
 		{
 			
-			 cout << it1->first <<"--it1" << endl;
+			 //cout << it1->first <<"--it1" << endl;
 			// insert class from first parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>(  it1->first, it1->second ) );
 			// all time-space slots of class are copied
-			for( int i = it1->first->GetDuration() - 1; i >= 0; i-- )
+			for ( int i = it1->first->GetDuration() - 1; i >= 0; i-- )
 				n->_slots[ it1->second + i ].push_back( it1->first );
 		 
 		}
 		else
 		{
-			for (;it2!=parent2._classes.end();++it2)
-	{
-				 cout << it2->first <<"--it2" << endl;
+			cout << parent2._classes.size() << endl;
+		// for(;it2!=parent2._classes.end();++it2) {
+			//cout << it2->first <<"--it2" << endl;
 			// insert class from second parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>( it2 ->first, it2->second ) );
+
 			// all time-space slots of class are copied
 			for( int i = it2->first->GetDuration() - 1; i >= 0; i-- )
 				n->_slots[ it2->second + i ].push_back( it2->first );
-		}
+
+			  
+		// }
 		}
 
 		// crossover point
@@ -189,12 +192,11 @@ auto it2 = parent2._classes.begin();
 			// change soruce chromosome
 			first = !first;
 
-	 if(it1!=_classes.end())
-	{++it1;}
-		//it1++;//++;
-		//it2++;
-	}
-
+	  it1++;
+	it2++;
+	 
+ 
+}
 
 	n->CalculateFitness();
 

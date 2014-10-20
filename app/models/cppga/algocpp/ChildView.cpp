@@ -79,7 +79,7 @@ void CChildView::Printer()
  
 	int nr = Configuration::GetInstance().GetNumberOfRooms();
 	 
-	for( int k = 0; k < nr; k++ )
+	for( int k = 1; k < nr+1; k++ )
 	{
 		for( int i = 0; i < ROOM_COLUMN_NUMBER; i++ )
 		{
@@ -100,7 +100,7 @@ void CChildView::Printer()
 */
 				if( i == 0 && j == 0 )
 				{
-					k++;
+					 
 			
 					// rect.bottom -= rect.Height() / 2;
 					// dc.Rectangle( rect );

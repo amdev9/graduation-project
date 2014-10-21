@@ -156,12 +156,12 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 		 
 
-		const unordered_map<CourseClass*, int>& classes = _schedule->GetClasses();
+		const  map<CourseClass*, int>& classes = _schedule->GetClasses();
 		int ci = 0;
 
 	 
 		if (_schedule->GetFitness()>=1) {
-		for( unordered_map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it, ci += 5 )
+		for(  map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it, ci += 5 )
 		{
 			CourseClass* c = ( *it ).first;
 			int p = ( *it ).second;
@@ -263,7 +263,6 @@ void CChildView::ReadDataFromDB()
 	
 }
 
-
 int main()
 {
 
@@ -280,3 +279,4 @@ int main()
 //	a->OnFileStart();
 	return 0;
 } 
+

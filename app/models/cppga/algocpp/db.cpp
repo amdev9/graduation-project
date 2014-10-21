@@ -165,13 +165,15 @@ list<StudentsGroup*> groups;
                       }
                   }
                 }
-                 CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
-                if( cc )
-                  _courseClasses.push_back( cc );
-                groups.clear();
-    }
-   // cout <<_courseClasses.size() <<endl;
 
+                 CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
+                if( cc ) 
+     _courseClasses.push_back( cc );
+	
+               groups.clear();
+
+}
+ 
  
     PQclear(resgr);
     PQclear(res);
@@ -190,4 +192,7 @@ int main()
 //  cout << a->GetNumberOfRooms();
   //a->~Configuration();
   return 0;
-}*/
+}
+
+*/
+

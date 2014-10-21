@@ -1,6 +1,6 @@
 
 #include <list>
-#include <unordered_map>
+#include <map>
 
 #include "CourseClass.h"
 #include <vector>
@@ -90,7 +90,7 @@ private:
 
 	// Class table for chromosome
 	// Used to determine first time-space slot used by class
-	unordered_map<CourseClass*, int> _classes;
+	 map<CourseClass*, int> _classes;
 
 public:
 
@@ -120,7 +120,7 @@ public:
 	float GetFitness() const { return _fitness; }
 
 	// Returns reference to table of classes
-	inline const unordered_map<CourseClass*, int>& GetClasses() const { return _classes; }
+	inline const  map<CourseClass*, int>& GetClasses() const { return _classes; }
 
 	// Returns array of flags of class requiroments satisfaction
 	inline const vector<bool>& GetCriteria() const { return _criteria; }

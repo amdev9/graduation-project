@@ -1,7 +1,7 @@
 
 
 #include <list>
-#include <unordered_map>
+#include <map>
 #include <fstream>
 #include <string>
 
@@ -33,16 +33,16 @@ public:
 private:
 
 	// Parsed professors
-	unordered_map<int, Professor*> _professors;
+ map<int, Professor*> _professors;
 
 	// Parsed student groups
-	unordered_map<int, StudentsGroup*> _studentGroups;
+ map<int, StudentsGroup*> _studentGroups;
 
 	// Parsed courses
-	unordered_map<int, Course*> _courses;
+ map<int, Course*> _courses;
 
 	// Parsed rooms
-		unordered_map<int, Room*> _rooms;
+	 map<int, Room*> _rooms;
 
 	// Parsed classes
 	list<CourseClass*> _courseClasses;
@@ -65,7 +65,7 @@ public:
 	// If there is no professor with such ID method returns NULL
 	inline Professor* GetProfessorById(int id)
 	{ 
-		unordered_map<int, Professor*>::iterator it = _professors.find( id );
+		 map<int, Professor*>::iterator it = _professors.find( id );
 		return it != _professors.end() ? ( *it ).second : NULL;
 	}
 
@@ -76,7 +76,7 @@ public:
 	// If there is no student group with such ID method returns NULL
 	inline StudentsGroup *GetStudentsGroupById(int id)
 	{ 
-		unordered_map<int, StudentsGroup*>::iterator it = _studentGroups.find( id );
+	 map<int, StudentsGroup*>::iterator it = _studentGroups.find( id );
 		return  it != _studentGroups.end() ? ( *it ).second : NULL;
 	}
 
@@ -87,7 +87,7 @@ public:
 	// If there is no course with such ID method returns NULL
 	inline Course* GetCourseById(int id)
 	{ 
-		unordered_map<int, Course*>::iterator it = _courses.find( id );
+	 map<int, Course*>::iterator it = _courses.find( id );
 		return it != _courses.end() ? ( *it ).second : NULL;
 	}
 
@@ -97,7 +97,7 @@ public:
 	// If there is no room with such ID method returns NULL
 	inline Room* GetRoomById(int id)
 	{ 
-		unordered_map<int, Room*>::iterator it = _rooms.find( id );
+		 map<int, Room*>::iterator it = _rooms.find( id );
 		return it != _rooms.end() ? ( *it ).second : NULL;
 	}
 

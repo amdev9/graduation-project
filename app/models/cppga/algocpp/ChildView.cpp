@@ -129,7 +129,7 @@ void CChildView::Printer()
 				if( i == 0 && j > 0 )
 				{
 					//string str;
-					 //printf( "%d - %d", 9 + j - 1, 9 + j );
+					 printf( "%d - %d\n", 9 + j - 1, 9 + j );
 
 					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
@@ -176,10 +176,15 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 
 			// CRect rect( 
-			// 	 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
-			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
-			// 	ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
-			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT );
+			// 
+			cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 << endl;
+			cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1<< endl;
+			cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH << endl;
+			cout <<  ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT << endl;
+ 
+			 
+			// 	
+			// 	 );
 
 			// dc.Rectangle( rect );
 
@@ -225,15 +230,16 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 				int l = r % 2;
 				int m = r / 2;
 
-/*
-				CRect rect( 
-					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
-					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
-					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
-					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT );
+ 
+			//	CRect rect( 
+					
+					cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 << endl;
+					cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 << endl;
+					cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<< endl;
+					cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT << endl;
 
-				dc.Rectangle( rect );
-				*/
+			//	dc.Rectangle( rect );
+				 
 			
 			}
 		}

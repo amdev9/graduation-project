@@ -61,11 +61,11 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 */
-const int ROOM_CELL_WIDTH = 85;
-const int ROOM_CELL_HEIGHT = 50;
+const int ROOM_CELL_WIDTH = 3;
+const int ROOM_CELL_HEIGHT = 2;
 
-const int ROOM_MARGIN_WIDTH = 50;
-const int ROOM_MARGIN_HEIGHT = 50;
+const int ROOM_MARGIN_WIDTH = 2;
+const int ROOM_MARGIN_HEIGHT = 2;
 
 const int ROOM_COLUMN_NUMBER = DAYS_NUM + 1;
 const int ROOM_ROW_NUMBER = DAY_HOURS + 1;
@@ -89,15 +89,15 @@ void CChildView::Printer()
 				int m = k / 2;
 			 
 
-/*				CRect rect( 
-					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1,
-					 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + j * ROOM_CELL_HEIGHT - 1,
-					 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( i + 1 ) * ROOM_CELL_WIDTH,
-					 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( j + 1 ) * ROOM_CELL_HEIGHT );
+//			CRect rect( 
+				//	 cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1 <<endl;
+				//	cout <<  ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + j * ROOM_CELL_HEIGHT - 1 <<endl;
+				//	cout <<  ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( i + 1 ) * ROOM_CELL_WIDTH<<endl;
+				//	 cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( j + 1 ) * ROOM_CELL_HEIGHT <<endl;
 
 				if( i == 0 || j == 0 )
-					dc.Rectangle( rect );
-*/
+	//				dc.Rectangle( rect );
+
 				if( i == 0 && j == 0 )
 				{
 					 
@@ -129,7 +129,7 @@ void CChildView::Printer()
 				if( i == 0 && j > 0 )
 				{
 					//string str;
-					 //printf( "%d - %d", 9 + j - 1, 9 + j );
+				//	 printf( "%d - %d\n", 9 + j - 1, 9 + j );
 
 					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
@@ -176,11 +176,11 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 
 			// CRect rect( 
-			// 	 ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
-			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
-			// 	ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
-			// 	 ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT );
-
+			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 <<endl;
+			// cout<< ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 <<endl;
+			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<<endl;
+			// cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT +  (t + c->GetDuration() ) *ROOM_CELL_HEIGHT  <<endl;
+cout  << t << "--" << d <<endl;
 			// dc.Rectangle( rect );
 
 			string str;
@@ -210,12 +210,18 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			cout << str << endl;
 		}
 		 
+		 	}
+	}	
+	 
+}
 
+/* hz za4em
 		int i = 0;
 		for( vector<list<CourseClass*>>::const_iterator it = _schedule->GetSlots().begin();
 			it != _schedule->GetSlots().end(); ++it, ++i )
 		{
-			if( ( *it ).size() > 1 )
+		//	cout << ( *it ).size() << endl;
+			if( ( *it ).size() >= 1 )
 			{
 				int t = i % ( nr * DAY_HOURS );
 				int d = i / ( nr * DAY_HOURS ) + 1;
@@ -224,24 +230,21 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 				int l = r % 2;
 				int m = r / 2;
+				//cout << l<<m<< " m"<<endl;
 
-/*
-				CRect rect( 
-					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1,
-					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1,
-					ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH,
-					ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT );
+		//	//	CRect rect( 
+			//cout <<	ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 <<endl;
+			//	cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 <<endl;
+			//		cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<<endl;
+				//	cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT <<endl;
 
-				dc.Rectangle( rect );
-				*/
+			//	dc.Rectangle( rect );
+			 
 			
 			}
 		}
-	}
-	}	
-	//wndDC.BitBlt( 0, 0, clientRect.Width(), clientRect.Height(), &dc, 0, 0, SRCCOPY );
-}
 
+*/
 
 
 void CChildView::OnFileStart()
@@ -271,7 +274,8 @@ int main()
 	a->ReadDataFromDB();
 	a->OnFileStart();
 		a->Printer();
-  //     Configuration::GetInstance().ReadDatabase();
+		 
+		  //     Configuration::GetInstance().ReadDatabase();
 	 // Algorithm::GetInstance().Start();
 
 	//a->ReadDataFromDB();

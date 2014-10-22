@@ -162,14 +162,13 @@ auto it1 = _classes.begin();
 auto it2 = parent2._classes.begin();
 	// make new code by combining parent codes
 	bool first = rand() % 2 == 0;
-	//cout << _classes.size() << parent2._classes.size() <<endl;
+	 
  
 	for( int i = 0;	 i < size  ; i++ ) {
 
 		if( first )
 		{
-			
-		//	cout << it1->first <<"it1"<<endl;
+
 		 
 			// insert class from first parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>(  it1->first, it1->second ) );
@@ -178,13 +177,14 @@ auto it2 = parent2._classes.begin();
 			for ( int i1 = it1->first->GetDuration() - 1; i1 >= 0; i1-- )
 				n->_slots[ it1->second + i1 ].push_back( it1->first );
 			 
+
+			// cout <<  it1->second << endl;
 		 
 		}
 		else
 		{
 		 
-		 //for(;it2!=parent2._classes.end();++it2) {
-		// cout << it2->first <<"it2"<<endl;
+		
 			// insert class from second parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>( it2 ->first, it2->second ) );
 			// all time-space slots of class are copied
@@ -573,7 +573,7 @@ void Algorithm::Start()
 			_observer->NewBestChromosome( *GetBestChromosome() );
 
 		_currentGeneration++;
-		cout <<"*" << endl;
+		//cout <<"*" << endl;
 	}
 
 	if( _observer )

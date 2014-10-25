@@ -38,40 +38,7 @@ void CChildView::SetNewState(AlgorithmState state)
 	_running = state == AS_RUNNING;
 }
 
-/*
-BEGIN_MESSAGE_MAP(CChildView, CWnd)
-	ON_WM_PAINT()
-	ON_COMMAND(ID_FILE_START, &CChildView::OnFileStart)
-	ON_COMMAND(ID_FILE_OPEN_CONFIGURATION, &CChildView::OnFileOpenConfiguration)
-	
 
-END_MESSAGE_MAP()
-
-// CChildView message handlers
-BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs) 
-{
-	if (!CWnd::PreCreateWindow(cs))
-		return FALSE;
-
-	cs.dwExStyle |= WS_EX_CLIENTEDGE;
-	cs.style &= ~WS_BORDER;
-	cs.lpszClass = AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS, 
-		::LoadCursor(NULL, IDC_ARROW), reinterpret_cast<HBRUSH>(COLOR_WINDOW+1), NULL);
-
-	return TRUE;
-}
-*/
-const int ROOM_CELL_WIDTH = 3;
-const int ROOM_CELL_HEIGHT = 2;
-
-const int ROOM_MARGIN_WIDTH = 2;
-const int ROOM_MARGIN_HEIGHT = 2;
-
-const int ROOM_COLUMN_NUMBER = DAYS_NUM + 1;
-const int ROOM_ROW_NUMBER = DAY_HOURS + 1;
-
-const int ROOM_TABLE_WIDTH = ROOM_CELL_WIDTH * ROOM_COLUMN_NUMBER + ROOM_MARGIN_WIDTH;
-const int ROOM_TABLE_HEIGHT = ROOM_CELL_HEIGHT * ROOM_ROW_NUMBER + ROOM_MARGIN_HEIGHT;
 
 void CChildView::Printer() 
 {
@@ -89,39 +56,23 @@ void CChildView::Printer()
 				int m = k / 2;
 			 
 
-//			CRect rect( 
-				//	 cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + i * ROOM_CELL_WIDTH - 1 <<endl;
-				//	cout <<  ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + j * ROOM_CELL_HEIGHT - 1 <<endl;
-				//	cout <<  ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( i + 1 ) * ROOM_CELL_WIDTH<<endl;
-				//	 cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( j + 1 ) * ROOM_CELL_HEIGHT <<endl;
-
 				if( i == 0 || j == 0 )
 	//				dc.Rectangle( rect );
 
 				if( i == 0 && j == 0 )
 				{
 					 
-			
-					// rect.bottom -= rect.Height() / 2;
-					// dc.Rectangle( rect );
+		
  
 					string str;
+					//#roomname
 					printf( "\nRoom: %s", Configuration::GetInstance().GetRoomById( k )->GetName().c_str() );
-					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
-
-					// rect.MoveToY( rect.bottom - 1 );
-
-					// rect.right -= rect.Width() / 2 + 7;
-					// dc.Rectangle( rect );
-
+					 
+					//#lab
 					printf( " Lab: %c", Configuration::GetInstance().GetRoomById( k )->IsLab() ? 'Y' : 'N' );
-					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
-
-					// rect.MoveToX( rect.right - 1 );
-					// rect.right += 14;
-
+					 
 					printf( " Seats: %d \n", Configuration::GetInstance().GetRoomById( k )->GetNumberOfSeats() );
-					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					
 				}
 
 
@@ -131,14 +82,14 @@ void CChildView::Printer()
 					//string str;
 				//	 printf( "%d - %d\n", 9 + j - 1, 9 + j );
 
-					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					 
 				}
 
 				if( j == 0 && i > 0 )
 				{
 					static const char* days[] = { "MON", "THU", "WED", "THR", "FRI", "SAT" };
 
-					cout << days[ i - 1 ] << " ";//, 3, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+					cout << days[ i - 1 ] << " "; 
 				}
 			
 			}
@@ -174,18 +125,12 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			int l = r % 2;
 			int m = r / 2;
 
-
-			// CRect rect( 
-			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 <<endl;
-			// cout<< ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 <<endl;
-			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<<endl;
-			// cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT +  (t + c->GetDuration() ) *ROOM_CELL_HEIGHT  <<endl;
-cout  << t << "--" << d <<endl;
-			// dc.Rectangle( rect );
+			cout  << t << "-" << d << "-"<<c->GetDuration()  << endl;   //#meetingtime #meetingday #duration
+		
 
 			string str;
 			printf( "%s\n%s\n/", c->GetCourse().GetName().c_str(), c->GetProfessor().GetName().c_str() );
-
+			//#coursename #profname
 			//string str;
 			for( list<StudentsGroup*>::const_iterator it = c->GetGroups().begin(); 
 				it != c->GetGroups().end(); ++it )
@@ -195,19 +140,10 @@ cout  << t << "--" << d <<endl;
 			}
 
 			if( c->IsLabRequired() )
-				str += "\nLab";
+				str += "\nLab";				//#lab
 
-/*			rect.top += 5;
-			rect.bottom -= 5;
-			rect.left += 5;
-			rect.right -= 5;
-			 
-			
-			dc.DrawText( str, rect, DT_CENTER | DT_WORDBREAK );
-  
-			dc.SetTextColor( RGB( 0, 0, 0 ) );
-*/			
-			cout << str << endl;
+					
+			cout << str << endl;		//#groups
 		}
 		 
 		 	}
@@ -265,6 +201,9 @@ void CChildView::ReadDataFromDB()
 		Configuration::GetInstance().ReadDatabase();
 	
 }
+void CChildView::InsertDataCBR() {
+	Configuration::GetInstance().InsertCBR();
+}
 
 int main()
 {
@@ -273,14 +212,8 @@ int main()
 	CChildView *a = new CChildView();
 	a->ReadDataFromDB();
 	a->OnFileStart();
-		a->Printer();
+	a->Printer();
 		 
-		  //     Configuration::GetInstance().ReadDatabase();
-	 // Algorithm::GetInstance().Start();
-
-	//a->ReadDataFromDB();
-
-//	a->OnFileStart();
 	return 0;
 } 
 

@@ -5,7 +5,7 @@ DAYS_NUM=5     #Number of days in week
 
 class Schedule
 def res 
-	result = 3 #`/home/alex/diplom/gaschedule/app/models/a.out` 
+	result = `/home/alex/diplom/gaschedule/app/models/cppga/algocpp/a.out` 
 	result
 end 
 	end

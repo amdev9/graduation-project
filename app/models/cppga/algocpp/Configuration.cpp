@@ -209,6 +209,34 @@ list<StudentsGroup*> groups;
     _isEmpty = false;
      
  }
+
+ void Configuration::InsertCBR () {
+{
+  // Append the SQL statment
+  std::string sSQL;
+  sSQL.append("INSERT INTO employee VALUES ('");
+  sSQL.append(fname);
+  sSQL.append("', '");
+  sSQL.append(lname);
+  sSQL.append("')");
+ 
+  // Execute with sql statement
+  PGresult *res = PQexec(conn, sSQL.c_str());
+
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+    {
+        printf("Insert employee record failed");
+        PQclear(res);
+        CloseConn(conn);
+    }
+
+  printf("Insert employee record - OK\n");
+
+  // Clear result
+  PQclear(res);
+
+ }
+
 /*
 int main() 
 {

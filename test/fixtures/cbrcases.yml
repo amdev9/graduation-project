@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numofcla: 1
+  numofprof: 1
+  numofgroups: 1
+  numofrooms: 1
+
+two:
+  numofcla: 1
+  numofprof: 1
+  numofgroups: 1
+  numofrooms: 1

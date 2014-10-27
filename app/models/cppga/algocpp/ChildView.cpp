@@ -129,7 +129,11 @@ void CChildView::Printer()
 				if( i == 0 && j > 0 )
 				{
 					//string str;
+<<<<<<< HEAD
 				//	 printf( "%d - %d\n", 9 + j - 1, 9 + j );
+=======
+					 printf( "%d - %d\n", 9 + j - 1, 9 + j );
+>>>>>>> ef17e8c38a32cbac8d55efcc2b209d7eb9b70d70
 
 					// dc.DrawText( str, rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 				}
@@ -176,11 +180,24 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 
 			// CRect rect( 
+<<<<<<< HEAD
 			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 <<endl;
 			// cout<< ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 <<endl;
 			// cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<<endl;
 			// cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT +  (t + c->GetDuration() ) *ROOM_CELL_HEIGHT  <<endl;
 cout  << t << "--" << d <<endl;
+=======
+			// 
+			cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 << endl;
+			cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1<< endl;
+			cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH << endl;
+			cout <<  ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + c->GetDuration() ) * ROOM_CELL_HEIGHT << endl;
+ 
+			 
+			// 	
+			// 	 );
+
+>>>>>>> ef17e8c38a32cbac8d55efcc2b209d7eb9b70d70
 			// dc.Rectangle( rect );
 
 			string str;
@@ -232,6 +249,7 @@ cout  << t << "--" << d <<endl;
 				int m = r / 2;
 				//cout << l<<m<< " m"<<endl;
 
+<<<<<<< HEAD
 		//	//	CRect rect( 
 			//cout <<	ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 <<endl;
 			//	cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 <<endl;
@@ -240,6 +258,18 @@ cout  << t << "--" << d <<endl;
 
 			//	dc.Rectangle( rect );
 			 
+=======
+ 
+			//	CRect rect( 
+					
+					cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + d * ROOM_CELL_WIDTH - 1 << endl;
+					cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + t * ROOM_CELL_HEIGHT - 1 << endl;
+					cout << ROOM_TABLE_WIDTH * l + ROOM_MARGIN_WIDTH + ( d + 1 ) * ROOM_CELL_WIDTH<< endl;
+					cout << ROOM_TABLE_HEIGHT * m + ROOM_MARGIN_HEIGHT + ( t + 1 ) * ROOM_CELL_HEIGHT << endl;
+
+			//	dc.Rectangle( rect );
+				 
+>>>>>>> ef17e8c38a32cbac8d55efcc2b209d7eb9b70d70
 			
 			}
 		}

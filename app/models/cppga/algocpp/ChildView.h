@@ -1,4 +1,3 @@
-
 class Schedule;
 //enum AlgorithmState;
 
@@ -46,7 +45,7 @@ void Printer();
 	  void OnFileStart();
 	
   void ReadDataFromDB();
-	
+	void InsertDataCBR();
  
  
 };

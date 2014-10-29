@@ -1,0 +1,590 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: cla_groups; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE cla_groups (
+    id integer NOT NULL,
+    cla_id integer,
+    group_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.cla_groups OWNER TO alex;
+
+--
+-- Name: cla_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE cla_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cla_groups_id_seq OWNER TO alex;
+
+--
+-- Name: cla_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE cla_groups_id_seq OWNED BY cla_groups.id;
+
+
+--
+-- Name: clas; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE clas (
+    id integer NOT NULL,
+    professor_id integer,
+    course_id integer,
+    group_id integer,
+    duration integer,
+    lab boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.clas OWNER TO alex;
+
+--
+-- Name: clas_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE clas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.clas_id_seq OWNER TO alex;
+
+--
+-- Name: clas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE clas_id_seq OWNED BY clas.id;
+
+
+--
+-- Name: courses; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE courses (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    cla_id integer
+);
+
+
+ALTER TABLE public.courses OWNER TO alex;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.courses_id_seq OWNER TO alex;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+
+
+--
+-- Name: groups; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE groups (
+    id integer NOT NULL,
+    name character varying(255),
+    size integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.groups OWNER TO alex;
+
+--
+-- Name: groups_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.groups_id_seq OWNER TO alex;
+
+--
+-- Name: groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE groups_id_seq OWNED BY groups.id;
+
+
+--
+-- Name: professors; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE professors (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    cla_id integer
+);
+
+
+ALTER TABLE public.professors OWNER TO alex;
+
+--
+-- Name: professors_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE professors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.professors_id_seq OWNER TO alex;
+
+--
+-- Name: professors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE professors_id_seq OWNED BY professors.id;
+
+
+--
+-- Name: rooms; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE rooms (
+    id integer NOT NULL,
+    name character varying(255),
+    lab boolean,
+    size integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.rooms OWNER TO alex;
+
+--
+-- Name: rooms_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+--
+
+CREATE SEQUENCE rooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rooms_id_seq OWNER TO alex;
+
+--
+-- Name: rooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+--
+
+ALTER SEQUENCE rooms_id_seq OWNED BY rooms.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO alex;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY cla_groups ALTER COLUMN id SET DEFAULT nextval('cla_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY clas ALTER COLUMN id SET DEFAULT nextval('clas_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY groups ALTER COLUMN id SET DEFAULT nextval('groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY professors ALTER COLUMN id SET DEFAULT nextval('professors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: alex
+--
+
+ALTER TABLE ONLY rooms ALTER COLUMN id SET DEFAULT nextval('rooms_id_seq'::regclass);
+
+
+--
+-- Data for Name: cla_groups; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY cla_groups (id, cla_id, group_id, created_at, updated_at) FROM stdin;
+4	2	1	2014-10-19 22:10:13.175533	2014-10-19 22:10:13.175533
+6	3	3	2014-10-19 22:12:02.566489	2014-10-19 22:12:02.566489
+7	3	4	2014-10-19 22:12:02.571174	2014-10-19 22:12:02.571174
+8	2	5	2014-10-19 22:27:39.793375	2014-10-19 22:27:39.793375
+9	4	1	2014-10-19 22:28:30.164019	2014-10-19 22:28:30.164019
+10	5	3	2014-10-19 22:28:58.474909	2014-10-19 22:28:58.474909
+11	6	3	2014-10-19 22:29:28.624672	2014-10-19 22:29:28.624672
+12	7	4	2014-10-19 22:29:58.854591	2014-10-19 22:29:58.854591
+13	8	3	2014-10-19 23:55:46.176549	2014-10-19 23:55:46.176549
+14	8	4	2014-10-19 23:55:46.178893	2014-10-19 23:55:46.178893
+15	9	1	2014-10-20 00:00:31.012485	2014-10-20 00:00:31.012485
+16	9	5	2014-10-20 00:00:31.021729	2014-10-20 00:00:31.021729
+17	10	1	2014-10-20 00:00:50.751072	2014-10-20 00:00:50.751072
+18	11	3	2014-10-20 00:01:26.511985	2014-10-20 00:01:26.511985
+20	13	3	2014-10-20 00:02:26.47388	2014-10-20 00:02:26.47388
+21	13	4	2014-10-20 00:02:26.486561	2014-10-20 00:02:26.486561
+22	14	3	2014-10-20 00:03:10.799892	2014-10-20 00:03:10.799892
+23	14	4	2014-10-20 00:03:10.801363	2014-10-20 00:03:10.801363
+24	15	1	2014-10-20 00:03:40.266144	2014-10-20 00:03:40.266144
+25	15	5	2014-10-20 00:03:40.267344	2014-10-20 00:03:40.267344
+26	16	1	2014-10-20 00:03:54.288816	2014-10-20 00:03:54.288816
+27	16	5	2014-10-20 00:03:54.290163	2014-10-20 00:03:54.290163
+28	17	1	2014-10-20 00:04:19.940991	2014-10-20 00:04:19.940991
+29	17	5	2014-10-20 00:04:19.942153	2014-10-20 00:04:19.942153
+30	17	3	2014-10-20 00:04:28.560489	2014-10-20 00:04:28.560489
+31	18	1	2014-10-20 00:04:47.421831	2014-10-20 00:04:47.421831
+32	18	3	2014-10-20 00:04:47.425583	2014-10-20 00:04:47.425583
+33	18	5	2014-10-20 00:04:47.427109	2014-10-20 00:04:47.427109
+34	19	1	2014-10-20 00:05:06.302455	2014-10-20 00:05:06.302455
+35	19	3	2014-10-20 00:05:06.303703	2014-10-20 00:05:06.303703
+36	19	5	2014-10-20 00:05:06.304794	2014-10-20 00:05:06.304794
+37	20	1	2014-10-20 00:15:01.167906	2014-10-20 00:15:01.167906
+38	20	5	2014-10-20 00:15:01.170112	2014-10-20 00:15:01.170112
+39	21	5	2014-10-20 00:15:19.218669	2014-10-20 00:15:19.218669
+40	22	5	2014-10-20 00:15:43.173814	2014-10-20 00:15:43.173814
+41	23	3	2014-10-20 00:16:07.376207	2014-10-20 00:16:07.376207
+42	24	1	2014-10-20 00:16:42.407233	2014-10-20 00:16:42.407233
+43	25	4	2014-10-20 00:17:11.623829	2014-10-20 00:17:11.623829
+45	27	4	2014-10-20 00:17:49.362216	2014-10-20 00:17:49.362216
+46	26	4	2014-10-20 00:18:21.359517	2014-10-20 00:18:21.359517
+47	12	4	2014-10-20 00:19:27.410752	2014-10-20 00:19:27.410752
+\.
+
+
+--
+-- Name: cla_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('cla_groups_id_seq', 47, true);
+
+
+--
+-- Data for Name: clas; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY clas (id, professor_id, course_id, group_id, duration, lab, created_at, updated_at) FROM stdin;
+2	1	1	\N	2	f	2014-10-19 21:25:34.031332	2014-10-19 22:10:13.184736
+3	1	1	\N	2	f	2014-10-19 22:03:26.629099	2014-10-19 22:12:02.578785
+4	9	1	\N	3	t	2014-10-19 22:28:30.161727	2014-10-19 22:28:30.161727
+5	9	1	\N	3	t	2014-10-19 22:28:58.472203	2014-10-19 22:28:58.472203
+6	9	1	\N	\N	t	2014-10-19 22:29:28.62254	2014-10-19 22:29:28.62254
+7	9	1	\N	3	t	2014-10-19 22:29:58.84869	2014-10-19 22:29:58.84869
+8	2	2	\N	2	f	2014-10-19 23:55:46.140127	2014-10-19 23:55:46.140127
+9	2	2	\N	2	f	2014-10-20 00:00:31.00518	2014-10-20 00:00:31.00518
+10	3	2	\N	2	t	2014-10-20 00:00:50.749062	2014-10-20 00:01:05.037475
+11	3	2	\N	2	t	2014-10-20 00:01:26.510429	2014-10-20 00:01:26.510429
+13	4	4	\N	2	f	2014-10-20 00:02:26.470411	2014-10-20 00:02:26.470411
+14	4	4	\N	2	f	2014-10-20 00:03:10.792848	2014-10-20 00:03:10.792848
+15	4	4	\N	2	f	2014-10-20 00:03:40.264397	2014-10-20 00:03:40.264397
+16	4	4	\N	2	f	2014-10-20 00:03:54.285355	2014-10-20 00:03:54.285355
+17	5	6	\N	2	f	2014-10-20 00:04:19.939209	2014-10-20 00:04:19.939209
+18	5	6	\N	2	f	2014-10-20 00:04:47.41498	2014-10-20 00:04:47.41498
+19	7	5	\N	2	f	2014-10-20 00:05:06.29974	2014-10-20 00:05:06.29974
+20	7	5	\N	2	f	2014-10-20 00:15:01.164069	2014-10-20 00:15:01.164069
+21	10	5	\N	3	f	2014-10-20 00:15:19.216621	2014-10-20 00:15:19.216621
+22	8	3	\N	2	f	2014-10-20 00:15:43.168157	2014-10-20 00:15:43.168157
+23	8	3	\N	2	f	2014-10-20 00:16:07.373903	2014-10-20 00:16:07.373903
+24	12	3	\N	2	f	2014-10-20 00:16:42.405435	2014-10-20 00:16:42.405435
+25	12	3	\N	2	f	2014-10-20 00:17:11.620764	2014-10-20 00:17:11.620764
+27	13	8	\N	2	f	2014-10-20 00:17:49.360432	2014-10-20 00:17:49.360432
+26	11	7	\N	2	f	2014-10-20 00:17:28.711624	2014-10-20 00:18:21.371982
+12	3	2	\N	2	t	2014-10-20 00:01:49.656123	2014-10-20 00:19:27.412415
+\.
+
+
+--
+-- Name: clas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('clas_id_seq', 27, true);
+
+
+--
+-- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY courses (id, name, created_at, updated_at, cla_id) FROM stdin;
+2	Introduction to Computer Architecture	\N	\N	\N
+3	Business Applications	\N	\N	\N
+4	English	\N	\N	\N
+5	Discrete Mathematic	\N	\N	\N
+6	Linear Algebra	\N	\N	\N
+7	Introduction to Information Technology I	\N	\N	\N
+8	System Administration and Maintenance I	\N	\N	\N
+1	Introduction to Programming	\N	\N	\N
+\.
+
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('courses_id_seq', 1, true);
+
+
+--
+-- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY groups (id, name, size, created_at, updated_at) FROM stdin;
+1	111	19	\N	\N
+3	113	19	\N	\N
+4	1S1	19	\N	\N
+5	112	19	2014-10-19 22:13:55.365844	2014-10-19 22:13:55.365844
+2	112	19	\N	\N
+\.
+
+
+--
+-- Name: groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('groups_id_seq', 5, true);
+
+
+--
+-- Data for Name: professors; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY professors (id, name, created_at, updated_at, cla_id) FROM stdin;
+1	Victor	\N	\N	\N
+2	Red	\N	\N	\N
+3	Philip	\N	\N	\N
+4	Marry	\N	\N	\N
+5	Don	\N	\N	\N
+6	Mark	\N	\N	\N
+7	Peter	\N	\N	\N
+8	John	\N	\N	\N
+9	Ben	\N	\N	\N
+10	Mike	\N	\N	\N
+11	Steve	\N	\N	\N
+12	Ann	\N	\N	\N
+13	Alex	\N	\N	\N
+\.
+
+
+--
+-- Name: professors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('professors_id_seq', 1, true);
+
+
+--
+-- Data for Name: rooms; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY rooms (id, name, lab, size, created_at, updated_at) FROM stdin;
+2	R7	f	60	\N	\N
+1	R3	t	24	\N	\N
+\.
+
+
+--
+-- Name: rooms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+--
+
+SELECT pg_catalog.setval('rooms_id_seq', 1, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: alex
+--
+
+COPY schema_migrations (version) FROM stdin;
+20140903115711
+20140903115858
+20140903115921
+20140903115959
+20140903120257
+20141005110412
+20141005114932
+20141005115058
+20141025150705
+20141025151509
+20141025164606
+\.
+
+
+--
+-- Name: cla_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY cla_groups
+    ADD CONSTRAINT cla_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clas_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY clas
+    ADD CONSTRAINT clas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY courses
+    ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: professors_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY professors
+    ADD CONSTRAINT professors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: alex; Tablespace: 
+--
+
+ALTER TABLE ONLY rooms
+    ADD CONSTRAINT rooms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_courses_on_cla_id; Type: INDEX; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE INDEX index_courses_on_cla_id ON courses USING btree (cla_id);
+
+
+--
+-- Name: index_professors_on_cla_id; Type: INDEX; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE INDEX index_professors_on_cla_id ON professors USING btree (cla_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: alex; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

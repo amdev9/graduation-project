@@ -210,14 +210,42 @@ list<StudentsGroup*> groups;
      
  }
 
- void Configuration::InsertCBR () {
-{
-  // Append the SQL statment
+ void Configuration::InsertCBR() {
+
+       
+     
+ 
+
+      PGconn     *conn;
+      conn = PQconnectdb("dbname=gaschedule_development host=localhost user=alex password=alex");
+ 
+         if (PQstatus(conn) == CONNECTION_BAD) {
+                 puts("We were unable to connect to the database");
+          
+      }
+ 
+  const char * id;
+    const char * numofcla;
+      const char * numofprof;
+        const char * numofgroups;
+          const char * numofro;
+  id = "1";
+  numofcla = "1";
+  numofprof = "2";
+  numofgroups = "3";
+  numofro = "4";
+
   std::string sSQL;
-  sSQL.append("INSERT INTO employee VALUES ('");
-  sSQL.append(fname);
+  sSQL.append("INSERT INTO cbrcases VALUES ('");
+  sSQL.append(id);
   sSQL.append("', '");
-  sSQL.append(lname);
+  sSQL.append(numofcla);
+  sSQL.append("', '");
+  sSQL.append(numofprof);  
+  sSQL.append("', '");
+  sSQL.append(numofgroups);
+  sSQL.append("', '");
+  sSQL.append(numofro);
   sSQL.append("')");
  
   // Execute with sql statement
@@ -227,13 +255,14 @@ list<StudentsGroup*> groups;
     {
         printf("Insert employee record failed");
         PQclear(res);
-        CloseConn(conn);
+        
     }
 
   printf("Insert employee record - OK\n");
 
-  // Clear result
-  PQclear(res);
+  // Clear result*/
+   
+  PQfinish(conn);
 
  }
 

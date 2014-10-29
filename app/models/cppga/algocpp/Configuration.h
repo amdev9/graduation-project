@@ -60,6 +60,7 @@ public:
 
 	// Parse file and store parsed object
 	void ReadDatabase();
+	void InsertCBR();
 
 	// Returns pointer to professor with specified ID
 	// If there is no professor with such ID method returns NULL

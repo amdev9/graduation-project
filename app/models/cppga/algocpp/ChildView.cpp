@@ -11,7 +11,7 @@
 CChildView::CChildView() : _schedule(NULL),
 	_running(false)
 {
-	//Algorithm::GetInstance().GetObserver()->SetWindow( this );
+	 Algorithm::GetInstance().GetObserver()->SetWindow( this );
 }
 
 CChildView::~CChildView()
@@ -230,19 +230,18 @@ void CChildView::Printer()
 	}	
 	//wndDC.BitBlt( 0, 0, clientRect.Width(), clientRect.Height(), &dc, 0, 0, SRCCOPY );
 }
-/*
-int main()
-{
-	Algorithm::GetInstance().Start();
-	return 0;
-}*/
-/*
+
+
+
 void CChildView::OnFileStart()
 {
-	DWORD tid;
-	HANDLE thread = CreateThread( NULL, 0, StartAlg, NULL, 0, &tid );	//one thread exec . no need ahother
-	CloseHandle( thread );
-}*/
+
+    Algorithm::GetInstance().Start();
+	//DWORD tid;
+	//HANDLE thread = CreateThread( NULL, 0, StartAlg, NULL, 0, &tid );	//one thread exec . no need ahother
+	//CloseHandle( thread );
+
+}
 
 
 
@@ -252,3 +251,13 @@ void CChildView::ReadDataFromDB()
 		Configuration::GetInstance().ReadDatabase();
 	
 }
+/*
+int main()
+{
+	CChildView *a = new CChildView();
+	a->ReadDataFromDB();
+
+//	a->OnFileStart();
+	return 0;
+} 
+*/

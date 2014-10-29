@@ -41,12 +41,11 @@ private:
 
 public:
 
-	// Initializes observer
-	 
-
+	// Initializes observer 
+	ScheduleObserver(): _window(NULL) {}
 	// Frees used resources
 	 
-
+	~ScheduleObserver() {}
 	 
 	
 	// Handles event that is raised when algorithm finds new best chromosome
@@ -56,7 +55,7 @@ public:
 	void EvolutionStateChanged(AlgorithmState newState);
 
 	// Sets window which displays schedule
-	 
+	inline void SetWindow(CChildView* window) { _window = window;} 
 
 }; 
 
@@ -201,7 +200,7 @@ public:
 	inline int GetCurrentGeneration() const { return _currentGeneration; }
 
 	// Returns pointe to algorithm's observer
-	//inline ScheduleObserver* GetObserver() const { return _observer; }
+	inline ScheduleObserver* GetObserver() const { return _observer; }
 
 private:
 

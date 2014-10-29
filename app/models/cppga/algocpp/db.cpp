@@ -16,11 +16,11 @@
  
    
 void    Configuration::ReadDatabase() {
-  _professors.clear();
-  _studentGroups.clear();
-  _courses.clear();
-  _rooms.clear();
-  _courseClasses.clear();
+  //_professors.clear();
+  //_studentGroups.clear();
+ // _courses.clear();
+ // _rooms.clear();
+  //_courseClasses.clear();
 
    
 
@@ -53,12 +53,14 @@ void    Configuration::ReadDatabase() {
                     char* name =  PQgetvalue(res, row , 1) ;
                     bool lab = !strcmp ( PQgetvalue(res, row , 2), "t" );
                     int size = atoi(PQgetvalue(res, row , 3));
-     
+     cout <<id << ">" <<name << "rr"<< size <<endl;
                     Room* r =  new Room(id, name, lab, size );  
             if( r )
               _rooms.insert( pair<int, Room*>( r->GetId(), r ) );
 
-             puts ("rooms");
+
+
+           //  puts ("rooms");
 
        }
   PQclear(res);
@@ -78,7 +80,7 @@ void    Configuration::ReadDatabase() {
                     Course* r =  new Course(id, name  );  
             if( r )
               _courses.insert( pair<int, Course*>( r->GetId(), r ) );
-            puts ("courses");
+          //  puts ("courses");
        }
  
          PQclear(res);
@@ -98,7 +100,7 @@ void    Configuration::ReadDatabase() {
                     Professor* r =  new Professor(id, name  );  
             if( r )
               _professors.insert( pair<int, Professor*>( r->GetId(), r ) );
-            puts ("professors");
+            //puts ("professors");
        }
  
          PQclear(res);
@@ -114,11 +116,16 @@ void    Configuration::ReadDatabase() {
       for (row=0; row<rec_count; row++) {
                     int id =   atoi(PQgetvalue(res, row , 0));
                     char* name =  PQgetvalue(res, row , 1) ;
-                   int size = atoi(PQgetvalue(res, row , 3));
+                   int size = atoi(PQgetvalue(res, row , 2));
+                   
                     StudentsGroup* r =  new StudentsGroup(id, name , size );  
             if( r )
+            {
+            
               _studentGroups.insert( pair<int, StudentsGroup*>( r->GetId(), r ) );
-            puts ("srudgroups");
+            
+            }
+         //   puts ("srudgroups");
        }
  
          PQclear(res);
@@ -129,51 +136,69 @@ list<StudentsGroup*> groups;
 
              res = PQexec(conn,
                  "select * from clas order by id");
-         resgr = PQexec(conn,
-//  "SELECT groups.id FROM groups INNER JOIN cla_groups ON groups.id = cla_groups.group_id");
-
-"select distinct cla_groups.group_id from cla_groups INNER JOIN clas ON  cla_groups.cla_id = 1");
+    
 
        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         puts("We did not get any data!");
         }
-        if (PQresultStatus(resgr) != PGRES_TUPLES_OK) {
+          rec_count = PQntuples(res);  
+               
+     resgr = PQexec(conn,
+"select clas.id, cla_groups.group_id from cla_groups INNER JOIN clas ON  cla_groups.cla_id = clas.id");
+                       
+
+    if (PQresultStatus(resgr) != PGRES_TUPLES_OK) {
                         puts("We did not get any data!");
         }
-         rec_count = PQntuples(res);
+
         rec_countgr = PQntuples(resgr);
 
+
+      
       for (row=0; row<rec_count; row++) {
+                   int claid = atoi(PQgetvalue(res, row , 0));
                    int pid =   atoi(PQgetvalue(res, row , 1));
                    int  cid = atoi(PQgetvalue(res, row , 2));
-
-                   // string  value = PQgetvalue(res, row , 2);  /////////////&&&
-              
                    int dur  = atoi(PQgetvalue(res, row , 4));
                   bool lab = !strcmp ( PQgetvalue(res, row , 5), "t" );
 
                 Professor* p = GetProfessorById( pid );
                 Course* c = GetCourseById( cid );
-          for (row1=0; row1<rec_countgr; row1++) {
+           for (row1=0; row1<rec_countgr; row1++) {
 
-               StudentsGroup* g = GetStudentsGroupById( atoi(PQgetvalue(resgr, row1 , 0)));
+           //cout << claid << "->"<<PQgetvalue(resgr, row1 , 0) << "->"<< PQgetvalue(resgr, row1 , 1) << " "  << endl;
+            if (claid == atoi(PQgetvalue(resgr, row1 , 0))) {
+               StudentsGroup* g = GetStudentsGroupById( atoi(PQgetvalue(resgr, row1 , 1)));
                      if( g )
                     groups.push_back( g );
-                  cout <<   atoi(PQgetvalue(resgr, row1 , 0)) <<endl ;
+                //  cout << PQgetvalue(resgr, row1 , 1) <<endl ;
+                }
+                 
             }
-
+         
               CourseClass* cc = new CourseClass( p, c, groups, lab, dur );
 
               if( cc )
                    _courseClasses.push_back( cc );
+ 
         }
+      //  cout <<"size cc-" << (int)_courseClasses.size() << endl;
+     //   cout <<"size r-" << (int)_rooms.size() << endl;
+       // cout <<"size cou-" << (int)_courses.size() << endl;
+       // cout <<"size p-" << (int)_professors.size() << endl;
+       // cout <<"size sg-" << (int)_studentGroups.size() << endl;
+
+
+
+
+
      
  
     PQclear(resgr);
-      PQclear(res);
-      
- 
-     PQfinish(conn);
+    PQclear(res);
+    PQfinish(conn);
+
+    _isEmpty = false;
      
  }
 
@@ -181,8 +206,10 @@ list<StudentsGroup*> groups;
 int main() 
 {
   Configuration*  a = new Configuration();
+  
   a->ReadDatabase();
-  //cout << a->GetNumberOfCourseClasses();
-  a->~Configuration();
+  
+//  cout << a->GetNumberOfRooms();
+  //a->~Configuration();
   return 0;
 }

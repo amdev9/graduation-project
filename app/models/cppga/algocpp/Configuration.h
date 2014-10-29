@@ -74,10 +74,10 @@ public:
 
 	// Returns pointer to student group with specified ID
 	// If there is no student group with such ID method returns NULL
-	inline StudentsGroup* GetStudentsGroupById(int id)
+	inline StudentsGroup *GetStudentsGroupById(int id)
 	{ 
 		unordered_map<int, StudentsGroup*>::iterator it = _studentGroups.find( id );
-		return it != _studentGroups.end() ? ( *it ).second : NULL;
+		return  it != _studentGroups.end() ? ( *it ).second : NULL;
 	}
 
 	// Returns number of parsed student groups

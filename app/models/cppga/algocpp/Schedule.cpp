@@ -36,6 +36,7 @@ Schedule::Schedule(int numberOfCrossoverPoints, int mutationSize,
 				   _fitness(0)
 {
 	// reserve space for time-space slots in chromosomes code
+	//cout << "conf.get.getnr "<<Configuration::GetInstance().GetNumberOfRooms() <<" "<< Configuration::GetInstance().GetNumberOfCourseClasses() * 5 << endl;
 	_slots.resize( DAYS_NUM * DAY_HOURS * Configuration::GetInstance().GetNumberOfRooms() );
  
 	// reserve space for flags of class requirements
@@ -86,7 +87,7 @@ Schedule* Schedule::MakeNewFromPrototype() const
 {
 	// number of time-space slots
 	int size = (int)_slots.size();
-//cout << size << endl;
+
 	// make new chromosome, copy chromosome setup
 	Schedule* newChromosome = new Schedule( *this, true );
 
@@ -96,18 +97,19 @@ Schedule* Schedule::MakeNewFromPrototype() const
 	{
 		// determine random position of class
 		int nr = Configuration::GetInstance().GetNumberOfRooms();
+		
 		int dur = ( *it )->GetDuration();
 		int day = rand() % DAYS_NUM;
 		int room = rand() % nr;
 		int time = rand() % ( DAY_HOURS + 1 - dur );
 		int pos = day * nr * DAY_HOURS + room * DAY_HOURS + time;
-
+ 
 		// fill time-space slots, for each hour of class
 		for( int i = dur - 1; i >= 0; i-- )
 			newChromosome->_slots.at( pos + i ).push_back( *it );
-
 		// insert in class table of chromosome
 		newChromosome->_classes.insert( pair<CourseClass*, int>( *it, pos ) );
+
 	}
 
 	newChromosome->CalculateFitness();
@@ -129,7 +131,8 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 
 	// number of classes
 	int size = (int)_classes.size();
- //cout << rand() %size << endl; ////
+	//cout << size << endl;
+  //cout <<  size << endl; ////
 	vector<bool> cp( size );
 
 	// determine crossover point (randomly)
@@ -252,6 +255,7 @@ void Schedule::CalculateFitness()
 	int score = 0;
 
 	int numberOfRooms = Configuration::GetInstance().GetNumberOfRooms();
+	
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
@@ -288,7 +292,8 @@ void Schedule::CalculateFitness()
 		CourseClass* cc = ( *it ).first;
 		Room* r = Configuration::GetInstance().GetRoomById( room );
 		// does current room have enough seats
-		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats();
+		cout  << r->GetNumberOfSeats() << cc->GetNumberOfSeats() <<endl;
+		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); ////
 		if( _criteria[ ci + 1 ] )
 			score++;
 
@@ -342,6 +347,7 @@ total_overlap:
 
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5);// DAYS_NUM );
+cout << _fitness << endl;
 }
 
 // Pointer to global instance of algorithm
@@ -601,3 +607,16 @@ void Algorithm::ClearBest()
 
 	_currentBestSize = 0;
 }
+
+/*
+int main()
+
+{
+	cout << "asd" << endl;
+ 
+   Configuration::GetInstance().ReadDatabase();
+   Algorithm::GetInstance().Start();
+ 
+
+	return 0;
+}*/

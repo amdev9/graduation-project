@@ -1,6 +1,8 @@
 
 #include "CourseClass.h"
 
+using namespace std;
+
 // Initializes class object
 CourseClass::CourseClass(Professor* professor, Course* course, const list<StudentsGroup*>& groups,
 						 bool requiresLab, int duration) : 
@@ -19,6 +21,7 @@ CourseClass::CourseClass(Professor* professor, Course* course, const list<Studen
 		( *it )->AddClass( this );
 		_groups.push_back( *it );
 		_numberOfSeats += ( *it )->GetNumberOfStudents();
+		
 	}
 }
 

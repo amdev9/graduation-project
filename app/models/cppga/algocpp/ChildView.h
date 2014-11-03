@@ -1,3 +1,4 @@
+ 
 class Schedule;
 //enum AlgorithmState;
 
@@ -7,7 +8,6 @@ enum AlgorithmState
 	AS_CRITERIA_STOPPED,
 	AS_RUNNING
 };
-
 
 class CChildView  
 {
@@ -49,4 +49,3 @@ void Printer();
  
  
 };
-

@@ -12,6 +12,7 @@
     </tr>
   </thead>
 <tbody> 
+  <div id = "courseevents">
      <% @courseevents.each do |courseevent| %>
       <tr>
 
@@ -20,6 +21,12 @@
          
         
   </tr>
+   <% end %>
+ </div>
+
+ <%= javascript_tag  do%>
+  window.courseeventsURL = "<%=j rooms_url %>";
+ <% end%>
   </tbody>
 </table>
 

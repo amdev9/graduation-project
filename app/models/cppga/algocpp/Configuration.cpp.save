@@ -14,7 +14,7 @@
 #include "Course.h"
 #include "Room.h"
 #include "CourseClass.h"
- #include "ChildView.h"
+ #include "Schedule.h"
 
  
 
@@ -212,17 +212,99 @@ list<StudentsGroup*> groups;
      
  }
 
- // void Configuration::InsertCBR() {
+ void Configuration::InsertCBR() {
 
- //      PGconn     *conn;
- //      conn = PQconnectdb("dbname=gaschedule_development host=localhost user=alex password=alex");
+       
+     
  
- //         if (PQstatus(conn) == CONNECTION_BAD) {
- //                 puts("We were unable to connect to the database");
+
+      PGconn     *conn;
+      conn = PQconnectdb("dbname=gaschedule_development host=localhost user=alex password=alex");
+ 
+         if (PQstatus(conn) == CONNECTION_BAD) {
+                 puts("We were unable to connect to the database");
           
- //      }
+      }
  
- // }
+  const char * id;
+   
+int  numofcla = _courseClasses.size();
+
+std::ostringstream numofclas;
+numofclas << numofcla;
+
+int numofprof = _professors.size();
+std::ostringstream numofprofs;
+numofprofs << numofprof;
+
+int numofgroup = _studentGroups.size();
+std::ostringstream numofgroups;
+numofgroups << numofgroup;
+ 
+
+int numofroom = _rooms.size();
+std::ostringstream numofrooms;
+numofrooms << numofroom;
+  
+  id = "1";
+  
+
+  std::string sSQL;
+  sSQL.append("INSERT INTO cbrcases VALUES ('");
+    
+  sSQL.append(id);
+  sSQL.append("', '");
+  sSQL.append(numofclas.str().c_str());
+  sSQL.append("', '");
+  cout << numofprofs.str().c_str() <<  " "; 
+  sSQL.append(numofprofs.str().c_str());  
+  sSQL.append("', '");
+  cout << numofgroups.str().c_str() <<  " "; 
+  sSQL.append(numofgroups.str().c_str());
+  sSQL.append("', '");
+  cout << numofrooms.str().c_str() <<  " "; 
+  sSQL.append(numofrooms.str().c_str());
+  sSQL.append("')");
+ 
+  // Execute with sql statement
+  PGresult *res = PQexec(conn, sSQL.c_str());
+
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+    {
+        printf("Insert employee record failed");
+        PQclear(res);
+        
+    }
+
+  printf("Insert employee record - OK\n");
+
+  // Clear result*/
+   
+  PQfinish(conn);
+/*
+  Schedule * _schedule  = Algorithm::GetInstance().GetBestChromosome();
+  if( _schedule )
+  {
+     
+    printf( "\nFitness: %f, Generation: %d\n", _schedule->GetFitness(),
+      Algorithm::GetInstance().GetCurrentGeneration() );
+
+     
+
+    const  map<CourseClass*, int>& classes = _schedule->GetClasses();
+    int ci = 0;
+
+   
+    if (_schedule->GetFitness()>=1) {
+    for(  map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it  )
+    {
+ 
+      CourseClass* c = ( *it ).first;
+      int p = ( *it ).second;
+     cout << "P" << p << endl;
+}}}
+*/
+ }
 
 /*
 int main() 

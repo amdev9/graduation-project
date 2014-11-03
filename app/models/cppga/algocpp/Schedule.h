@@ -5,7 +5,6 @@
 #include "CourseClass.h"
 #include <vector>
  
-
  
 
 class CChildView;
@@ -18,11 +17,6 @@ class Algorithm;
 #define DAYS_NUM	6 //5
 
 enum AlgorithmState;
-/*{
-	//AS_USER_STOPED,
-	AS_CRITERIA_STOPPED,
-	AS_RUNNING
-};*/
 
 // Algorithm's observer
 class ScheduleObserver

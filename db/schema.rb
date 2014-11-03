@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025164606) do
+ActiveRecord::Schema.define(version: 20141025151509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+
+  create_table "cbrcases", force: true do |t|
+    t.integer "numofcla"
+    t.integer "numofprof"
+    t.integer "numofgroups"
+    t.integer "numofrooms"
+  end
 
   create_table "cla_groups", force: true do |t|
     t.integer  "cla_id"
@@ -32,6 +40,20 @@ ActiveRecord::Schema.define(version: 20141025164606) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "courseevents", force: true do |t|
+    t.string  "roomname"
+    t.boolean "lab"
+    t.integer "meetingtime"
+    t.integer "meetingday"
+    t.integer "courseduration"
+    t.string  "coursename"
+    t.string  "profname"
+    t.string  "groupname"
+    t.integer "cbrcase_id"
+  end
+
+  add_index "courseevents", ["cbrcase_id"], name: "index_courseevents_on_cbrcase_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"

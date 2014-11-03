@@ -322,7 +322,7 @@ void Schedule::CalculateFitness()
 		CourseClass* cc = ( *it ).first;
 		//cout << room <<"-"<<endl;
  		room++;
-		Room* r = Configuration::GetInstance().GetRoomById( room );
+		Room* r = Configuration::GetInstance().GetRoomById( room );// YBRAT COSTUL ====== NE RABOTAET DLY NE UPORYAD ZNA4ENII
 		// does current room have enough seats
 		//cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 

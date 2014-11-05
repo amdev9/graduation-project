@@ -7,26 +7,38 @@
     <tr>
       <th>Roomname</th>
        <th>Lab</th>
+        <th>meetingtime</th>
+         <th>meetingday</th>
+          <th>courseduration</th>
+           <th>coursename</th>
+            <th>profname</th>
+             <th>groupname</th>
+              <th>cbrcase_id</th>
+
         
       <th colspan="3"></th>
     </tr>
   </thead>
 <tbody> 
-  <div id = "courseevents">
+ <div id: "courseevents">
      <% @courseevents.each do |courseevent| %>
       <tr>
 
         <td><%= courseevent.roomname %></td>
         <td><%= courseevent.lab %></td>
-         
+        <td><%= courseevent.meetingtime %></td>
+        <td><%= courseevent.meetingday %></td>
+            <td><%= courseevent.courseduration %></td>
+             <td><%= courseevent.coursename %></td>
+              <td><%= courseevent.profname %></td>
+<td><%= courseevent.groupname %></td>
+<td><%= courseevent.cbrcase_id %></td>
         
   </tr>
-   <% end %>
- </div>
 
- <%= javascript_tag  do%>
-  window.courseeventsURL = "<%=j rooms_url %>";
- <% end%>
+ <% end %>
+
+  </div>
   </tbody>
 </table>
 

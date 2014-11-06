@@ -14,7 +14,7 @@ jQuery ->
 	r= 0
 	output = ""
 	while r < gr.rooms.length
-		output = output + gr.rooms[r].name + "<br>" + gr.rooms[r].size + "<br>" + gr.rooms[r].lab + "<table><thead>
+		output = output + "<b>" +gr.rooms[r].name + "</b><br><b>" + gr.rooms[r].size + "</b><br><b>" + gr.rooms[r].lab + "</b><table><thead>
     	<tr>
       <th>MON </th>
        <th>TUE</th>

@@ -8,14 +8,12 @@
       <th>Roomname</th>
        <th>Lab</th>
         <th>meetingtime</th>
-         <th>meetingday</th>
-          <th>courseduration</th>
-           <th>coursename</th>
-            <th>profname</th>
+       <th>meetingday</th>
+      <th>courseduration</th>
+       <th>coursename</th>
+        <th>profname</th>
              <th>groupname</th>
-              <th>cbrcase_id</th>
-
-        
+        <th>cbrcase_id</th> 
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,18 +26,20 @@
         <td><%= courseevent.lab %></td>
         <td><%= courseevent.meetingtime %></td>
         <td><%= courseevent.meetingday %></td>
-            <td><%= courseevent.courseduration %></td>
-             <td><%= courseevent.coursename %></td>
-              <td><%= courseevent.profname %></td>
-<td><%= courseevent.groupname %></td>
-<td><%= courseevent.cbrcase_id %></td>
+        <td><%= courseevent.courseduration %></td>
+        <td><%= courseevent.coursename %></td>
+        <td><%= courseevent.profname %></td>
+        <td><%= courseevent.groupname %></td>
+        <td><%= courseevent.cbrcase_id %></td>
         
   </tr>
 
  <% end %>
 
   </div>
-  </tbody>
+  <%= content_tag :div, class: "courseevents_class", data: {courseevents: @courseevents} do %>
+<% end %>
+</tbody>
 </table>
 
 <br>

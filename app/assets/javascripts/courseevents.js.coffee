@@ -9,8 +9,8 @@
 jQuery ->
 	str = $('.courseevents_class').data()
 	gr = $('.rooms_class').data() 
-	alert  gr.rooms[0].name
-	alert  str.courseevents[0].roomname
+	#alert  gr.rooms[0].name
+	#alert  str.courseevents[0].roomname
 	r= 0
 	output = ""
 	while r < gr.rooms.length
@@ -50,7 +50,7 @@ jQuery ->
 				output = output + "</tr>" 
 	 
 			j+=6 
-		alert output
+		#alert output
 		output = output + "</table>"
 	 
 	

@@ -8,9 +8,14 @@
 	
 jQuery ->
 	str = $('.courseevents_class').data()
-	output = "<table><thead>
-    <tr>
-    
+	gr = $('.rooms_class').data() 
+	alert  gr.rooms[0].name
+	alert  str.courseevents[0].roomname
+	r= 0
+	output = ""
+	while r < gr.rooms.length
+		output = output + gr.rooms[r].name + "<br>" + gr.rooms[r].size + "<br>" + gr.rooms[r].lab + "<table><thead>
+    	<tr>
       <th>MON </th>
        <th>TUE</th>
         <th>WED</th>
@@ -21,39 +26,40 @@ jQuery ->
  
     </tr>
   </thead>" 
-	i=0
-	result = []
-	k = 0
-	val = []
-	while k < 6*12
-  		val.push "<td></td>"
-  		k++
-   
-	while i < str.courseevents.length
-		tmp = str.courseevents[i].meetingday + 6* (str.courseevents[i].meetingtime - 1) - 1
-		
-		val.splice tmp, 1,"<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td>"
+		i=0
+		result = []
+		k = 0
+		val = []
+		while k < 6*12
+  			val.push "<td>*</td>"
+  			k++
+  
+		while i < str.courseevents.length
+			tmp = str.courseevents[i].meetingday + 6* (str.courseevents[i].meetingtime - 1) - 1
+			if str.courseevents[i].roomname == gr.rooms[r].name
+				val.splice tmp, 1,"<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td>"
 		 
 
-		i++
-	j=0
+			i++
+		
+		j=0
 
-	while j < 6*12
-		if j%6 == 0
-			output = output + "<tr>" + val.slice(j, j + 6).join ""
-			output = output + "</tr>" 
+		while j < 6*12
+			if j%6 == 0
+				output = output + "<tr>" + val.slice(j, j + 6).join ""
+				output = output + "</tr>" 
 	 
-		j+=6 
-	#alert output
-	output = output + "</table>"
+			j+=6 
+		alert output
+		output = output + "</table>"
+	 
 	
-	
+		
+
+
+		#$("p").html(str.toSource()) 
+		r++
 	document.getElementById("placeholder").innerHTML=output
-
-
-	#$("p").html(str.toSource()) 
-
-
 
 
 	

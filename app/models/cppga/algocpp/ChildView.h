@@ -41,7 +41,7 @@ protected:
 	// void Printer();					// basic output function
  
 public:
-void Printer();
+void Printer(int icase);
 	  void OnFileStart();
 	
   void ReadDataFromDB();

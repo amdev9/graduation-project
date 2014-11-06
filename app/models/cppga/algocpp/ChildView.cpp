@@ -54,7 +54,7 @@ const int ROOM_ROW_NUMBER = DAY_HOURS + 1;
 const int ROOM_TABLE_WIDTH = ROOM_CELL_WIDTH * ROOM_COLUMN_NUMBER + ROOM_MARGIN_WIDTH;
 const int ROOM_TABLE_HEIGHT = ROOM_CELL_HEIGHT * ROOM_ROW_NUMBER + ROOM_MARGIN_HEIGHT;
 
-void CChildView::Printer() 
+void CChildView::Printer(int icase) 
 {
 	 
  PGconn     *conn;
@@ -70,7 +70,7 @@ void CChildView::Printer()
 	int nr = Configuration::GetInstance().GetNumberOfRooms();
 
 
-  const char * id;
+  //const char * id;
    
 int  numofcla = Configuration::GetInstance().GetNumberOfCourseClasses();
 
@@ -87,14 +87,34 @@ numofgroups << numofgroup;
   
 std::ostringstream numofrooms;
 numofrooms << nr;
-  
-  id = "4";
+
+ 
+std::string del2SQL;
+ del2SQL.append("delete from courseevents; delete from cbrcases;");
+   PGresult *del2res = PQexec(conn, del2SQL.c_str());
+
+    if (PQresultStatus(del2res) != PGRES_COMMAND_OK)
+    {
+        printf("Insert employee record failed");
+        PQclear(del2res);
+    }
+     printf("delete from courseevents, cbrcases- OK\n");
+
+ 
+  int ids = icase;	////////////////////////
   
 
+std::ostringstream id;
+id << ids;
+
+
+ //id = "4";
+  
+ cout << "ids case" << id.str().c_str() << endl;
   std::string sSQL;
   sSQL.append("INSERT INTO cbrcases VALUES ('");
     
-  sSQL.append(id);
+  sSQL.append(id.str().c_str());
   sSQL.append("', '");
   sSQL.append(numofclas.str().c_str());
   sSQL.append("', '");
@@ -113,14 +133,17 @@ numofrooms << nr;
 
     if (PQresultStatus(res) != PGRES_COMMAND_OK)
     {
-        printf("Insert employee record failed");
+        printf("Insert cbrcases record failed");
         PQclear(res);
         
     }
 
-  printf("Insert employee record - OK\n");
+  printf("Insert cbrcases record - OK\n");
 
-   
+
+
+  
+  
    	 //	std::string s2SQL;
   	//	s2SQL.append("INSERT INTO courseevents VALUES ('");
   			//int  idev =0;
@@ -201,14 +224,20 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 		 
 
 		const  map<CourseClass*, int>& classes = _schedule->GetClasses();
-		int ci = 0;
-	 
-	  if (_schedule->GetFitness()>=1) {
-	  	 int  idev =0;
-	  	   //int k = 1;
-		for(  map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it, ci += 5  )
-		{
+		int ci = classes.size() ;
 
+	  if (_schedule->GetFitness()>=1) {
+	  	 int  idev =0 ;
+
+	  	 
+	  	 	std::ostringstream idcase;
+				idcase << ids;
+
+				/////////////////////////////////
+
+		for(  map<CourseClass*, int>::const_iterator it= classes.begin(); it != classes.end(); ++it ) //, ci += 5 
+		{
+			 
 			CourseClass* c = ( *it ).first;
 			int p = ( *it ).second;
 
@@ -219,13 +248,15 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
 			int l = r % 2;
 			int m = r / 2;
-
+				 
 					std::string s2SQL;
 					std::string tr("true");
 					std::string fl("false");
   			 		s2SQL.append("INSERT INTO courseevents VALUES ('");		 
-					idev++;
-  					s2SQL.append( std::to_string(idev).c_str() );
+				 
+		 		  
+  					s2SQL.append( std::to_string( ci*ids -idev).c_str() );
+  					
 			    	s2SQL.append("', '");
 
 			    	cout << l+m+1 << endl;
@@ -267,7 +298,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 
  			s2SQL.append(str );
 			s2SQL.append("', '");		
-			s2SQL.append(id );
+			s2SQL.append(idcase.str().c_str());
 			s2SQL.append("')");
 			//k++;
 			cout << s2SQL << endl;
@@ -275,19 +306,23 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
  			PGresult *res2 = PQexec(conn, s2SQL.c_str());
 
  			if (PQresultStatus(res2) != PGRES_COMMAND_OK) {
-        		printf("2 Insert employee record failed");
+        		printf("Insert courseevents record failed");
        			PQclear(res2);
     		}
 
-  			printf("2 Insert employee record - OK\n");
+  			printf("Insert courseevents record - OK\n");
   			s2SQL.clear();
+
+  			idev++;
 			//cout << str << endl;		//#groups
 		}
-	   }
+		 
+	  
      }	
-	 
+	 }
 
- 
+ 	 
+
 	/*			
 		int i = 0;
 		for( vector<list<CourseClass*>>::const_iterator it = _schedule->GetSlots().begin(); it != _schedule->GetSlots().end(); ++it, ++i ) {
@@ -349,11 +384,14 @@ void CChildView::ReadDataFromDB()
 int main()
 {
 
-
+	int i = 1;
 	CChildView *a = new CChildView();
 	a->ReadDataFromDB();
-	a->OnFileStart();
-	a->Printer();
+	while (i <= 1) {
+		a->OnFileStart();
+		a->Printer(i);
+		i++;
+	}
 	//a->InsertDataCBR();	 
 	return 0;
 } 

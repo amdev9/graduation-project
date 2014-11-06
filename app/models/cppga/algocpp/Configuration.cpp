@@ -70,8 +70,7 @@ void    Configuration::ReadDatabase() {
  
      
  
-         res = PQexec(conn,
-                 "select * from rooms order by id");
+         res = PQexec(conn,"select * from rooms order by id");
        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                         puts("We did not get any data!");
         }

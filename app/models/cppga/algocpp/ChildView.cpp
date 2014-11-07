@@ -110,7 +110,7 @@ id << ids;
 
  //id = "4";
   
- cout << "ids case" << id.str().c_str() << endl;
+ //cout << "ids case" << id.str().c_str() << endl;
   std::string sSQL;
   sSQL.append("INSERT INTO cbrcases VALUES ('");
     
@@ -259,7 +259,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
   					
 			    	s2SQL.append("', '");
 
-			    	cout << l+m+1 << endl;
+			    	//cout << l+m+1 << endl;
   		 	    	s2SQL.append(Configuration::GetInstance().GetRoomById( l+ m+1)->GetName().c_str() );
 			    	s2SQL.append("', '");
 			     	if (Configuration::GetInstance().GetRoomById( l+m+1 )->IsLab()) { 

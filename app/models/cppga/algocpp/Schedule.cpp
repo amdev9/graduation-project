@@ -41,7 +41,7 @@ Schedule::Schedule(int numberOfCrossoverPoints, int mutationSize,
 	_slots.resize( DAYS_NUM * DAY_HOURS * Configuration::GetInstance().GetNumberOfRooms() );
  
 	// reserve space for flags of class requirements
-	_criteria.resize( Configuration::GetInstance().GetNumberOfCourseClasses() * 5 );
+	_criteria.resize( Configuration::GetInstance().GetNumberOfCourseClasses() * 6); //*5
 
 }
 
@@ -66,7 +66,7 @@ Schedule::Schedule(const Schedule& c, bool setupOnly)
 		_slots.resize( DAYS_NUM * DAY_HOURS * Configuration::GetInstance().GetNumberOfRooms() );
 
 		// reserve space for flags of class requirements
-		_criteria.resize( Configuration::GetInstance().GetNumberOfCourseClasses() *5 );
+		_criteria.resize( Configuration::GetInstance().GetNumberOfCourseClasses() *6 ); //*5
 	}
 
 	// copy parameters
@@ -286,6 +286,9 @@ void Schedule::CalculateFitness()
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
+    int d = 0;
+    map<int ,int> mymap[6];
+ 	 
 	 
 	// check criterias and calculate scores for each class in schedule
 	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 5 )
@@ -294,6 +297,8 @@ void Schedule::CalculateFitness()
 		int p = ( *it ).second;
 
 		int day = p / daySize;
+
+		//cout << day << "day" << endl;
 		int timeS = p % daySize;
 	 
 		int room = timeS / DAY_HOURS;
@@ -334,8 +339,10 @@ void Schedule::CalculateFitness()
 		if( _criteria[ ci + 2 ] )
 			score++;
 
+ 
 		bool po = false, go = false;
-		// check overlapping of classes for professors and student groups
+		//cout << "t= " << day * daySize + timeS <<endl;
+		// check overlapping of classes for professors and student group
 		for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		{
 			// for each hour of class
@@ -343,6 +350,7 @@ void Schedule::CalculateFitness()
 			{
 				// check for overlapping with other classes at same time
 				const list<CourseClass*>& cl = _slots[ t + i ];
+			//	cout << "slots"<<_slots[ t + i ] << endl;
 				for( list<CourseClass*>::const_iterator it = cl.begin(); it != cl.end(); it++ )
 				{
 					if( cc != *it )
@@ -353,7 +361,7 @@ void Schedule::CalculateFitness()
 
 			
 						// student group overlaps?
-						if( !go && cc->GroupsOverlap( **it ) )
+						if( !go && cc->GroupsOverlap( **it ) ) 		 
 							go = true;
 
 						// both type of overlapping? no need to check more
@@ -375,11 +383,115 @@ total_overlap:
 		if( !go )
 			score++;
 		_criteria[ ci + 4 ] = !go;
+ 
+ 
+ 		
+ 		
+			 
+		
+		
 	}
+	 ////////////////////////////
+	 if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
+	 	ci = 0;
+for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
+	{
+		bool windows = false;
+		// coordinate of time-space slot
+		int p = ( *it ).second;
+
+		int day = p / daySize;
+
+		//cout << day << "day" << endl;
+		int timeS = p % daySize;
+	 
+		int room = timeS / DAY_HOURS;
+
+		timeS = timeS % DAY_HOURS;
+
+		int dur = ( *it ).first->GetDuration();
+
+		// 	for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
+		// {
+
+ 			cout <<   day    <<"-" <<timeS<< "-"<< room<< "-"<< endl;
+			//d= day;
+			//	mymap[d].insert ( pair<int ,int>( timeS, dur) );
+ 			// cout << "score" << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << " "<<score << endl;
+ 		// }
+
+	 if( !windows )
+			score++;
+		_criteria[ ci + 5 ] = !windows;
+		
+		}
+	
+	/*
+	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6  )
+		{
+		bool windows = false;
+		for (int q = 0; q < 6 && !windows; q++) {
+			auto ender = mymap[q].end();
+   			ender --;
+	 		for (auto iter = mymap[q].begin(); iter != ender; iter++) {
+	 			 auto tmp = iter;
+    			auto tmp2 = ++iter;
+  			    if (  tmp->first + tmp->second  != tmp2->first ) {
+  			  	 	windows = true;
+  			   		break;
+  			   }
+  			   iter --;
+			}
+
+		 }
+
+		if( !windows )
+			score++;
+		_criteria[ ci + 5 ] = !windows;
+		}
+*/
+
+		
+
+
+	 }
+	 
+// 		for (auto iter = mymap[0].begin(); iter != mymap[0].end(); iter++)
+// {
+// 	printf ("Key: %d, Value: %d\n", iter->first , iter->second ) ;
+// }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////
+		/////////////
+		//----
+		
+		
+		/*
+	 	for (int q = 0; q < 6 && !windows; q++) {
+			auto ender = mymap[q].end();
+   			ender --;
+	 		for (auto iter = mymap[q].begin(); iter != ender; iter++) {
+	 			 auto tmp = iter;
+    			auto tmp2 = ++iter;
+  			    if (  tmp->first + tmp->second  != tmp2->first ) {
+  			  	 	windows = true;
+  			   		break;
+  			   }
+  			   iter --;
+			}
+
+		 }
+	  */
+		
+		////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+///////////////////////////////
+	 
 	 
 
 	// calculate fitess value based on score
-	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5);// DAYS_NUM );
+	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *6);// * 5// DAYS_NUM );
 //cout <<  " fitess: "<< _fitness << endl;
 }
 

@@ -13,4 +13,14 @@ jQuery ->
  
 
 	 
-	 
+	 #javascript 	 change to coffee
+
+  for (var i in str) {
+            output+="<li>" + str[i].firstName + " " + str[i].lastName + "--" + str[i].joined.month+"</li>";
+        }
+
+        output+="</ul>";
+        document.getElementById("placeholder").innerHTML=output;
+  });
+  
+

@@ -14,7 +14,7 @@ jQuery ->
 
 	 
 	 #javascript 	 change to coffee
-
+ var output="<ul>";
   for (var i in str) {
             output+="<li>" + str[i].firstName + " " + str[i].lastName + "--" + str[i].joined.month+"</li>";
         }
@@ -24,3 +24,9 @@ jQuery ->
   });
   
 
+$("#secondElementId").offset({ top: meetingtimevalue, left: meetingdayvalue})
+
+
+#get
+var p = $("#elementId");
+var offset = p.offset();

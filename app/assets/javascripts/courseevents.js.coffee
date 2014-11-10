@@ -10,23 +10,9 @@ jQuery ->
 	str = $('.courseevents_class').data('courseevents')
 	alert str.toSource()
 	$("p").html(str.toSource())
- 
-
+    output = "<ul>"
+    for i of str
+     output += "<li>" + str[i].meetingday + " " + str[i].meetingtime + "</li>"
+    output += "</ul>"
+   document.getElementById("placeholder").innerHTML = output
 	 
-	 #javascript 	 change to coffee
- var output="<ul>";
-  for (var i in str) {
-            output+="<li>" + str[i].firstName + " " + str[i].lastName + "--" + str[i].joined.month+"</li>";
-        }
-
-        output+="</ul>";
-        document.getElementById("placeholder").innerHTML=output;
-  });
-  
-
-$("#secondElementId").offset({ top: meetingtimevalue, left: meetingdayvalue})
-
-
-#get
-var p = $("#elementId");
-var offset = p.offset();

@@ -25,12 +25,14 @@ jQuery ->
   </thead> <tr>" #delete tr
 	i=0
 	#val = []; val.splice 0,6*12, Array(6*12).join "<td>.</td>"
+	val = []
+	val.splice 0, 6 * 12, Array(6 * 12).join "<td>.</td>"
 	while i < str.courseevents.length
-		#tmp = str.courseevents[i].meetingday * str.courseevents[i].meetingtime
+		tmp = str.courseevents[i].meetingday * str.courseevents[i].meetingtime
 		####if tmp == str.courseevents[i+1].meetingday * str.courseevents[i+1].meetingtime
 		####	val2 = val
 		
-		#val.splice tmp, 1,"<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td>"
+		val.splice tmp, 1,"<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td>"
 		stringerDay = Array(str.courseevents[i].meetingday + 1).join "<td> . </td>"
 		stringerTimes = Array(str.courseevents[i].meetingtime).join "<tr> <td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td></tr>"
 		output = output + stringerTimes+stringerDay  + "<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td></tr>"

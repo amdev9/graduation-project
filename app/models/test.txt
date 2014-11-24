@@ -1,16 +1,54 @@
-class Test 
-	def getGroups
-        groups = Group.order(:id)
-		groups
-	end
-	def method
-		rooms = Room.order(:id)
-		rooms
-	end
-	def getBest
-		c = Algorithm.new.start
-		c
-	end
-end
 
+INSERT INTO courseevents VALUES ('26', 'R3', 'true', '10', '3', '2', 'Introduction to Computer Architecture', 'Philip', '1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('25', 'R7', 'false', '4', '4', '2', 'English', 'Marry', '113/1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('24', 'R7', 'false', '2', '1', '2', 'English', 'Marry', '113/1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('23', 'R7', 'false', '11', '3', '2', 'English', 'Marry', '111/112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('22', 'R7', 'false', '9', '3', '2', 'English', 'Marry', '111/112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('21', 'R7', 'false', '5', '3', '2', 'Linear Algebra', 'Don', '111/112/113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('20', 'R7', 'false', '8', '2', '2', 'Linear Algebra', 'Don', '111/112/113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('19', 'R7', 'false', '9', '6', '2', 'Discrete Mathematic', 'Peter', '111/112/113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('18', 'R7', 'false', '9', '5', '2', 'Discrete Mathematic', 'Peter', '111/112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('17', 'R3', 'true', '6', '2', '2', 'Discrete Mathematic', 'Mike', '113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('16', 'R3', 'true', '7', '1', '2', 'Business Applications', 'John', '112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('15', 'R7', 'false', '11', '6', '2', 'Business Applications', 'John', '113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('14', 'R7', 'false', '3', '3', '2', 'Business Applications', 'Ann', '111/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('13', 'R7', 'false', '6', '2', '2', 'Business Applications', 'Ann', '1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('12', 'R3', 'true', '2', '5', '2', 'Introduction to Information Technology I', 'Steve', '1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('11', 'R7', 'false', '1', '4', '2', 'System Administration and Maintenance I', 'Alex', '1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('10', 'R7', 'false', '9', '4', '4', 'Introduction to Programming', 'Victor', '111/112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('9', 'R7', 'false', '4', '1', '2', 'Introduction to Programming', 'Victor', '113/1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('8', 'R3', 'true', '1', '1', '3', 'Introduction to Programming', 'Ben', '111/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('7', 'R3', 'true', '6', '5', '3', 'Introduction to Programming', 'Ben', '112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('6', 'R3', 'true', '3', '2', '3', 'Introduction to Programming', 'Ben', '113/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('5', 'R7', 'false', '1', '2', '2', 'Introduction to Computer Architecture', 'Red', '113/1S1/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('4', 'R7', 'false', '7', '3', '2', 'Introduction to Computer Architecture', 'Red', '111/112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('3', 'R3', 'true', '4', '1', '2', 'Introduction to Computer Architecture', 'Philip', '111/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('2', 'R3', 'true', '4', '5', '2', 'Introduction to Computer Architecture', 'Philip', '112/', '1')
+Insert courseevents record - OK
+INSERT INTO courseevents VALUES ('1', 'R3', 'true', '10', '5', '2', 'Introduction to Computer Architecture', 'Philip', '113/', '1')
 
+-------------------------hui-------------

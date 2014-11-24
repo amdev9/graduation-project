@@ -397,6 +397,9 @@ total_overlap:
 	 ////////////////////////////
 	 if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
 	 	ci = 0;
+	 	 
+
+
 for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
 	{
 		 //bool windows = false;
@@ -420,7 +423,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 			//cout << (*iter)->GetId() << " " ;
 			//NEEED DESTRUCTOR
 			mymap[day][(*iter)->GetId()][timeS] = dur;
-			//cout << mymap[day][(*iter)->GetId()][timeS] << " ";//<< endl;
+			//cout << day << (*iter)->GetId() << timeS << " " << endl;
 		}
 	//	cout << endl;
 
@@ -468,6 +471,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
      	{score++;}
    }
 }
+
 }
   // cout << windows;
 

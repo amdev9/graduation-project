@@ -1,5 +1,6 @@
 <h1>Listing rooms</h1>
 
+
 <table>
   <thead>
     <tr>
@@ -25,9 +26,32 @@
       </tr>
     <% end %>
     
+
+
   </tbody>
 </table>
 
+    
+<div class="gridster">
+    <ul>
+        <li class="gridster-cell" data-row="1" data-col="1" data-sizex="1" data-sizey="1">Block1</li>
+        <li class="gridster-cell" data-row="2" data-col="1" data-sizex="1" data-sizey="1">Block2</li>
+        <li class="gridster-cell" data-row="3" data-col="1" data-sizex="1" data-sizey="1">Block3</li>
+
+        <li class="gridster-cell" data-row="1" data-col="2" data-sizex="2" data-sizey="1">Block4</li>
+        <li class="gridster-cell" data-row="2" data-col="2" data-sizex="2" data-sizey="2">Block5</li>
+
+        <li class="gridster-cell" data-row="1" data-col="4" data-sizex="1" data-sizey="1">Block6</li>
+        <li class="gridster-cell" data-row="2" data-col="4" data-sizex="2" data-sizey="1">Block7</li>
+        <li class="gridster-cell" data-row="3" data-col="4" data-sizex="1" data-sizey="1">Block8</li>
+
+        <li class="gridster-cell" data-row="1" data-col="5" data-sizex="1" data-sizey="1">Block9</li>
+        <li class="gridster-cell" data-row="3" data-col="5" data-sizex="1" data-sizey="1">Block10</li>
+
+        <li class="gridster-cell" data-row="1" data-col="6" data-sizex="1" data-sizey="1">Block11</li>
+        <li class="gridster-cell" data-row="2" data-col="6" data-sizex="1" data-sizey="2">Block12</li>
+    </ul>
+</div>
 <br>
 
 <%= link_to 'New Room', new_room_path %>

@@ -26,9 +26,12 @@ gem 'rb-readline'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'gon'
 gem 'rabl-rails'
+gem 'jquery-turbolinks'
+
 
 group :development do
   gem 'spring'
+  #gem 'gridster-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
 end

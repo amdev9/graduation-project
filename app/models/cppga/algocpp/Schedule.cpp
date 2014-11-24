@@ -282,12 +282,14 @@ void Schedule::CalculateFitness()
 	int score = 0;
 
 	int numberOfRooms = Configuration::GetInstance().GetNumberOfRooms();
+	int numberOfGroups = Configuration::GetInstance().GetNumberOfStudentGroups();
 	
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
     int d = 0;
-    map<int ,int> mymap[6];
+    //map<int ,int> mymap[6];
+    map < int, map<int, int> >  mymap[6];
  	 
 	 
 	// check criterias and calculate scores for each class in schedule
@@ -306,6 +308,7 @@ void Schedule::CalculateFitness()
 		timeS = timeS % DAY_HOURS;
 
 		int dur = ( *it ).first->GetDuration();
+
 
 		// check for room overlapping of classes
 		bool ro = false;
@@ -396,7 +399,7 @@ total_overlap:
 	 	ci = 0;
 for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
 	{
-		bool windows = false;
+		 bool windows = false;
 		// coordinate of time-space slot
 		int p = ( *it ).second;
 
@@ -410,48 +413,71 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 		timeS = timeS % DAY_HOURS;
 
 		int dur = ( *it ).first->GetDuration();
+		// List of classes that group attends
+     	list<StudentsGroup*> gr  = ( *it ).first->GetGroups();
+     for(list<StudentsGroup*>::const_iterator iter = gr.begin(); iter != gr.end(); iter++ )
+		{
+			//cout << (*iter)->GetId() << " " ;
+			//NEEED DESTRUCTOR
+			mymap[day][(*iter)->GetId()][timeS] = dur;
+			//cout << mymap[day][(*iter)->GetId()][timeS] << " ";//<< endl;
+		}
+	//	cout << endl;
 
 		// 	for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		// {
 
- 			cout <<   day    <<"-" <<timeS<< "-"<< room<< "-"<< endl;
+ 			cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
 			//d= day;
 			//	mymap[d].insert ( pair<int ,int>( timeS, dur) );
  			// cout << "score" << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << " "<<score << endl;
  		// }
 
-	 if( !windows )
-			score++;
-		_criteria[ ci + 5 ] = !windows;
+	  if( !windows )
+		 	score++;
+		 _criteria[ ci + 5 ] = !windows;
 		
 		}
 	
-	/*
+	 /*
 	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6  )
 		{
-		bool windows = false;
-		for (int q = 0; q < 6 && !windows; q++) {
-			auto ender = mymap[q].end();
-   			ender --;
-	 		for (auto iter = mymap[q].begin(); iter != ender; iter++) {
-	 			 auto tmp = iter;
-    			auto tmp2 = ++iter;
-  			    if (  tmp->first + tmp->second  != tmp2->first ) {
-  			  	 	windows = true;
-  			   		break;
-  			   }
-  			   iter --;
-			}
 
-		 }
+	bool windows = false;
+    for (int q = 0; q < 6 && !windows  ; q++) {
+      for (int g = 0; g < numberOfGroups  && !windows ; g++) {
+      auto  ender = mymap[q][g].end();
+      if (mymap[q][g].size() > 1) {
+        ender--;
+      
+        for (auto iter = mymap[q][g].begin(); iter != ender; iter++) {
+         auto tmp = iter;
+          auto tmp2 = ++iter;
+            if (  tmp->first + tmp->second  != tmp2->first ) {
+               
+             windows =true;
+
+         //  cout << q<<g<<"-> " <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< endl   ;
+              break;
+            }
+          iter --;
+      }
+
+     }
+   }
+}
+
+  // cout << windows;
+
+	 // NEED FUNCTION FOR CALC SCORE
 
 		if( !windows )
 			score++;
 		_criteria[ ci + 5 ] = !windows;
 		}
-*/
+ 
 
-		
+		*/
 
 
 	 }
@@ -468,6 +494,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 		
 		
 		/*
+
 	 	for (int q = 0; q < 6 && !windows; q++) {
 			auto ender = mymap[q].end();
    			ender --;

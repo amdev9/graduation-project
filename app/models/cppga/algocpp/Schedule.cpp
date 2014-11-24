@@ -399,7 +399,7 @@ total_overlap:
 	 	ci = 0;
 for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
 	{
-		 bool windows = false;
+		 //bool windows = false;
 		// coordinate of time-space slot
 		int p = ( *it ).second;
 
@@ -427,21 +427,21 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 		// 	for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		// {
 
- 			cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
+ 		//	cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
 			//d= day;
 			//	mymap[d].insert ( pair<int ,int>( timeS, dur) );
  			// cout << "score" << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << " "<<score << endl;
  		// }
 
-	  if( !windows )
-		 	score++;
-		 _criteria[ ci + 5 ] = !windows;
+	  // if( !windows )
+		 // 	score++;
+		 // _criteria[ ci + 5 ] = !windows;
 		
 		}
 	
-	 /*
-	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6  )
-		{
+	 
+	// for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6  )
+	// 	{
 
 	bool windows = false;
     for (int q = 0; q < 6 && !windows  ; q++) {
@@ -457,30 +457,32 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
                
              windows =true;
 
-         //  cout << q<<g<<"-> " <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< endl   ;
-              break;
-            }
+        			 //  cout << q<<g<<"-> " <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< endl   ;
+    /////////////////break;
+            }	else score++;
           iter --;
       }
 
-     }
+     } 
+     else if (mymap[q][g].size() == 1)
+     	{score++;}
    }
 }
-
+}
   // cout << windows;
 
 	 // NEED FUNCTION FOR CALC SCORE
 
-		if( !windows )
-			score++;
-		_criteria[ ci + 5 ] = !windows;
-		}
+		// if( !windows )
+		// 	score++;
+		// _criteria[ ci + 5 ] = !windows;
+		// }
  
 
-		*/
+		
 
 
-	 }
+	 // }
 	 
 // 		for (auto iter = mymap[0].begin(); iter != mymap[0].end(); iter++)
 // {
@@ -516,7 +518,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 ///////////////////////////////
 	 
 	 
-
+		 cout << Configuration::GetInstance().GetNumberOfCourseClasses() *6 << "->" << score << endl;
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *6);// * 5// DAYS_NUM );
 //cout <<  " fitess: "<< _fitness << endl;

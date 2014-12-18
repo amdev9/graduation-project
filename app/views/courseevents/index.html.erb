@@ -84,10 +84,22 @@
 
 
  
- 
 <div class="gridster">
 <% @groups.each do |group| %>
  <h2> <%= group.name %> </h2>
+
+ <table><thead>
+        <tr>
+        <th>MON </th>
+         <th>TUE</th>
+          <th>WED</th>
+         <th>THU</th>
+        <th>FRI</th>
+         <th>SAT</th>
+        <th colspan=\"3\"></th>
+   
+      </tr>
+    </thead></table>
     <ul>
       <% @courseevents.each do |courseevent| %>
           <% if courseevent.groupname.include? group.id.to_s %>

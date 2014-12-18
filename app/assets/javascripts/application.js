@@ -17,7 +17,4 @@
 //= require turbolinks
 //= require jquery.gridster
 
-
  
-
-

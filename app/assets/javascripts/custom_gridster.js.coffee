@@ -5,7 +5,14 @@ $(document).ready ->
       helper: 'clone'
       resize: 
       	enabled: true
-       
+      serialize_params:  ($w, wgd) ->
+         return (
+            id:  $($w).attr('id'),
+            col: wgd.col,
+            row: wgd.row,
+            size_x: wgd.size_x,
+            size_y: wgd.size_y
+      		)
   }).data('gridster');
   gridData = gridster.serialize()
   alert gridData.toSource()

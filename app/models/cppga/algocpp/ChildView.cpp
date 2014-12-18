@@ -289,7 +289,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			string str;	 
 			for( list<StudentsGroup*>::const_iterator it = c->GetGroups().begin(); it != c->GetGroups().end(); ++it )
 			{
-				str += ( *it )->GetName().c_str();
+				str += std::to_string(( *it )->GetId()).c_str();
 				str += "/";
 			}
 

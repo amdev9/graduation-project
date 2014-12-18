@@ -21,6 +21,7 @@
 <div id="placeholder"></div>
 
  <div id: "courseevents">
+
      <% @courseevents.each do |courseevent| %>
       <tr>
 
@@ -45,7 +46,6 @@
 <% end %>
 </tbody>
 </table>
-
 <br>
 
 <%= link_to 'New Cla', new_cla_path %>
@@ -53,3 +53,61 @@
 <%= link_to 'New Group', new_group_path %>
 <%= link_to 'New Course', new_course_path %>
 
+
+
+<!---
+<div class="gridster">
+    <ul>
+        <li class="gridster-cell" data-row="1" data-col="1" data-sizex="1" data-sizey="1">Block1</li>
+        <li class="gridster-cell" data-row="2" data-col="1" data-sizex="1" data-sizey="1">Block2</li>
+        <li class="gridster-cell" data-row="3" data-col="1" data-sizex="1" data-sizey="1">Block3</li>
+
+        <li class="gridster-cell" data-row="1" data-col="2" data-sizex="2" data-sizey="1">Block4</li>
+        <li class="gridster-cell" data-row="2" data-col="2" data-sizex="2" data-sizey="2">Block5</li>
+
+        <li class="gridster-cell" data-row="1" data-col="4" data-sizex="1" data-sizey="1">Block6</li>
+        <li class="gridster-cell" data-row="2" data-col="4" data-sizex="2" data-sizey="1">Block7</li>
+        <li class="gridster-cell" data-row="3" data-col="4" data-sizex="1" data-sizey="1">Block8</li>
+
+        <li class="gridster-cell" data-row="1" data-col="5" data-sizex="1" data-sizey="1">Block9</li>
+        <li class="gridster-cell" data-row="3" data-col="5" data-sizex="1" data-sizey="1">Block10</li>
+
+        <li class="gridster-cell" data-row="1" data-col="6" data-sizex="1" data-sizey="1">Block11</li>
+        <li class="gridster-cell" data-row="2" data-col="6" data-sizex="1" data-sizey="2">Block12</li>
+    </ul>
+</div>
+-->
+
+
+<br>
+ 
+
+
+ 
+ 
+<div class="gridster">
+<% @groups.each do |group| %>
+ <h2> <%= group.name %> </h2>
+    <ul>
+      <% @courseevents.each do |courseevent| %>
+          <% if courseevent.groupname.include? group.id.to_s %>
+<li class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+     <%= courseevent.roomname %><br>
+        <%= courseevent.lab %><br>
+        <%= courseevent.meetingtime %><br>
+        <%= courseevent.meetingday %><br>
+        <%= courseevent.courseduration %><br>
+        <%= courseevent.coursename %><br>
+        <%= courseevent.profname %><br>
+        <%= courseevent.groupname %><br>
+        <%= courseevent.cbrcase_id %>
+</li>
+
+<% end %>
+
+ <% end %>
+ </ul>
+ 
+<% end %>
+
+</div>

@@ -1,3 +1,41 @@
+<% @groups.each do |group| %>
+  <td><% if "1/2/3".include? group.id.to_s %></td><br>
+    <%= group.id %>
+  <% end %>
+
+<% end %>
+
+<div class="gridster">
+<% @groups.each do |group| %>
+
+    <ul>
+      <% @courseevents.each do |courseevent| %>
+          <% if courseevent.groupname.include? group.id.to_s %>
+<li class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+     <%= courseevent.roomname %><br>
+        <%= courseevent.lab %><br>
+        <%= courseevent.meetingtime %><br>
+        <%= courseevent.meetingday %><br>
+        <%= courseevent.courseduration %><br>
+        <%= courseevent.coursename %><br>
+        <%= courseevent.profname %><br>
+        <%= courseevent.groupname %><br>
+        <%= courseevent.cbrcase_id %>
+</li>
+
+<% end %>
+
+ <% end %>
+ </ul>
+ 
+<% end %>
+
+</div>
+
+
+
+
+
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/  #alert courseevents

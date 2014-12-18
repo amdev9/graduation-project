@@ -5,6 +5,7 @@ class CourseeventsController < ApplicationController
   	#gon.courseevents = Courseevent.order(:id)
      @courseevents = Courseevent.order(:id)
      @rooms = Room.order(:id)
+     @groups = Group.order(:id)
      
   end
 

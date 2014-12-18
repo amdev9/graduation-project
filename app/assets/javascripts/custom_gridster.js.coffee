@@ -8,6 +8,6 @@ $(document).ready ->
        
   }).data('gridster');
   gridData = gridster.serialize()
- 
   alert gridData.toSource()
-   
+
+ 

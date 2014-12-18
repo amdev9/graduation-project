@@ -105,7 +105,7 @@
       <% id = 0 %>
       <% @courseevents.each do |courseevent| %>
           <% if courseevent.groupname.include? group.id.to_s %>
-<li id="<%= id = id + 1 %>" class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+<li id="<%= courseevent.id %>" class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
      <%= courseevent.roomname %><br>
         <%= courseevent.lab %><br>
         <%= courseevent.meetingtime %><br>

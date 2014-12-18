@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>                                                                                                                                                                                                                                                                                                                                                                                                                          
+      <th>ID</th>
       <th>Roomname</th>
        <th>Lab</th>
         <th>meetingtime</th>
@@ -24,7 +25,7 @@
 
      <% @courseevents.each do |courseevent| %>
       <tr>
-
+<td><%= courseevent.id %></td>
         <td><%= courseevent.roomname %></td>
         <td><%= courseevent.lab %></td>
         <td><%= courseevent.meetingtime %></td>
@@ -101,9 +102,10 @@
       </tr>
     </thead></table>
     <ul>
+      <% id = 0 %>
       <% @courseevents.each do |courseevent| %>
           <% if courseevent.groupname.include? group.id.to_s %>
-<li class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+<li id="<%= id = id + 1 %>" class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
      <%= courseevent.roomname %><br>
         <%= courseevent.lab %><br>
         <%= courseevent.meetingtime %><br>
@@ -112,7 +114,7 @@
         <%= courseevent.coursename %><br>
         <%= courseevent.profname %><br>
         <%= courseevent.groupname %><br>
-        <%= courseevent.cbrcase_id %>
+        <%= courseevent.id %>
 </li>
 
 <% end %>

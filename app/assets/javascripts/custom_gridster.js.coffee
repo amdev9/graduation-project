@@ -13,8 +13,11 @@ $(document).ready ->
             size_x: wgd.size_x,
             size_y: wgd.size_y
       		)
+
+          
   }).data('gridster');
   gridData = gridster.serialize()
   alert gridData.toSource()
+
 
  

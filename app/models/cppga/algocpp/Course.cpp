@@ -11,7 +11,8 @@ Course::Course(int id, const string& name) : _id(id),
 //rewrite fitness func for test	
 //if 1 -> nice
 //if 0 -> delete and error message
-											 
+//need
+//_slots; _criteria; all groups ..
 bool TestCalculateFitness()
 {
 	// chromosome's score

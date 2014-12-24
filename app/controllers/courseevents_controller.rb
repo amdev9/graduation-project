@@ -11,21 +11,19 @@ class CourseeventsController < ApplicationController
  end
 
  def save_gridster
-  ap params
-  ap JSON.parse(params[:gridster_data])
-  JSON.parse(params[:gridster_data]).each do |k,v|
-    ap v
+  # v is
+  # {
+  #         "id" => "2",
+  #        "col" => "4",
+  #        "row" => "1",
+  #     "size_x" => "1",
+  #     "size_y" => "2"
+  # }
+
+  params[:gridster_data].each do |k,v|
+    Courseevent.find(v['id']).update(meetingday: v['col'], meetingtime: v['row'], courseduration: v['size_y'])
   end
-  
-  @courseevents = Courseevent.order(:id)
-  @courseevents.each do |courseevent|
-    courseevent = Courseevent.find_by_id(params[:id])
-    courseevent.meetingday = params[:col]
-    courseevent.meetingtime = params[:row]
-    courseevent.courseduration = params[:size_y]
-    courseevent.save
- end
-   
+  render nothing: true
  end
 
    

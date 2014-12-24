@@ -14,7 +14,7 @@
 #include "Course.h"
 #include "Room.h"
 #include "CourseClass.h"
- #include "ChildView.h"
+#include "ChildView.h"
 
  
 

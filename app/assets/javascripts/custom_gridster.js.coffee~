@@ -4,7 +4,7 @@ $(document).ready ->
       widget_base_dimensions: [140, 140]
       helper: 'clone'
       resize: 
-        enabled: true
+      	enabled: true
       serialize_params:  ($w, wgd) ->
          return (
             id:  $($w).attr('id'),
@@ -12,17 +12,18 @@ $(document).ready ->
             row: wgd.row,
             size_x: wgd.size_x,
             size_y: wgd.size_y
-          )
-  }).data('gridster');
+      		)
 
-  $('#save_gridster_data').click ->
-    #alert gridster.serialize().toSource()
-    $.ajax
-      url:"/save_gridster",
-      type: "PUT",
-      data: 
-        gridster_data: gridster.serialize()
-      dataType: 'json'
+          
+  }).data('gridster');
+  gridData = gridster.serialize()
+  alert gridData.toSource()
+  $.ajax({
+    url:"/courseevents",
+    type: "POST",
+    data: gridData,
+    dataType: 'json'
+  });
 
 
  

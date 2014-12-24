@@ -1,0 +1,21 @@
+class CourseeventsController < ApplicationController
+  def index
+  	#c = Algorithm.new
+        # @c = Schedule.new.res
+  	#gon.courseevents = Courseevent.order(:id)
+     @courseevents = Courseevent.order(:id)
+     @rooms = Room.order(:id)
+     @groups = Group.order(:id)
+     
+     griddataid = params[:id]
+     griddaypos = params[:col]
+     gridtimepos = params[:row]
+     respond_to do |format|
+	format.html
+	format.json {
+	   render :response => {:id => :id, :col => :col, :row => :row }	
+	} 
+ end
+
+   
+end

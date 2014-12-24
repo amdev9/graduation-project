@@ -100,7 +100,8 @@ std::string del2SQL;
     }
      printf("delete from courseevents, cbrcases- OK\n");
 
- 
+	 
+
   int ids = icase;	////////////////////////
   
 
@@ -260,7 +261,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			    	s2SQL.append("', '");
 
 			    	//cout << l+m+1 << endl;
-  		 	    	s2SQL.append(Configuration::GetInstance().GetRoomById( l+ m+1)->GetName().c_str() );
+  		 	    	s2SQL.append( Configuration::GetInstance().GetRoomById( l+ m+1)->GetName().c_str() );
 			    	s2SQL.append("', '");
 			     	if (Configuration::GetInstance().GetRoomById( l+m+1 )->IsLab()) { 
 			     	  s2SQL.append(tr.c_str()); 
@@ -281,9 +282,9 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 		 	s2SQL.append("', '");
 			//cout  << t << "-" << d << "-"<<c->GetDuration()  << endl;   //#meetingtime #meetingday #duration
 
-  			s2SQL.append(c->GetCourse().GetName().c_str());
+  			s2SQL.append( c->GetCourse().GetName().c_str());
 			s2SQL.append("', '");
-			s2SQL.append(c->GetProfessor().GetName().c_str() );
+			s2SQL.append(  c->GetProfessor().GetName().c_str() );
 			s2SQL.append("', '");		
 		
 			string str;	 
@@ -387,9 +388,11 @@ int main()
 	int i = 1;
 	CChildView *a = new CChildView();
 	a->ReadDataFromDB();
-	while (i <= 1) {
-		a->OnFileStart();
+	a->OnFileStart();
+    while (i <= 1) {
+		
 		a->Printer(i);
+		//a-> ~CChildView();
 		i++;
 	}
 	//a->InsertDataCBR();	 

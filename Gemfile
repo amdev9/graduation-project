@@ -30,6 +30,7 @@ gem 'jquery-turbolinks'
 gem 'awesome_print'
 gem 'json'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'devise'
 
 
 group :development do

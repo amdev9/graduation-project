@@ -8,6 +8,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-inverse ">
+   
+      <div class="container">
+         
+        <div class="container-fluid">
+      <% if user_signed_in? %>    
+          <ul class="nav navbar-nav  ">
+
+            <li><%= link_to "Расписание", root_path %></li>
+            <li><%= link_to "Преподаватели", professors_path %></li>
+            <li><%= link_to "Аудитории", rooms_path %></li>
+            <li><%= link_to "Группы", groups_path %></li>
+               <li><%= link_to "Дисциплины", courses_path %></li>
+              <li><%= link_to "Занятия", clas_path %></li>
+
+              
+          </ul>
+        </div>
+      </div>
+    </nav>
+           <% end %>
+ 
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
@@ -18,11 +40,11 @@
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
   Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+  <%= link_to 'Редактировать профиль', edit_user_registration_path, :class => 'navbar-link' %> |
+  <%= link_to "Выйти", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 <% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+  <%= link_to "Зарегистрироваться", new_user_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Войти", new_user_session_path, :class => 'navbar-link'  %>
 <% end %>
 </body>
 </html>

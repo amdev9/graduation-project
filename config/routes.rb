@@ -3,13 +3,9 @@ Rails.application.routes.draw do
   #get 'schedule/index'
 
   resources :clas
-
   resources :groups
-
   resources :courses
-
   resources :professors
-
   resources :rooms
 
   # The priority is based upon order of creation: first created -> highest priority.

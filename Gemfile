@@ -29,8 +29,8 @@ gem 'rabl-rails'
 gem 'jquery-turbolinks'
 gem 'awesome_print'
 gem 'json'
-gem 'bootstrap-sass', '~> 3.2.0'
 gem 'devise'
+gem 'bootstrap-sass'
 
 
 group :development do

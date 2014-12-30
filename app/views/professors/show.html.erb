@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Инициалы преподавателя:</strong>
   <%= @professor.name %>
 </p>
 
-<%= link_to 'Edit', edit_professor_path(@professor) %> |
-<%= link_to 'Back', professors_path %>
+<%= link_to 'Редактировать', edit_professor_path(@professor),  class: "btn btn-mini btn-success" %> |
+<%= link_to 'Назад', professors_path,  class: "btn btn-mini btn-default" %>

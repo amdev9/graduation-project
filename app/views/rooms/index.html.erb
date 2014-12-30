@@ -4,9 +4,9 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Lab</th>
-      <th>Size</th>
+      <th>Номер аудитории</th>
+      <th>Лабораторная</th>
+      <th>Количество мест</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,9 +20,9 @@
         <td><%= room.lab %></td>
         <td><%= room.size %></td>
 
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Просмотр', room, class: 'btn btn-mini btn-default'%></td>
+        <td><%= link_to 'Редактировать', edit_room_path(room), class: 'btn btn-mini btn-success'%></td>
+        <td><%= link_to 'Удалить', room, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
     
@@ -33,7 +33,4 @@
 
  
   <%= render 'form' %>
-   
- 
-<%= link_to 'New Room', new_room_path %>
- 
+    

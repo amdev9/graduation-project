@@ -13,14 +13,17 @@
 
  
   <div class="field">
-    <%= f.label :name %><br>
+     <b>Номер группы</b>
+     <br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :size %><br>
+
+     <b>Количество студентов в группе</b>
+    <br>
     <%= f.text_field :size %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Добавить группу", class: 'btn btn-mini btn-primary'  %>
   </div>
 <% end %>

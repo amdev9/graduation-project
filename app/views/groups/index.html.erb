@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Size</th>
+      <th>ID</th>
+      <th>Номер группы</th>
+      <th>Количество студентов в группе</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,9 +16,9 @@
        <td><%= group.id %></td>
         <td><%= group.name %></td>
         <td><%= group.size %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показать', group,  class: "btn btn-mini btn-default" %></td>
+        <td><%= link_to 'Редактировать', edit_group_path(group),  class: "btn btn-mini btn-success" %></td>
+        <td><%= link_to 'Удалить', group, method: :delete, data: { confirm: 'Вы уверены?' } ,  class: "btn btn-mini btn-danger"%></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'Добавить группу', new_group_path,  class: "btn btn-mini btn-primary" %>

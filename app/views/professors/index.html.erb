@@ -3,8 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Name</th>
+      <th>ID</th>
+      <th>Инициалы</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +14,9 @@
       <tr>
         <td><%= professor.id %></td>
         <td><%= professor.name %></td>
-        <td><%= link_to 'Show', professor %></td>
-        <td><%= link_to 'Edit', edit_professor_path(professor) %></td>
-        <td><%= link_to 'Destroy', professor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показать', professor, class: 'btn btn-mini btn-default' %></td>
+        <td><%= link_to 'Редактировать', edit_professor_path(professor), class: 'btn btn-mini btn-success' %></td>
+        <td><%= link_to 'Удалить', professor, method: :delete, data: { confirm: 'Вы уверены?' } , class: 'btn btn-mini btn-danger'%></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Professor', new_professor_path %>
+<%= link_to 'Добавить преподавателя', new_professor_path,class: 'btn btn-mini btn-primary'  %>

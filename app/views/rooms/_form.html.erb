@@ -13,18 +13,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    
+    <b>Номер аудитории</b><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :lab %><br>
+     
+     <b>Лабораторная</b><br>
     <%= f.check_box :lab %>
   </div>
   <div class="field">
-    <%= f.label :size %><br>
+     
+     <b>Количество мест</b><br>
     <%= f.number_field :size %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions" >
+    <%= f.submit "Добавить новую аудиторию", class: "btn btn-primary" %>
   </div>
 <% end %>

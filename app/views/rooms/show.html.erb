@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Номер аудитории:</strong>
   <%= @room.name %>
 </p>
 
 <p>
-  <strong>Lab:</strong>
+  <strong>Лабораторная:</strong>
   <%= @room.lab %>
 </p>
 
 <p>
-  <strong>Size:</strong>
+  <strong>Количество мест:</strong>
   <%= @room.size %>
 </p>
  
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<%= link_to 'Редактировать аудиторию', edit_room_path(@room) %> |
+<%= link_to 'Назад', rooms_path %>

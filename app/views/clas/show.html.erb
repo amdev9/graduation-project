@@ -1,29 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Professor:</strong>
+  <strong>Преподаватель:</strong>
   <%= @cla.professor_id %>
 </p>
 
 <p>
-  <strong>Course:</strong>
+  <strong>Дисциплина:</strong>
   <%= @cla.course_id %>
 </p>
 
 <p>
-  <strong>Group:</strong>
+  <strong>Группы:</strong>
   <dd> <%= @cla.groups.map(&:name).join(', ') %></dd>
 </p>
 
 <p>
-  <strong>Duration:</strong>
+  <strong>Продолжительность занятия:</strong>
   <%= @cla.duration %>
 </p>
 
 <p>
-  <strong>Lab:</strong>
+  <strong>Лабораторная?:</strong>
   <%= @cla.lab %>
 </p>
 
-<%= link_to 'Edit', edit_cla_path(@cla) %> |
-<%= link_to 'Back', clas_path %>
+<%= link_to 'Редактировать', edit_cla_path(@cla) ,  class: "btn btn-mini btn-success" %> 
+<%= link_to 'Назад', clas_path,  class: "btn btn-mini btn-default" %>

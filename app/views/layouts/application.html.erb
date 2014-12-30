@@ -22,9 +22,29 @@
             <li><%= link_to "Группы", groups_path %></li>
                <li><%= link_to "Дисциплины", courses_path %></li>
               <li><%= link_to "Занятия", clas_path %></li>
+              </ul>
+  <ul class="nav navbar-nav navbar-right  ">
 
-              
-          </ul>
+    <!--
+            <p class="navbar-text"><%= current_user.email  %></p>
+  <li><%= link_to 'Редактировать профиль', edit_user_registration_path, :class => 'navbar-link' %></li>
+ <li><%= link_to "Выйти", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+
+ -->
+              <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <%= current_user.email  %> 
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li> <%= link_to 'Редактировать профиль', edit_user_registration_path %> </li>
+              <!-- <li><a href='#'>Техподдержка</a></li> -->
+              <li class="divider"></li>
+              <li><%= link_to "Выйти", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+              </ul>
+          
         </div>
       </div>
     </nav>
@@ -39,12 +59,14 @@
 <%= yield %>
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
+<!--
   Выполнен вход <strong><%= current_user.email %></strong>.
   <%= link_to 'Редактировать профиль', edit_user_registration_path, :class => 'navbar-link' %> |
   <%= link_to "Выйти", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+-->
 <% else %>
-  <%= link_to "Зарегистрироваться", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Войти", new_user_session_path, :class => 'navbar-link'  %>
+  <!--<%= link_to "Зарегистрироваться", new_user_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Войти", new_user_session_path, :class => 'navbar-link'  %> -->
 <% end %>
 </body>
 </html>

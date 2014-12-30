@@ -13,6 +13,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right"  accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="qBuekY7LW/4+2jI48KP99zXAD3IwDJsenXp+NWAel0Y=" type="hidden"></div>
 
+
+            
+
             <div class="form-group">
               <input autofocus="autofocus" id="user_email" name="user[email]" value="" type="email" class="form-control" placeholder="Email" >
                 <!--   <input id="user_email" type="email" value=""  type="email"> name="user[email]" >
@@ -27,8 +30,41 @@
              <div  class="form-group" >
               <input name="commit" value="Войти" type="submit" class="btn btn-success">
             </div>
-
             
+
+<div class="form-group" >
+     
+     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button"><span class="glyphicon glyphicon-th"></span>
+
+      <span class="caret"></span>
+
+
+    </button>
+<ul class="dropdown-menu" role="menu">
+              <li> <%= link_to "Зарегистрироваться", new_user_registration_path  %>  </li>
+              <li class="divider"></li>
+              <li> <%= link_to "Забыли пароль?", new_password_path(resource_name) %></li>
+           
+<!---
+
+        <class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
+                Не могу войти
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li> <%= link_to "Зарегистрироваться", new_user_registration_path  %>  </li>
+              <li class="divider"></li>
+              <li> <%= link_to "Забыли пароль?", new_password_path(resource_name) %></li>
+-->
+
+                         
+               
+              
+            </div>
+            
+
+
 
             <!-- <input name="commit" class="btn btn-success" value="Log in" type="submit"> 
           

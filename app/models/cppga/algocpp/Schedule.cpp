@@ -394,10 +394,11 @@ total_overlap:
 		
 		
 	}
+	cout << score << endl;
 	 ////////////////////////////
 	 if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
 	 	ci = 0;
-	 	 
+	 	 cout << "SUCCESS" << endl;
 
 
 for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
@@ -423,14 +424,14 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 			//cout << (*iter)->GetId() << " " ;
 			//NEEED DESTRUCTOR
 			mymap[day][(*iter)->GetId()][timeS] = dur;
-			//cout << day << (*iter)->GetId() << timeS << " " << endl;
+			//cout << day << (*iter)->GetId() << timeS << " " << dur << endl;
 		}
 	//	cout << endl;
 
 		// 	for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		// {
 
- 		//	cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
+ 			//cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
 			//d= day;
 			//	mymap[d].insert ( pair<int ,int>( timeS, dur) );
  			// cout << "score" << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << " "<<score << endl;
@@ -447,9 +448,13 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 	// 	{
 
 	bool windows = false;
+	cout << "numofgr" << numberOfGroups << endl;
     for (int q = 0; q < 6 && !windows  ; q++) {
-      for (int g = 0; g < numberOfGroups  && !windows ; g++) {
+      for (int g = 1; g <= numberOfGroups  && !windows ; g++) {
       auto  ender = mymap[q][g].end();
+      cout << "map size" << mymap[q][g].size() << "-g-" << g << endl;
+      	//cout << "map size" << mymap[q][0].size() << endl;
+      	  //	cout << "map size2" << mymap[q][1].size() << endl;
       if (mymap[q][g].size() > 1) {
         ender--;
       

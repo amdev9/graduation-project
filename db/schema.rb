@@ -17,6 +17,14 @@ ActiveRecord::Schema.define(version: 20141229000914) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
+create_table "rooms", force: true do |t|
+      t.string "name"
+      t.boolean "lab"
+      t.integer "size"
+      t.datetime "created_at"
+      t.datetime "updated_at"
+    end
+
   create_table "cbrcases", force: true do |t|
     t.integer "numofcla"
     t.integer "numofprof"
@@ -79,14 +87,6 @@ ActiveRecord::Schema.define(version: 20141229000914) do
   end
 
   add_index "professors", ["cla_id"], name: "index_professors_on_cla_id", using: :btree
-
-  create_table "rooms", force: true do |t|
-    t.string   "name"
-    t.boolean  "lab"
-    t.integer  "size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

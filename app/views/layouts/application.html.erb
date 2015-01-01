@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gaschedule</title>
+  <title>Система автоматизации</title>
   <%= include_gon %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -50,6 +50,8 @@
     </nav>
            <% end %>
  
+ <div class="container-fluid">
+
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
@@ -68,5 +70,7 @@
   <!--<%= link_to "Зарегистрироваться", new_user_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Войти", new_user_session_path, :class => 'navbar-link'  %> -->
 <% end %>
+
+</div>
 </body>
 </html>

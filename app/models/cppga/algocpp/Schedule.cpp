@@ -394,11 +394,11 @@ total_overlap:
 		
 		
 	}
-	cout << score << endl;
+	//cout << score << endl;
 	 ////////////////////////////
 	 if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
 	 	ci = 0;
-	 	 cout << "SUCCESS" << endl;
+	 //	 cout << "SUCCESS" << endl;
 
 
 for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 )
@@ -448,11 +448,11 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 	// 	{
 
 	bool windows = false;
-	cout << "numofgr" << numberOfGroups << endl;
+	//cout << "numofgr" << numberOfGroups << endl;
     for (int q = 0; q < 6 && !windows  ; q++) {
       for (int g = 1; g <= numberOfGroups  && !windows ; g++) {
       auto  ender = mymap[q][g].end();
-      cout << "map size" << mymap[q][g].size() << "-g-" << g << endl;
+     // cout << "map size" << mymap[q][g].size() << "-g-" << g << endl;
       	//cout << "map size" << mymap[q][0].size() << endl;
       	  //	cout << "map size2" << mymap[q][1].size() << endl;
       if (mymap[q][g].size() > 1) {

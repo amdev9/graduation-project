@@ -15,16 +15,16 @@ jQuery ->
   output = ""
   if typeof gr != 'undefined' 
     while r < gr.rooms.length 
-      output = output + "<b>" +gr.rooms[r].name + "</b><br><b>" + gr.rooms[r].size + "</b><br><b>" + gr.rooms[r].lab + "</b><table><thead>
+      output = output + "<b>" +gr.rooms[r].name + "</b><br><b>" + gr.rooms[r].size + "</b><br><b>" + gr.rooms[r].lab + "</b><table class = 'table table-hover table-bordered'><thead>
         <tr>
-        <th>MON </th>
-         <th>TUE</th>
-          <th>WED</th>
-         <th>THU</th>
-        <th>FRI</th>
-         <th>SAT</th>
-        <th colspan=\"3\"></th>
-   
+       
+        <th>Понедельник</th>
+         <th>Вторник</th>
+          <th>Среда</th>
+         <th>Четверг</th>
+        <th>Пятница</th>
+         <th>Суббота</th>
+          
       </tr>
     </thead>" 
       i=0
@@ -32,7 +32,7 @@ jQuery ->
       k = 0
       val = []
       while k < 6*12
-          val.push "<td>*</td>"
+          val.push "<td></td>"
           k++
     
       while i < str.courseevents.length

@@ -1,13 +1,15 @@
-
-
-DAY_HOURS=12 #Number of working hours per day
-DAYS_NUM=5     #Number of days in week
+ 
 
 class Schedule
 def res 
 	result = `/home/alex/diplom/gaschedule/app/models/cppga/algocpp/a.out` 
 	result
 end 
+def test 
+	test = `/home/alex/diplom/gaschedule/app/models/cppga/algocpp/a.out 1` 
+	test
+end 
+
 	end
 '''
 

@@ -101,6 +101,10 @@ public:
 	// Makes new chromosome with same setup but with randomly chosen code
 	Schedule* MakeNewFromPrototype() const;
 
+	///
+	Schedule* TestCorrection() const;
+	///
+
 	// Performes crossover operation using to chromosomes and returns pointer to offspring
 	Schedule* Crossover(const Schedule& parent2) const;
 
@@ -108,7 +112,7 @@ public:
 	void Mutation();
 
 	// Calculates fitness value of chromosome
-	void CalculateFitness();
+	void CalculateFitness(int);
 
 	// Returns fitness value of chromosome
 	float GetFitness() const { return _fitness; }
@@ -183,6 +187,10 @@ public:
 
 	// Starts and executes algorithm
 	void Start();
+
+	///
+	void Test();
+	///
 
 	// Stops execution of algoruthm
 	//void Stop();

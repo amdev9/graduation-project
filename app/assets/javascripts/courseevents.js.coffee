@@ -9,7 +9,7 @@
 jQuery ->
   str = $('.courseevents_class').data()
   gr = $('.rooms_class').data() 
-  #alert  gr.rooms[0].name
+  #alert  gr.rooms[0].id
   #alert  str.courseevents[0].roomname
   r= 0
   output = ""
@@ -37,7 +37,9 @@ jQuery ->
     
       while i < str.courseevents.length
         tmp = str.courseevents[i].meetingday + 6* (str.courseevents[i].meetingtime - 1) - 1
-        if str.courseevents[i].roomname == gr.rooms[r].name
+
+        #alert "#{str.courseevents[i].roomname}" + " " + "#{gr.rooms[r].id}"
+        if "#{str.courseevents[i].roomname}" == "#{gr.rooms[r].id}"
           val.splice tmp, 1,"<td><br>"+str.courseevents[i].roomname + "<br>"+str.courseevents[i].lab + "<br>"+str.courseevents[i].meetingtime + "<br>"+str.courseevents[i].meetingday + "<br>"+str.courseevents[i].courseduration + "<br>"+str.courseevents[i].coursename  + "<br>"+str.courseevents[i].profname + "<br>"+str.courseevents[i].groupname  + "</td>"
        
 

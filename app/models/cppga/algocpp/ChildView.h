@@ -43,7 +43,12 @@ protected:
 public:
 void Printer(int icase);
 	  void OnFileStart();
-	
+
+	  ///
+	  void OnFileTest();
+	  void ReadDataTest();
+	///
+	  
   void ReadDataFromDB();
 	void InsertDataCBR();
  

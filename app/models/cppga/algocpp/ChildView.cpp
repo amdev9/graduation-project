@@ -2,6 +2,7 @@
 #include "ChildView.h"
 
 #include "Configuration.h"
+#include "TestFitness.h"
 #include "Room.h"
 #include "Schedule.h"
 #include <iostream>
@@ -261,7 +262,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			    	s2SQL.append("', '");
 
 			    	//cout << l+m+1 << endl;
-  		 	    	s2SQL.append( Configuration::GetInstance().GetRoomById( l+ m+1)->GetName().c_str() );
+  		 	    	s2SQL.append(  std::to_string(Configuration::GetInstance().GetRoomById( l+ m+1)->GetId()).c_str() );
 			    	s2SQL.append("', '");
 			     	if (Configuration::GetInstance().GetRoomById( l+m+1 )->IsLab()) { 
 			     	  s2SQL.append(tr.c_str()); 
@@ -366,12 +367,31 @@ void CChildView::OnFileStart()
 
 }
 
+void CChildView::OnFileTest()
+{
+
+      Algorithm::GetInstance().Test();
+	//DWORD tid;
+	//HANDLE thread = CreateThread( NULL, 0, StartAlg, NULL, 0, &tid );	//one thread exec . no need ahother
+	//CloseHandle( thread );
+
+}
 
 
 void CChildView::ReadDataFromDB()
 {
 	 
 		Configuration::GetInstance().ReadDatabase();
+	
+}
+
+
+
+void CChildView::ReadDataTest()
+{
+	 
+		//Configuration::GetInstance().ReadDatabase();
+		TestFitness::GetInstance().TestCalculateFitness();
 	
 }
 
@@ -382,20 +402,29 @@ void CChildView::ReadDataFromDB()
 
 // }
 
-int main()
+
+int main(int argc, char* argv[])
 {
 
 	int i = 1;
 	CChildView *a = new CChildView();
-	a->ReadDataFromDB();
-	a->OnFileStart();
+    a->ReadDataFromDB();
+	
+	bool test = (int)argv[1];
+	if (!test) {
+    a->OnFileStart();
     while (i <= 1) {
 		
 		a->Printer(i);
 		//a-> ~CChildView();
 		i++;
 	}
-	//a->InsertDataCBR();	 
+	//a->InsertDataCBR();	
+} else {
+	a->ReadDataTest();
+	 a->OnFileTest();
+	}
+
 	return 0;
 } 
 

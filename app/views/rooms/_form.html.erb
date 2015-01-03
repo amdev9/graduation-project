@@ -12,22 +12,25 @@
     </div>
   <% end %>
 
-  <div class="field">
+<div class="form-horizontal col-md-3" >
+  <div class="input-form">
     
-    <b>Номер аудитории</b><br>
-    <%= f.text_field :name %>
+    <label for ="num"><b>Номер аудитории</b></label>
+    <%= f.text_field :name, class: "form-control", id: "num" %>
   </div>
   <div class="field">
      
-     <b>Лабораторная</b><br>
-    <%= f.check_box :lab %>
+    <label for ="bool">  <b>Лабораторная</b> </label>
+    <%= f.check_box :lab, class: "form-control", id:"bool" %>
   </div>
   <div class="field">
      
-     <b>Количество мест</b><br>
-    <%= f.number_field :size %>
+     <label for ="nums"> <b>Количество мест</b></label>
+    <%= f.number_field :size, class: "form-control", id: "nums" %>
   </div>
   <div class="actions" >
     <%= f.submit "Сохранить", class: "btn btn-primary" %>
+</div>
   </div>
 <% end %>
+

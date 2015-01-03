@@ -83,12 +83,13 @@
  
 
 
-<div >
-  <button class='btn btn-large btn-primary' id='save_gridster_data'>Сохранить расписание</button>
-  <button class='btn btn-large btn-default'>Сгенерировать новое расписание</button>
- 
-</div>
- 
+
+  
+  <input type='button' id='hideshow' class='btn btn-large btn-primary' value='Скорректировать расписание'>
+ <br><br>
+ <div id='correction-content' style="display:none">
+
+ <button class='btn btn-large btn-success' id='save_gridster_data'>Сохранить расписание</button>
  
 <% @groups.each do |group| %>
  <h2> <%= group.name %> </h2>
@@ -130,4 +131,5 @@
  
 <% end %>
 
+</div>
 </div>

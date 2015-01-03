@@ -27,5 +27,6 @@ $(document).ready ->
         gridster_data: gridster.serialize()
       dataType: 'json'
 
+  $('#hideshow').click ->
+    $('#correction-content').toggle('hide')
 
- 

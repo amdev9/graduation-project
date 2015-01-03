@@ -1,10 +1,10 @@
 <h1>Расписание</h1>
  
-<h3>Генерация и корректировка вариантов расписания</h3>
+<h3>Генерация и корректировка расписания</h3>
  
  
- <!---
-<table>
+ 
+<table class="table table-bordered">
   <thead>
     <tr>                                                                                                                                                                                                                                                                                                                                                                                                                          
       <th>ID</th>
@@ -22,9 +22,9 @@
   </thead>
 
 <tbody> 
--->
+
 <div id="placeholder"></div>
- <!---
+ 
  <div id: "courseevents">
  
 
@@ -42,12 +42,11 @@
         <td><%= courseevent.cbrcase_id %></td>
         
   </tr>
-
  <% end %>
-
+ 
 
   </div>
--->
+
   <%= content_tag :div, class: "courseevents_class", data: {courseevents: @courseevents} do %>
 <% end %>
 <%= content_tag :div, class: "rooms_class", data: {rooms: @rooms} do %>
@@ -86,18 +85,14 @@
 
 <div >
   <button class='btn btn-large btn-primary' id='save_gridster_data'>Сохранить расписание</button>
-</div>
- 
-
-<div >
   <button class='btn btn-large btn-default'>Сгенерировать новое расписание</button>
+ 
 </div>
  
-<div class="gridster">
+ 
 <% @groups.each do |group| %>
  <h2> <%= group.name %> </h2>
-
- <table class = 'table table-hover table-bordered'><thead>
+ <table style = "table-layout: fixed; width: 100 %" class = 'table table-hover table-bordered'><thead>
         <tr>
         <th>Понедельник</th>
          <th>Вторник</th>
@@ -108,7 +103,10 @@
         
    
       </tr>
-    </thead></table>
+    </thead></table> 
+
+<div class="gridster">
+
     <ul>
       <% id = 0 %>
       <% @courseevents.each do |courseevent| %>

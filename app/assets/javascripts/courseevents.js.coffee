@@ -15,7 +15,7 @@ jQuery ->
   output = ""
   if typeof gr != 'undefined' 
     while r < gr.rooms.length 
-      output = output + "<b>" +gr.rooms[r].name + "</b><br><b>" + gr.rooms[r].size + "</b><br><b>" + gr.rooms[r].lab + "</b><table class = 'table table-hover table-bordered'><thead>
+      output = output + "<h4><b>" + "Аудитория "  + gr.rooms[r].name + "</b><br>" + "Вместимость: " +gr.rooms[r].size + "</b><br>" +  gr.rooms[r].lab  + "</h4><table style = 'table-layout: fixed; width: 100 %' class = 'table table-hover table-bordered'><thead>
         <tr>
        
         <th>Понедельник</th>
@@ -55,7 +55,8 @@ jQuery ->
         j+=6 
       #alert output
       output = output + "</table>"
-     
+      output = output.replace(/true/g,"Лабораторная")
+      output = output.replace(/false/g,"Не лабораторная")
     
       
 

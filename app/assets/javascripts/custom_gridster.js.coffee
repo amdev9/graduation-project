@@ -1,7 +1,10 @@
 $(document).ready ->
   gridster = $(".gridster > ul").gridster({
-      widget_margins: [10, 10],
-      widget_base_dimensions: [140, 140]
+      widget_margins: [23, 10],
+      widget_base_dimensions: [150, 150]
+      min_cols: 6
+      max_cols: 6
+      max_rows: 12
       helper: 'clone'
       resize: 
         enabled: true

@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  <strong>Лабораторная:</strong>
-  <%= @room.lab %>
+  <strong>Лабораторная?:</strong>
+   <% if @room.lab %>Да<% else %>Нет<% end %>
 </p>
 
 <p>

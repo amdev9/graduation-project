@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= f.label :professor_id %><br>
-    <%=  f.number_field  :professor_id %> 
+    <%=  f.select :professor_id, Professor.all.collect {|x| [x.name, x.id]} %>
+    <!-- # f.number_field  :professor_id-->
   </div>
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.number_field  :course_id %> 
+    <%=  f.select :course_id, Course.all.collect {|x| [x.name, x.id]} %>
+   <!-- <%= f.number_field  :course_id %> -->
   </div>
   <div class="field">
     <%= f.label :group_id %><br>
@@ -33,6 +35,6 @@
     <%= f.check_box :lab %>
   </div>
   <div class="actions">
-    <%= f.submit "Добавить занятие", class: 'btn btn-mini btn-primary' %>
+    <%= f.submit "Сохранить", class: 'btn btn-mini btn-primary' %>
   </div>
 <% end %>

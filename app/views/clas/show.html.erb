@@ -2,12 +2,12 @@
 
 <p>
   <strong>Преподаватель:</strong>
-  <%= @cla.professor_id %>
+  <%= @cla.professor.name %>
 </p>
 
 <p>
   <strong>Дисциплина:</strong>
-  <%= @cla.course_id %>
+  <%= @cla.course.name %>
 </p>
 
 <p>
@@ -17,12 +17,16 @@
 
 <p>
   <strong>Продолжительность занятия:</strong>
-  <%= @cla.duration %>
+  <%= @cla.duration %> пары
 </p>
 
 <p>
   <strong>Лабораторная?:</strong>
-  <%= @cla.lab %>
+  <% if @cla.lab %>
+  Да
+<%else%>
+Нет
+  <%end%>
 </p>
 
 <%= link_to 'Редактировать', edit_cla_path(@cla) ,  class: "btn btn-mini btn-success" %> 

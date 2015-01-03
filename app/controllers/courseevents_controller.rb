@@ -15,7 +15,7 @@ class CourseeventsController < ApplicationController
          p @cbrcase.id
     unless @cbrcase.id.nil?
       
-         @courseevents = Courseevent.where (["cbrcase_id = :cbrid" ,{ cbrid: @cbrcase.id.to_s}])
+         @courseevents = Courseevent.order(:id).where (["cbrcase_id = :cbrid" ,{ cbrid: @cbrcase.id.to_s}])
     else
         #run program genetic algo
          @c = Schedule.new.res

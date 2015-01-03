@@ -242,7 +242,7 @@ _schedule  = Algorithm::GetInstance().GetBestChromosome();
 			 
 			CourseClass* c = ( *it ).first;
 			int p = ( *it ).second;
-
+			//cout << c->IsLabRequired();
 			int t = p % ( nr * DAY_HOURS );
 			int d = p / ( nr * DAY_HOURS ) + 1;
 			int r = t / DAY_HOURS;

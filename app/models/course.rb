@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-	belongs_to :cla
+	has_many :cla
  
 	def tname
 		"#{name}"

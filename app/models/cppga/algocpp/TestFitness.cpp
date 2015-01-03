@@ -76,14 +76,10 @@ _dur.clear();
              _timess.insert( pair<int, int>( row, meetingtime ) );
              _dur.insert( pair<int, int>( row, courseduration ) );
                // cout << id << endl << "->" << 
-               // roomname << "<-"<< row<<endl <<
-               // lab << endl <<
-               // meetingtime << endl <<
+               
+               // meetingtime << "<-t"<<endl <<
                // meetingday <<endl <<
-               //  courseduration << endl <<
-               //  coursename <<endl <<
-               //   profname <<endl
-               //   << groupname << "---> " <<"id read" << endl;
+               //  courseduration << "<-dur"<<endl << endl;
               // Room* r =  new Room(id, name, lab, size ); 
                    
             // if( r ) {

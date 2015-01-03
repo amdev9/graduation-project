@@ -156,7 +156,7 @@ Schedule* Schedule::TestCorrection() const
 		int day = TestFitness::GetInstance().getDays(a) - 1;
         int room =  TestFitness::GetInstance().getRms(a) - 1;
         int timeS = TestFitness::GetInstance().getTimess(a);
-       //cout << day << "-"<< room  << "-" << timeS << dur<<endl;
+      // cout << day << "-"<< room  << "-" << timeS << dur<<endl;
 
 		////////#############ROOMNAME
 
@@ -370,11 +370,11 @@ void Schedule::CalculateFitness(int t)
 
 		timeS = timeS % DAY_HOURS;
 		int dur;
-		if (!t) {
+		// if (!t) {
 			dur = ( *it ).first->GetDuration();
-			} else {
-		dur = TestFitness::GetInstance().getDur(ab);
-		}
+		// 	} else {
+		// dur = TestFitness::GetInstance().getDur(ab);
+		// }
 		//cout << dur;
 
 
@@ -404,14 +404,14 @@ void Schedule::CalculateFitness(int t)
 		//cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
 		if( _criteria[ ci + 1 ] ) {
-			score++;}  
+			score++;} //else cout<<"-numofseat"; 
 
 		
 
 		// does current room have computers if they are required
 		_criteria[ ci + 2 ] = !cc->IsLabRequired() || ( cc->IsLabRequired() && r->IsLab() );
 		if( _criteria[ ci + 2 ] )  {
-			score++;}  
+			score++;}  //else cout<<"-lab"; 
 		
 
  
@@ -451,7 +451,7 @@ total_overlap:
 
 		// professors have no overlaping classes?
 		if( !po ) {
-			score++;}// else  cout << "-overpro";
+			score++;}  //else  cout << "-overpro";
 		
 		_criteria[ ci + 3 ] = !po;
 
@@ -493,9 +493,9 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 		timeS = timeS % DAY_HOURS;
 	
 
-		int dur = TestFitness::GetInstance().getDur(aa);
+		//int dur = TestFitness::GetInstance().getDur(aa);
 
-		//int dur = ( *it ).first->GetDuration();
+		int dur = ( *it ).first->GetDuration();
 		// List of classes that group attends
      	list<StudentsGroup*> gr  = ( *it ).first->GetGroups();
      for(list<StudentsGroup*>::const_iterator iter = gr.begin(); iter != gr.end(); iter++ )
@@ -503,7 +503,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
 			//cout << (*iter)->GetId() << " " ;
 			//NEEED DESTRUCTOR
 			mymap[day][(*iter)->GetId()][timeS] = dur;
-			//cout << day << (*iter)->GetId() << timeS << " " << dur << endl;
+		//	cout << day << (*iter)->GetId() << timeS << " " << dur << endl;
 		}
 	//	cout << endl;
 
@@ -541,7 +541,7 @@ for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _class
         for (auto iter = mymap[q][g].begin(); iter != ender; iter++) {
          auto tmp = iter;
           auto tmp2 = ++iter;
-       //   cout <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< tmp2->second<<endl   ;
+         // cout <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< tmp2->second<<endl   ;
             if (  tmp->first + tmp->second  != tmp2->first ) {
                
              windows =true;

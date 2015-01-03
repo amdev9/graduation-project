@@ -31,6 +31,8 @@ gem 'awesome_print'
 gem 'json'
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'kaminari', github: 'amatsuda/kaminari'
+gem 'ransack'
 
 
 group :development do
@@ -38,6 +40,15 @@ group :development do
   #gem 'gridster-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'capistrano', '~> 3.0.1'
+  gem 'rvm1-capistrano3', require: false
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-nc'
+  gem 'pry-rails'
+  gem 'capistrano-db-tasks', require: false
+
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

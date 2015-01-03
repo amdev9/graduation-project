@@ -7,7 +7,10 @@ class RoomsController < ApplicationController
   def index
     #@rooms = Room.all
     @room = Room.new
-    @rooms = Room.order(:id)
+   # @rooms = Room.order(:id)
+
+     @r = Room.order(:id => :desc).search(params[:q])
+    @rooms = @r.result(distinct: true).page(params[:page]).per(5)
 
   end
 

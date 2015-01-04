@@ -10,7 +10,7 @@ class Room
 
 private:
 
- 
+ 	static int _nextRoomId;
 
 private:
 
@@ -28,8 +28,9 @@ private:
 
 public:
 
+	Room(const string& name, bool lab, int numberOfSeats);
 	// Initializes room data and assign ID to room
-	Room(int id, const string& name, bool lab, int numberOfSeats);
+//	Room(int id, const string& name, bool lab, int numberOfSeats);
 
 	// Returns room ID
 	inline int GetId() const { return _id; }

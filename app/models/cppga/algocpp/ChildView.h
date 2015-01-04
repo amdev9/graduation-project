@@ -1,10 +1,8 @@
  
 class Schedule;
-//enum AlgorithmState;
 
 enum AlgorithmState
 {
-	//AS_USER_STOPED,
 	AS_CRITERIA_STOPPED,
 	AS_RUNNING
 };
@@ -38,19 +36,13 @@ protected:
 
 protected:
 
-	// void Printer();					// basic output function
- 
+  
 public:
-void Printer(int icase);
-	  void OnFileStart();
+	void Printer(int icase);
+	void OnFileStart();
 
-	  ///
-	  void OnFileTest();
-	  void ReadDataTest();
-	///
+	void OnFileTest();
+	void ReadDataTest();
 	  
-  void ReadDataFromDB();
-	void InsertDataCBR();
- 
- 
+  	void ReadDataFromDB();
 };

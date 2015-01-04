@@ -95,29 +95,24 @@ Schedule* Schedule::MakeNewFromPrototype() const
 	Schedule* newChromosome = new Schedule( *this, true );
 
 	// place classes at random position
- 
 	const list<CourseClass*>& c = Configuration::GetInstance().GetCourseClasses();
-	//cout <<"s-"<<c.size()<< endl;
 	int a = 0;
 	for( list<CourseClass*>::const_iterator it = c.begin(); it != c.end(); it++ )
 	{
 		// determine random position of class
-		int nr = Configuration::GetInstance().GetNumberOfRooms();
-		//cout << nr<<"nr"<<endl;	
+		int nr = Configuration::GetInstance().GetNumberOfRooms();	
 		int dur = ( *it )->GetDuration();
 		int day = rand() % DAYS_NUM;
 		int room = rand() % nr;
-
 		int timeS = rand() % ( DAY_HOURS + 1 - dur );
+
 		int pos = day * nr * DAY_HOURS + room * DAY_HOURS + timeS;
- 	 
+
 		// fill time-space slots, for each hour of class
 		for( int i = dur - 1; i >= 0; i-- )
 			newChromosome->_slots.at( pos + i ).push_back( *it );
 		// insert in class table of chromosome
 		newChromosome->_classes.insert( pair<CourseClass*, int>( *it, pos ) );
-	 
-		
 	}
  
 	newChromosome->CalculateFitness(0);
@@ -127,64 +122,35 @@ Schedule* Schedule::MakeNewFromPrototype() const
 }
 
 
-Schedule* Schedule::TestCorrection() const
+void Schedule::TestCorrection() const
 {
 	// number of time-space slots
 	int size = (int)_slots.size();
  
 	// make new chromosome, copy chromosome setup
 	Schedule* newChromosome = new Schedule( *this, true );
-
-	// place classes at random position
-    
-	 const list<CourseClass*>& d = Configuration::GetInstance().GetCourseClasses();
-	// cout << "SIZE D" << d.size();
-	//cout <<"s-"<<c.size()<< endl;
+	//wrong?!?
+	const list<CourseClass*>& d = Configuration::GetInstance().GetCourseClasses();
 	int a = 0;
 	 
-	//int getday2, getroom2, gettimeS2;
 	for( list<CourseClass*>::const_iterator it = d.begin(); it != d.end(); it++, a++ )
 	{
-		// determine random position of class
-		int nr = Configuration::GetInstance().GetNumberOfRooms();
-		
+		int nr = Configuration::GetInstance().GetNumberOfRooms();	
 	//	int dur = ( *it )->GetDuration();
-
-		//cout << a << "-A" << endl;
 		int dur = TestFitness::GetInstance().getDur(a);
-
 		int day = TestFitness::GetInstance().getDays(a) - 1;
-        int room =  TestFitness::GetInstance().getRms(a) - 1;
-        int timeS = TestFitness::GetInstance().getTimess(a);
-      // cout << day << "-"<< room  << "-" << timeS << dur<<endl;
-
-		////////#############ROOMNAME
-
-		 //int day = TestFitness::GetInstance().getDays(a); //rand() % DAYS_NUM;
-		// int room = TestFitness::GetInstance().getRms(a);//rand() % nr;
-		// int timeS = TestFitness::GetInstance().getTimess(a); //rand() % ( DAY_HOURS + 1 - dur );
-		// int day = rand() % DAYS_NUM;
-		// int room =rand() % nr;
-		// int timeS =rand() % ( DAY_HOURS + 1 - dur );
-	//	cout << "timeS" << timeS<< "testday" << day << "testroom" << room<<endl;	
-
-		int pos = day * nr * DAY_HOURS + room * DAY_HOURS + timeS;
+        int room = Configuration::GetInstance().MapRoomBackward( TestFitness::GetInstance().getRms(a) ) - 1;
+        int timeS = TestFitness::GetInstance().getTimess(a) - 1;
+     	int pos = day * nr * DAY_HOURS + room * DAY_HOURS + timeS;
  	 
 		// fill time-space slots, for each hour of class
 		for( int i = dur - 1; i >= 0; i-- )
 			newChromosome->_slots.at( pos + i ).push_back( *it );
 		// insert in class table of chromosome
 		newChromosome->_classes.insert( pair<CourseClass*, int>( *it, pos ) );
-	 
-		
 	}
- 
 	newChromosome->CalculateFitness(1);
-
-	// return smart pointer
-cout <<  newChromosome->GetFitness();
-
-	return newChromosome;
+	cout <<  newChromosome->GetFitness();
 }
 
 // Performes crossover operation using to chromosomes and returns pointer to offspring
@@ -200,8 +166,6 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 
 	// number of classes
 	int size = (int)_classes.size();
-// cout << "si-" << size<<"-"<<parent2._classes.size()<<endl;
-	 
 	vector<bool> cp( size );
 
 	// determine crossover point (randomly)
@@ -217,62 +181,37 @@ Schedule* Schedule::Crossover(const Schedule& parent2) const
 			}
 		}
 	}
-
-
-	
-	//unordered_map<CourseClass*, int>::const_iterator it2 = parent2._classes.begin();
-auto it1 = _classes.begin();
-auto it2 = parent2._classes.begin();
+	auto it1 = _classes.begin();
+	auto it2 = parent2._classes.begin();
 	// make new code by combining parent codes
 	bool first = rand() % 2 == 0;
-	 
- 
+
 	for( int i = 0;	 i < size  ; i++ ) {
-
 		if( first )
-		{
-
-		 
+		{	 
 			// insert class from first parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>(  it1->first, it1->second ) );
 			// all time-space slots of class are copied
 			
 			for ( int i1 = it1->first->GetDuration() - 1; i1 >= 0; i1-- )
 				n->_slots[ it1->second + i1 ].push_back( it1->first );
-			 
-
-			// cout <<  it1->second << endl;
-		 
 		}
 		else
 		{
-		 
-		
 			// insert class from second parent into new chromosome's calss table
 			n->_classes.insert( pair<CourseClass*, int>( it2 ->first, it2->second ) );
 			// all time-space slots of class are copied
 			for( int i2 = it2->first->GetDuration() - 1; i2 >= 0; i2-- )
-				n->_slots[ it2->second + i2 ].push_back( it2->first );
-			
-			  
+				n->_slots[ it2->second + i2 ].push_back( it2->first );	  
 		}
-		//}
-
 		// crossover point
 		if( cp[ i ] )
 			// change soruce chromosome
 			first = !first;
-
-	  it1++;
-	it2++;
-	 
-	 
- 
-}
-
- //cout << n-> _classes.size() << endl;
+	  	it1++;
+		it2++;
+	}
 	n->CalculateFitness(0);
-
 	// return smart pointer to offspring
 	return n;
 }
@@ -334,7 +273,6 @@ void Schedule::Mutation()
 		// change entry of class table to point to new time-space slots
 		_classes[ cc1 ] = pos2;
 	}
-
 	CalculateFitness(0);
 }
 
@@ -343,41 +281,27 @@ void Schedule::CalculateFitness(int t)
 {
 	// chromosome's score
 	int score = 0;
-
 	int numberOfRooms = Configuration::GetInstance().GetNumberOfRooms();
 	int numberOfGroups = Configuration::GetInstance().GetNumberOfStudentGroups();
-	
 	int daySize = DAY_HOURS * numberOfRooms;
 
 	int ci = 0;
     int d = 0;
-    //map<int ,int> mymap[6];
     map < int, map<int, int> >  mymap[6];
   
 	 int ab = 0;
 	// check criterias and calculate scores for each class in schedule
-	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 5 , ab=0)
+	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6 , ab=0)
 	{
+		
 		// coordinate of time-space slot
 		int p = ( *it ).second;
-
-		int day = p / daySize;
-
-		//cout << day << "day" << endl;
+   		int day = p / daySize;
 		int timeS = p % daySize;
-	 
-		int room = timeS / DAY_HOURS;
-
+		int  room = timeS / DAY_HOURS;
 		timeS = timeS % DAY_HOURS;
-		int dur;
-		// if (!t) {
-			dur = ( *it ).first->GetDuration();
-		// 	} else {
-		// dur = TestFitness::GetInstance().getDur(ab);
-		// }
-		//cout << dur;
-
-
+		int dur = ( *it ).first->GetDuration();
+	
 		// check for room overlapping of classes
 		bool ro = false;
 		for( int i = dur - 1; i >= 0; i-- )
@@ -390,33 +314,26 @@ void Schedule::CalculateFitness(int t)
 		}
 
 		// on room overlaping
-		if( !ro ) {
-			score++;} 
-		
+		if( !ro ) 
+			score++; 	
+
 
 		_criteria[ ci + 0 ] = !ro;
 
 		CourseClass* cc = ( *it ).first;
-		//cout << room <<"-"<<endl;
- 		room++;
-		Room* r = Configuration::GetInstance().GetRoomById( room );// YBRAT COSTUL ====== NE RABOTAET DLY NE UPORYAD ZNA4ENII
-		// does current room have enough seats
-		//cout  << r->GetNumberOfSeats() << ">=--"<<cc->GetNumberOfSeats() <<endl ;
+		 
+ 		//room++;
+ 	 	Room* r = Configuration::GetInstance().GetRoomById( room );
+ 	 	// does current room have enough seats
 		_criteria[ ci + 1 ] = r->GetNumberOfSeats() >= cc->GetNumberOfSeats(); 
-		if( _criteria[ ci + 1 ] ) {
-			score++;} //else cout<<"-numofseat"; 
-
-		
-
+		if( _criteria[ ci + 1 ] ) 
+			score++; 
 		// does current room have computers if they are required
 		_criteria[ ci + 2 ] = !cc->IsLabRequired() || ( cc->IsLabRequired() && r->IsLab() );
-		if( _criteria[ ci + 2 ] )  {
-			score++;}  //else cout<<"-lab"; 
+		if( _criteria[ ci + 2 ] )  
+			score++; 
 		
-
- 
 		bool po = false, go = false;
-		//cout << "t= " << day * daySize + timeS <<endl;
 		// check overlapping of classes for professors and student group
 		for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
 		{
@@ -425,7 +342,6 @@ void Schedule::CalculateFitness(int t)
 			{
 				// check for overlapping with other classes at same time
 				const list<CourseClass*>& cl = _slots[ t + i ];
-			//	cout << "slots"<<_slots[ t + i ] << endl;
 				for( list<CourseClass*>::const_iterator it = cl.begin(); it != cl.end(); it++ )
 				{
 					if( cc != *it )
@@ -433,7 +349,6 @@ void Schedule::CalculateFitness(int t)
 						// professor overlaps?
 						if( !po && cc->ProfessorOverlaps( **it ) )
 							po = true;
-
 			
 						// student group overlaps?
 						if( !go && cc->GroupsOverlap( **it ) ) 		 
@@ -450,186 +365,90 @@ void Schedule::CalculateFitness(int t)
 total_overlap:
 
 		// professors have no overlaping classes?
-		if( !po ) {
-			score++;}  //else  cout << "-overpro";
-		
+		if( !po ) 
+			score++; 
+		//cout << ci << "cipo" <<endl;
 		_criteria[ ci + 3 ] = !po;
 
 		// student groups has no overlaping classes?
-		if( !go ) {
-			score++;} //else  cout << "-overgroups";
-
-		
-		_criteria[ ci + 4 ] = !go;
- 
- 
- 		
- 		
-			 
-		
-		
+		if( !go ) 
+			score++; 
+		_criteria[ ci + 4 ] = !go;		
 	}
-	//cout << score << endl;
-	 ////////////////////////////
-	 if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
+
+	if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
 	 	ci = 0;
-	 	 
-int aa = 0;
-for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6, aa++ )
-	{
-		
-
-		 //bool windows = false;
-		// coordinate of time-space slot
-		int p = ( *it ).second;
-
-		int day = p / daySize;
-
-		//cout << day << "day" << endl;
-		int timeS = p % daySize;
-	 
-		int room = timeS / DAY_HOURS;
-
-		timeS = timeS % DAY_HOURS;
+	 	int aa = 0;
+	 	
+	 	for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6, aa++ ) 
+	 	{
+	 	//	cout << ci << "cilast" << endl;
+	 		int p = ( *it ).second;
+	 		int day = p / daySize; 
+	 		int timeS = p % daySize;
+	 		int room = timeS / DAY_HOURS;
+	 		timeS = timeS % DAY_HOURS;
+			int dur = ( *it ).first->GetDuration();
+				//cout <<day<<timeS<< "="<<dur<< endl;
 	
+			// List of classes that group attends
+     		list<StudentsGroup*> gr  = ( *it ).first->GetGroups();
+     		for(list<StudentsGroup*>::const_iterator iter = gr.begin(); iter != gr.end(); iter++ )
+			{
 
-		//int dur = TestFitness::GetInstance().getDur(aa);
-
-		int dur = ( *it ).first->GetDuration();
-		// List of classes that group attends
-     	list<StudentsGroup*> gr  = ( *it ).first->GetGroups();
-     for(list<StudentsGroup*>::const_iterator iter = gr.begin(); iter != gr.end(); iter++ )
-		{
-			//cout << (*iter)->GetId() << " " ;
-			//NEEED DESTRUCTOR
-			mymap[day][(*iter)->GetId()][timeS] = dur;
-		//	cout << day << (*iter)->GetId() << timeS << " " << dur << endl;
-		}
-	//	cout << endl;
-
-		// 	for( int i = numberOfRooms, t = day * daySize + timeS; i > 0; i--, t += DAY_HOURS )
-		// {
-
- 			//cout <<   day    <<"-" <<timeS<< "-"<< dur<< "-"<< endl;
-			//d= day;
-			//	mymap[d].insert ( pair<int ,int>( timeS, dur) );
- 			// cout << "score" << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << " "<<score << endl;
- 		// }
-
-	  // if( !windows )
-		 // 	score++;
-		 // _criteria[ ci + 5 ] = !windows;
-		
-		}
-	
-	 
-	// for(  map<CourseClass*, int>::const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 6  )
-	// 	{
-
-	bool windows = false;
-	//cout << "numofgr" << numberOfGroups << endl;
-    for (int q = 0; q < 6 && !windows  ; q++) {
-      for (int g = 1; g <= numberOfGroups  && !windows ; g++) {
-      auto  ender = mymap[q][g].end();
-     // cout << "map size" << mymap[q][g].size() << "-g-" << g << endl;
-      	//cout << "map size" << mymap[q][0].size() << endl;
-      	  //	cout << "map size2" << mymap[q][1].size() << endl;
-      if (mymap[q][g].size() > 1) {
-      	// cout << "SUCCESS" << endl;
-        ender--;
-      
-        for (auto iter = mymap[q][g].begin(); iter != ender; iter++) {
-         auto tmp = iter;
-          auto tmp2 = ++iter;
-         // cout <<tmp->first<< "+"<< tmp->second<<" =" <<  tmp2->first<< tmp2->second<<endl   ;
-            if (  tmp->first + tmp->second  != tmp2->first ) {
-               
-             windows =true;
-
-          
-    /////////////////break;
-            }	else {
-            	score= score + mymap[q][g].size();
-            	//cout << mymap[q][g].size()  << "<-inc" << endl;
-            }
-          iter --;
-      }
-
-     } 
-     else if (mymap[q][g].size() == 1)
-     	{score++;
-
-     		 }
-   }
-}
-
-}
-  // cout << windows;
-
-	 // NEED FUNCTION FOR CALC SCORE
-
-		// if( !windows )
-		// 	score++;
-		// _criteria[ ci + 5 ] = !windows;
-		// }
- 
-
-		
-
-
-	 // }
-	 
-// 		for (auto iter = mymap[0].begin(); iter != mymap[0].end(); iter++)
-// {
-// 	printf ("Key: %d, Value: %d\n", iter->first , iter->second ) ;
-// }
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////
-		/////////////
-		//----
-		
-		
-		/*
-
-	 	for (int q = 0; q < 6 && !windows; q++) {
-			auto ender = mymap[q].end();
-   			ender --;
-	 		for (auto iter = mymap[q].begin(); iter != ender; iter++) {
-	 			 auto tmp = iter;
-    			auto tmp2 = ++iter;
-  			    if (  tmp->first + tmp->second  != tmp2->first ) {
-  			  	 	windows = true;
-  			   		break;
-  			   }
-  			   iter --;
+				mymap[day][(*iter)->GetId()][timeS] = dur;
 			}
+		}
+		bool windows = false;
+	    for (int q = 0; q < 6 && !windows  ; q++) {
+	    	bool gp = false;
+      		for (int g = 1; g <= numberOfGroups  && !windows ; g++) {
+      			cout << "------day"<<q<<"----cycle---g" << g <<"----" << endl;
+      			auto  ender = mymap[q][g].end();
+      			//cout << mymap[q][g].size() << "<-maps" << endl;
+     			if (mymap[q][g].size() > 1) {
+       	 			ender--;
+       	 			for (auto iter = mymap[q][g].begin(); iter != ender; iter++) {
+       	 				auto tmp = iter;
+          				auto tmp2 = ++iter;
+          				if (  tmp->first + tmp->second  != tmp2->first ) {
+             				windows =true;
+             			}	
+             			else 
+             			{
+             				//if(!gp)
+            				score= score + mymap[q][g].size();
+            				//_criteria[ ci + 5 ] = !gp;
+            			}
+            			iter --;
+            		}
+            	} 
+            	else if (mymap[q][g].size() == 1) 
+            	{
 
-		 }
-	  */
-		
-		////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-///////////////////////////////
-	 
-	 
-		// cout << Configuration::GetInstance().GetNumberOfCourseClasses() *6 << "->" << score << endl;
+					if( !gp) 
+						gp = true;
+					//score++; 
+					cout << score << "-sc" << endl;
+					_criteria[ ci + 5 ] = !gp;
+            		
+            	}
+            }
+            if (gp)
+            	score++;
+        }
+    }  	 
+    cout << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << endl;
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *6);// * 5// DAYS_NUM );
-//cout <<  " fitess: "<< _fitness << endl;
 }
 
 // Pointer to global instance of algorithm
 Algorithm* Algorithm::_instance = NULL;
-
-// Synchronization of creation and destruction of global instance
-//CCriticalSection Algorithm::_instanceSect;
-
+ 
 // Returns reference to global instance of algorithm
 Algorithm& Algorithm::GetInstance()
 {
-
-
 	// global instance doesn't exist?
 	if( _instance == NULL )
 	{
@@ -650,7 +469,6 @@ Algorithm& Algorithm::GetInstance()
 // Frees memory used by gloval instance
 void Algorithm::FreeInstance()
 {
-
 
 	// free memory used by global instance if it exists
 	if( _instance != NULL )
@@ -711,8 +529,6 @@ Algorithm::~Algorithm()
 	}
 }
 
-/**new class*/
-
 void Algorithm::Test()
 {
 	if( !_prototype )
@@ -725,8 +541,6 @@ void Algorithm::Start()
 {
 	if( !_prototype )
 		return;
-
-	
 
 	// do not run already running algorithm
 	if( _state == AS_RUNNING )
@@ -760,7 +574,6 @@ void Algorithm::Start()
 	while( 1 )
 	{
 	
-
 		// user has stopped execution?
 		if( _state != AS_RUNNING )
 		{
@@ -819,14 +632,12 @@ void Algorithm::Start()
 			_observer->NewBestChromosome( *GetBestChromosome() );
 
 		_currentGeneration++;
-		//cout <<"*" << endl;
 	}
 
 	if( _observer )
 		// notify observer that execution of algorithm has changed it state
 		_observer->EvolutionStateChanged( _state );
 }
-
 
 
 // Returns pointer to best chromosomes in population
@@ -888,16 +699,3 @@ void Algorithm::ClearBest()
 
 	_currentBestSize = 0;
 }
-/*
-int main()
-{
-	 
- 
-   Configuration::GetInstance().ReadDatabase();
-   Algorithm::GetInstance().Start();
-	//CChildView *a = new CChildView();
-	//a->Printer();
-
-	return 0;
-}
-*/

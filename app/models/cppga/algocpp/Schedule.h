@@ -4,8 +4,6 @@
 
 #include "CourseClass.h"
 #include <vector>
- 
- 
 
 class CChildView;
 class Schedule;
@@ -23,13 +21,9 @@ class ScheduleObserver
 {
 
 private:
-
-	// Event that blocks caller until algorithm finishes execution 
-	//HANDLE _event;
-
 	// Window which displays schedule
+	
 	CChildView* _window;
-
 	// Called when algorithm starts execution
  
 
@@ -102,7 +96,7 @@ public:
 	Schedule* MakeNewFromPrototype() const;
 
 	///
-	Schedule* TestCorrection() const;
+	void TestCorrection() const;
 	///
 
 	// Performes crossover operation using to chromosomes and returns pointer to offspring
@@ -161,9 +155,6 @@ private:
 	// State of execution of algorithm
 	AlgorithmState _state;
 
-	// Synchronization of algorithm's state
-	//CCriticalSection _stateSect;
-
 	// Pointer to global instance of algorithm
 	static Algorithm* _instance;
 
@@ -191,9 +182,6 @@ public:
 	///
 	void Test();
 	///
-
-	// Stops execution of algoruthm
-	//void Stop();
 
 	// Returns pointer to best chromosomes in population
 	Schedule* GetBestChromosome() const;

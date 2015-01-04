@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 
-
+#include <iostream>
 
 using namespace std;
 
@@ -32,14 +32,15 @@ public:
 
 private:
 
-	// Parsed professors
- map<int, Professor*> _professors;
+	//for IDrooms
+	map<int,int> mapid;
 
-	// Parsed student groups
- map<int, StudentsGroup*> _studentGroups;
+	map<int, Professor*> _professors;
+
+	map<int, StudentsGroup*> _studentGroups;
 
 	// Parsed courses
- map<int, Course*> _courses;
+	map<int, Course*> _courses;
 
 	// Parsed rooms
 	 map<int, Room*> _rooms;
@@ -102,6 +103,25 @@ public:
 		return it != _rooms.end() ? ( *it ).second : NULL;
 	}
 
+
+	 inline int MapRoomBackward(int id)  { 
+	 	int key = -1;
+	 	for (auto it = mapid.begin(); it!=mapid.end(); ++it) {
+	 		if (it->second == id) {
+	 			key = it->first;
+	 			break;
+	 		}
+	 	}
+     	return key;
+    }
+
+ 	inline int MapRoomId(int id)  { 
+    	 auto it = mapid.find( id );
+      	if (it != mapid.end()) {
+      	//cout <<  ( *it ).second << "govo";
+       return  ( *it ).second;
+     }
+    }
 	// Returns number of parsed rooms
 	inline int GetNumberOfRooms() const { return (int)_rooms.size(); }
 
@@ -113,7 +133,4 @@ public:
 
 	// Returns TRUE if configuration is not parsed yet
 	inline bool IsEmpty() const { return _isEmpty; }
-
- 
-
 };

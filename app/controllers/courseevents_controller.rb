@@ -11,16 +11,16 @@ class CourseeventsController < ApplicationController
     @profsize =Professor.all.size
     @groupsize = Group.all.size
     @roomsize = Room.all.size
-    @cbrcase = Cbrcase.select("id").find_or_initialize_by(numofcla: @clasize,  numofprof: @profsize, numofgroups: @groupsize, numofrooms: @roomsize)  #where ( "numofcla = 2
-         p @cbrcase.id
-    unless @cbrcase.id.nil?
+    # @cbrcase = Cbrcase.select("id").find_or_initialize_by(numofcla: @clasize,  numofprof: @profsize, numofgroups: @groupsize, numofrooms: @roomsize)  #where ( "numofcla = 2
+    #      p @cbrcase.id
+    # unless @cbrcase.id.nil?
       
-         @courseevents = Courseevent.order(:id).where (["cbrcase_id = :cbrid" ,{ cbrid: @cbrcase.id.to_s}])
-    else
-        #run program genetic algo
-         @c = Schedule.new.res
+    #      @courseevents = Courseevent.order(:id).where (["cbrcase_id = :cbrid" ,{ cbrid: @cbrcase.id.to_s}])
+    # else
+    #     #run program genetic algo
+    #      @c = Schedule.new.res
          @courseevents = Courseevent.order(:id)
-    end
+    #end
      @rooms = Room.order(:id)
      @groups = Group.order(:id)
  

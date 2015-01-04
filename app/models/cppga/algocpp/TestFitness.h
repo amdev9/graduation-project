@@ -42,18 +42,12 @@ class TestFitness {
       if (it != _timess.end()) {
       return ( *it ).second;
     } 
+  }
 
-
-      //return it != _timess.end() ? ( *it ).second;
-    }
-
-inline int getDur(int id) const  {
+  inline int getDur(int id) const  {
       auto it = _dur.find( id );
       if (it != _dur.end()) {
       return ( *it ).second;
     } 
-
-
-      //return it != _timess.end() ? ( *it ).second;
-    }
- };
+  }
+};

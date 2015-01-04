@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
     @room = Room.new
    # @rooms = Room.order(:id)
 
-     @r = Room.order(:id => :desc).search(params[:q])
+     @r = Room.order(:id).search(params[:q])
     @rooms = @r.result(distinct: true).page(params[:page]).per(5)
 
   end
@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/new
   def new
-    @room = Room.new
+    @room = Room.new 
   end
 
   # GET /rooms/1/edit

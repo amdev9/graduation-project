@@ -39,7 +39,9 @@ class CourseeventsController < ApplicationController
   # }
   #run program test
   params[:gridster_data].each do |k,v|
+    if v['id'] != "freeslots"
     Courseevent.find(v['id']).update(meetingday: v['col'], meetingtime: v['row'], courseduration: v['size_y'])
+    end
   end
   @c = Schedule.new.test
   p @c

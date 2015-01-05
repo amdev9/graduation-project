@@ -1,0 +1,145 @@
+<h1>Расписание</h1>
+ 
+<h3>Генерация и корректировка расписания</h3>
+ 
+ 
+ 
+<table class="table table-bordered">
+  <thead>
+    <tr>                                                                                                                                                                                                                                                                                                                                                                                                                          
+      <th>ID</th>
+      <th>Roomname</th>
+       <th>Lab</th>
+        <th>meetingtime</th>
+       <th>meetingday</th>
+      <th>courseduration</th>
+       <th>coursename</th>
+        <th>profname</th>
+             <th>groupname</th>
+        <th>cbrcase_id</th> 
+      <th colspan="3"></th>                                                                                               
+    </tr>
+  </thead>
+
+<tbody> 
+
+<div id="placeholder"></div>
+ 
+ <div id: "courseevents">
+ 
+
+     <% @courseevents.each do |courseevent| %>
+      <tr>
+<td><%= courseevent.id %></td>
+        <td><%= courseevent.roomname %></td>
+        <td><%= courseevent.lab %></td>
+        <td><%= courseevent.meetingtime %></td>
+        <td><%= courseevent.meetingday %></td>
+        <td><%= courseevent.courseduration %></td>
+        <td><%= courseevent.coursename %></td>
+        <td><%= courseevent.profname %></td>
+        <td><%= courseevent.groupname %></td>
+        <td><%= courseevent.cbrcase_id %></td>
+        
+  </tr>
+ <% end %>
+ 
+
+  </div>
+
+  <%= content_tag :div, class: "courseevents_class", data: {courseevents: @courseevents} do %>
+<% end %>
+<%= content_tag :div, class: "rooms_class", data: {rooms: @rooms} do %>
+<% end %>
+</tbody>
+</table>
+<br>
+ 
+<!---
+<div class="gridster">
+    <ul>
+        <li class="gridster-cell" data-row="1" data-col="1" data-sizex="1" data-sizey="1">Block1</li>
+        <li class="gridster-cell" data-row="2" data-col="1" data-sizex="1" data-sizey="1">Block2</li>
+        <li class="gridster-cell" data-row="3" data-col="1" data-sizex="1" data-sizey="1">Block3</li>
+
+        <li class="gridster-cell" data-row="1" data-col="2" data-sizex="2" data-sizey="1">Block4</li>
+        <li class="gridster-cell" data-row="2" data-col="2" data-sizex="2" data-sizey="2">Block5</li>
+
+        <li class="gridster-cell" data-row="1" data-col="4" data-sizex="1" data-sizey="1">Block6</li>
+        <li class="gridster-cell" data-row="2" data-col="4" data-sizex="2" data-sizey="1">Block7</li>
+        <li class="gridster-cell" data-row="3" data-col="4" data-sizex="1" data-sizey="1">Block8</li>
+
+        <li class="gridster-cell" data-row="1" data-col="5" data-sizex="1" data-sizey="1">Block9</li>
+        <li class="gridster-cell" data-row="3" data-col="5" data-sizex="1" data-sizey="1">Block10</li>
+
+        <li class="gridster-cell" data-row="1" data-col="6" data-sizex="1" data-sizey="1">Block11</li>
+        <li class="gridster-cell" data-row="2" data-col="6" data-sizex="1" data-sizey="2">Block12</li>
+    </ul>
+</div>
+-->
+
+
+<br>
+ 
+
+
+
+  
+  <input type='button' id='hideshow' class='btn btn-large btn-primary' value='Скорректировать расписание'>
+ <br><br>
+ <div id='correction-content' style="display:none">
+
+ <button class='btn btn-large btn-success' id='save_gridster_data'>Сохранить расписание</button>
+ 
+<% @rooms.each do |room| %>
+ <h2> <%= room.name %> </h2> <!--<% @groups.each do |group| %>
+ <h2> <%= group.name %> </h2>-->
+ <table style = "table-layout: fixed; width: 100 %" class = 'table table-hover table-bordered'><thead>
+        <tr>
+        <th>Понедельник</th>
+         <th>Вторник</th>
+          <th>Среда</th>
+         <th>Четверг</th>
+        <th>Пятница</th>
+         <th>Суббота</th>
+        
+   
+      </tr>
+    </thead></table> 
+
+<div class="gridster">
+
+    <ul>
+      <% meet = 1 %>
+      <% day = 1 %>
+      <% @courseevents.each do |courseevent| %>
+        <% if courseevent.roomname == room.id %> <!--  <% if courseevent.groupname.include? group.id.to_s %> -->
+            <% if courseevent.meetingtime == meet  and courseevent.meetingday == day %> 
+              <li id="<%= courseevent.id %>" class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+                <%= courseevent.roomname %><br>
+                <%= courseevent.lab %><br>
+                <%= courseevent.meetingtime %><br>
+                <%= courseevent.meetingday %><br>
+                <%= courseevent.courseduration %><br>
+                <%= courseevent.coursename %><br>
+                <%= courseevent.profname %><br>
+                <%= courseevent.groupname %><br>
+                <%= courseevent.id %>
+              </li>
+              <% day = day + 1 %>
+              <% meet = meet + 1 %>
+            <% elsif day <= 6 and meet <= 12 and courseevent.meetingday != day and courseevent.meetingtime != meet %>
+                 <li class="gridster-cell" data-row="<%= meet %>" data-col="<%= day%>" data-sizex="1" data-sizey="1"></li>
+               <% day = day + 1 %>
+               <% meet = meet + 1 %>
+            
+            <% end %>
+              
+        <% end %>
+  
+ </ul>
+ 
+<% end %>
+
+</div>
+</div>

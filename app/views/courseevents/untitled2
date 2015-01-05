@@ -1,10 +1,34 @@
+
+<div class="gridster">
+
+    <ul>
+      <% a = 0%>
+      <% p @courseevents.length %>
+  <% for d in 1..6 %>
+   <% for m in 1..12 %>
+         
+      <% if  (m == meet[a] and d == day[a] )  %>
+      <li  class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">asd</li>
+      <%a=a+1%>
+      <% else %>
+      <li  class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">
+      <%  end%>  
+      
+  <%end%>
+ 
+ <% end %>
+</ul>
+</div>
+
+//////////////////////////////////////
+
+
 <h1>Расписание</h1>
  
 <h3>Генерация и корректировка расписания</h3>
   
       <%h = Hash.new { |h,k| h[k] = []}%>
  
-  <%another = Hash.new { |d,c| d[c] = []}%>
  
 <table class="table table-bordered">
   <thead>
@@ -84,23 +108,46 @@
    
       </tr>
     </thead></table> 
-<!--
+
 <div class="gridster">
-    <ul> --> 
+
+    <ul> 
+   
+      
       <% @courseevents.each do |courseevent| %>
 
-    <% if courseevent.roomname.include? room.id.to_s %>  
-        <%another[ courseevent.id ] << courseevent.meetingday << courseevent.meetingtime << courseevent.courseduration << courseevent.coursename <<  courseevent.profname <<  courseevent.profname << courseevent.groupname << courseevent.roomname %>
 
+               <!--    <% if courseevent.roomname.include? room.id.to_s %> -->
+          <li id="<%= courseevent.id %>" class="gridster-cell" data-row="<%= courseevent.meetingtime %>" data-col="<%=courseevent.meetingday %>" data-sizex="1" data-sizey="<%= courseevent.courseduration %>">
+          <%= courseevent.roomname %><br>
+          <%= courseevent.lab %><br>
+           <%= courseevent.meetingtime %><br>
+          <%= courseevent.meetingday %><br>
+          <%= courseevent.courseduration %><br>
+         <%= courseevent.coursename %><br>
+         <%= courseevent.profname %><br>
+         <%= courseevent.groupname %><br>
+         <%= courseevent.id %></li>
+        
         <%h[courseevent.meetingday] << courseevent.meetingtime %>
+        
+                    <!--   <% end %> -->
+    
+      
+     
 
-        <% p courseevent.roomname%>
-           <% end %>      
+
+
 <% end %>
-<!-- </ul> -->
-<% end %> 
-<!-- </div> -->
+ </ul>
+
+
  
+<% end %> 
+
+</div>
+</div>
+
 
 <div class = "gridster">
   <ul>
@@ -108,17 +155,13 @@
    <% for m in 1..12 %>
           
       <% if  h[d].include? m   %>
-        <%  another.each do |key, array| %>
-         <% if array.take(2) == [d,m] and array[-1] == "37" %>
-             <li id="<%=key%>" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="<%= array[2]%>"> <%=another[key].to_s%></li>
- <%end%>
-<%end%>
+                                                               <li  class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">asd</li>
+     
        <%else %>
-            <li  id="freeslots" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">
+                                                            <li  class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">
      <%  end %>
   
       <% end %>
       <% end %>
     </ul>
-</div> 
 </div> 

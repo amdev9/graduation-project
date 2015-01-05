@@ -113,8 +113,10 @@
              <li id="<%=key%>" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="<%= array[2]%>"> <%=another[key].to_s%></li>
  <%end%>
 <%end%>
+                                                              
+     
        <%else %>
-            <li  id="freeslots" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">
+                                                            <li    class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="1">
      <%  end %>
   
       <% end %>

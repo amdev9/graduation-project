@@ -28,7 +28,7 @@ class ClasController < ApplicationController
 
     respond_to do |format|
       if @cla.save
-        format.html { redirect_to @cla, notice: 'Cla was successfully created.' }
+        format.html { redirect_to @cla, notice: 'Новое занятие успешно сохранено.' }
         format.json { render :show, status: :created, location: @cla }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ClasController < ApplicationController
   def update
     respond_to do |format|
       if @cla.update(cla_params)
-        format.html { redirect_to @cla, notice: 'Cla was successfully updated.' }
+        format.html { redirect_to @cla, notice: 'Измененное занятие успешно сохранено.' }
         format.json { render :show, status: :ok, location: @cla }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ClasController < ApplicationController
   def destroy
     @cla.destroy
     respond_to do |format|
-      format.html { redirect_to clas_url, notice: 'Cla was successfully destroyed.' }
+      format.html { redirect_to clas_url, notice: 'Занятие успешно удалено.' }
       format.json { head :no_content }
     end
   end

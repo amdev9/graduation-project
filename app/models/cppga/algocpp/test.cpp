@@ -1,38 +1,35 @@
-
-#include <list>
-#include <map>
-
- #include <vector>
+/* strtok example */
+#include <stdio.h>
+#include <cstring>
+#include <iostream>
+#include <string>
  
- #include <iostream>
-
-#define DAY_HOURS	12
-// Number of days in week
-#define DAYS_NUM	6 //5
+#include <map>
 
 using namespace std;
 
-
-
- 
-
-int main(int argc, char* argv[]) { 
+int main ()
+{
+  std::string sasdtr = "1/2/3";
+  char* str = new char[sasdtr.length()+1];
+  strcpy(str, sasdtr.c_str()); 
   
+  int groups_col = 0;
+  char * pch;
 
-    cout << "argv[1] = " << argv[1] << endl; 
+  map<int,int> arr;
+
+  pch = strtok (str,"/");
+  while (pch != NULL)
+  {
+    arr.insert(pair <int,int>(groups_col,atoi(pch)));  
+    pch = strtok (NULL, "/");
+    groups_col++;
+  }
 
 
- 	int r = 0;
-	int dur =2;
-	int nr = 2;
-	while (r < 1) {
-int day = rand() % DAYS_NUM;   // ---> 0 - 5
-		int room = rand() % nr;
+  cout << groups_col << "asd"<<endl;
 
-		int timeS = rand() % ( DAY_HOURS + 1 - dur );
-cout << day<< " " <<room<<" " <<timeS << endl;
- r++;
-}
-
-return 0;
+  delete [] str;
+  return 0;
 }

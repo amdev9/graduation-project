@@ -2,6 +2,7 @@
 #include <map>
 #include <fstream>
 #include <string>
+  
 
 
 
@@ -16,6 +17,11 @@ class TestFitness {
     map<int, int > _timess;
     map<int, int > _rms;
  map<int, int > _dur;
+ map<int, char* > _groupsmap;
+
+
+ list<CourseClass*> _courseClassesTest;
+
   public:
     // Returns reference to global instance
      inline static TestFitness& GetInstance() { return _tf; }
@@ -23,6 +29,8 @@ class TestFitness {
     TestFitness() {}
     void TestCalculateFitness();
     ~TestFitness();
+
+    inline const list<CourseClass*>& GetCourseClassesTest() const { return _courseClassesTest; }
 
     inline int getRms(int id) const { 
      auto it = _rms.find( id );

@@ -130,7 +130,10 @@ void Schedule::TestCorrection() const
 	// make new chromosome, copy chromosome setup
 	Schedule* newChromosome = new Schedule( *this, true );
 	//wrong?!?
+	//add groups from db
+	//const list<CourseClass*>& d = TestFitness::GetInstance().GetCourseClassesTest();
 	const list<CourseClass*>& d = Configuration::GetInstance().GetCourseClasses();
+
 	int a = 0;
 	 
 	for( list<CourseClass*>::const_iterator it = d.begin(); it != d.end(); it++, a++ )
@@ -377,6 +380,7 @@ total_overlap:
 	}
 
 	if ((float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *5) >= 1) {
+	 	cout << "success" << endl;
 	 	ci = 0;
 	 	int aa = 0;
 	 	
@@ -400,24 +404,28 @@ total_overlap:
 			}
 		}
 		bool windows = false;
-	    for (int q = 0; q < 6 && !windows  ; q++) {
+	    for (int q = 0; q < 6  ; q++) {
 	    	bool gp = false;
-      		for (int g = 1; g <= numberOfGroups  && !windows ; g++) {
+	    	
+      		for (int g = 1; g <= numberOfGroups  ; g++) {
       			cout << "------day"<<q<<"----cycle---g" << g <<"----" << endl;
       			auto  ender = mymap[q][g].end();
-      			//cout << mymap[q][g].size() << "<-maps" << endl;
+      		cout << mymap[q][g].size() << "<-maps" << endl;	
      			if (mymap[q][g].size() > 1) {
        	 			ender--;
        	 			for (auto iter = mymap[q][g].begin(); iter != ender; iter++) {
        	 				auto tmp = iter;
           				auto tmp2 = ++iter;
           				if (  tmp->first + tmp->second  != tmp2->first ) {
-             				windows =true;
+             				cout << "hern9" << endl;
+             				//windows =true;
              			}	
              			else 
              			{
+             				score++;
              				//if(!gp)
-            				score= score + mymap[q][g].size();
+             				cout << score << "-scNONE" << endl;
+            				//score= score + mymap[q][g].size();
             				//_criteria[ ci + 5 ] = !gp;
             			}
             			iter --;
@@ -428,16 +436,19 @@ total_overlap:
 
 					if( !gp) 
 						gp = true;
+					
 					//score++; 
-					cout << score << "-sc" << endl;
-					_criteria[ ci + 5 ] = !gp;
+
+					cout  << "-sc" << endl;
+					//_criteria[ ci + 5 ] = !gp;
             		
             	}
             }
-            if (gp)
-            	score++;
+             if (gp)
+             	score++;
         }
     }  	 
+    cout << score << "itog"<<endl;
     cout << ( Configuration::GetInstance().GetNumberOfCourseClasses() *6) << endl;
 	// calculate fitess value based on score
 	_fitness = (float)score / ( Configuration::GetInstance().GetNumberOfCourseClasses() *6);// * 5// DAYS_NUM );

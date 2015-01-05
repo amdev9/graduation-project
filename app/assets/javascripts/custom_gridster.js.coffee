@@ -1,7 +1,7 @@
 $(document).ready ->
   gridster = $(".gridster > ul").gridster({
-      widget_margins: [23, 10],
-      widget_base_dimensions: [150, 150]
+      widget_margins: [33, 5],
+      widget_base_dimensions: [120, 120]
       min_cols: 6
       max_cols: 6
       max_rows: 12
@@ -19,7 +19,7 @@ $(document).ready ->
   }).data('gridster');
 
   $('#save_gridster_data').click ->
-    #alert gridster.serialize().toSource()
+    alert gridster.serialize().toSource() 
     $.ajax
       url:"/save_gridster",
       type: "PUT",

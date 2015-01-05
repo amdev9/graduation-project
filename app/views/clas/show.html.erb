@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%= notice %></p> -->
 
 <p>
   <strong>Преподаватель:</strong>
@@ -17,7 +17,7 @@
 
 <p>
   <strong>Продолжительность занятия:</strong>
-  <%= @cla.duration %> пары
+  <%= @cla.duration %> 
 </p>
 
 <p>
@@ -29,5 +29,5 @@
   <%end%>
 </p>
 
-<%= link_to 'Редактировать', edit_cla_path(@cla) ,  class: "btn btn-mini btn-success" %> 
+<%= link_to 'Редактировать', edit_cla_path(@cla) ,  class: "btn btn-mini btn-primary" %> 
 <%= link_to 'Назад', clas_path,  class: "btn btn-mini btn-default" %>

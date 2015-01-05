@@ -10,31 +10,36 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :professor_id %><br>
-    <%=  f.select :professor_id, Professor.all.collect {|x| [x.name, x.id]} %>
+<div class="form-horizontal col-md-3">
+  <div class="input-form">
+  
+   <div class="form-group">
+    <label>Преподаватель</label><br>
+    <%=  f.select :professor_id, Professor.all.collect {|x| [x.name, x.id]} , {}, { :class => "form-control"}%>
     <!-- # f.number_field  :professor_id-->
   </div>
-  <div class="field">
-    <%= f.label :course_id %><br>
-    <%=  f.select :course_id, Course.all.collect {|x| [x.name, x.id]} %>
+  <div class="form-group">
+    
+    <label>Дисциплина</label><br>
+    <%=  f.select :course_id, Course.all.collect {|x| [x.name, x.id]},{},{ :class => "form-control"} %>
    <!-- <%= f.number_field  :course_id %> -->
   </div>
-  <div class="field">
-    <%= f.label :group_id %><br>
-    <%= f.select :group_ids, Group.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+  <div class="form-group">
+   <label>Группы</label><br>
+    <%= f.select :group_ids, Group.all.collect {|x| [x.name, x.id]}, {}, :multiple => true ,:class => "form-control" %>
               
   </div>
-  <div class="field">
-    <%= f.label :duration %><br>
-    <%= f.number_field :duration %>
+ <div class="form-group">
+    <label>Продолжительность</label><br>
+    <%= f.number_field :duration ,class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :lab %><br>
-    <%= f.check_box :lab %>
+   <div class="form-group">
+     <label>Лабораторная</label><br>
+    <%= f.check_box :lab ,class: "form-control"%>
   </div>
   <div class="actions">
-    <%= f.submit "Сохранить", class: 'btn btn-mini btn-primary' %>
+    <%= f.submit "Сохранить", class: 'btn btn-lg btn-success' %>
   </div>
+
 <% end %>
+</div>

@@ -109,6 +109,7 @@ void CChildView::Printer(int icase)
 		int ci = classes.size() ;
 	  
 	  	if (_schedule->GetFitness()>=1) {
+	  		cout << "fitness--->" << _schedule->GetFitness() << endl;
 	  		int  idev =0;
 	  	 	
 	  	 	std::ostringstream idcase;
@@ -133,8 +134,9 @@ void CChildView::Printer(int icase)
 			    int realID = Configuration::GetInstance().MapRoomId( r+1) ;
 			    s2SQL.append(  std::to_string(realID).c_str() );
 			    s2SQL.append("', '");
+			  //  cout << r <<"<----"<< endl;
 			     	//?!?if (Configuration::GetInstance().GetRoomById( l+m+1 )->IsLab()) { 
-			    if (Configuration::GetInstance().GetRoomById( r)->IsLab()) { 
+			    if (Configuration::GetInstance().GetRoomById( r)->IsLab()) { //r
 			     	  s2SQL.append(tr.c_str()); 
 			    }
 			    else {

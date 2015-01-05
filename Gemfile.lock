@@ -55,6 +55,9 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bootstrap-validator-rails (0.5.3)
+      jquery-rails (>= 3.0)
+      railties (>= 3.0)
     builder (3.2.2)
     capistrano (3.0.1)
       i18n
@@ -71,7 +74,6 @@ GEM
     capistrano-rails (1.1.0)
       capistrano (>= 3.0.0)
       capistrano-bundler (>= 1.0.0)
-    client_side_validations (3.2.6)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -213,11 +215,11 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  bootstrap-validator-rails
   capistrano-bundler
   capistrano-db-tasks
   capistrano-nc
   capistrano-rails
-  client_side_validations
   coffee-rails (~> 4.0.0)
   devise
   gon
@@ -232,6 +234,7 @@ DEPENDENCIES
   rabl-rails
   rails (= 4.1.5)
   rails-i18n!
+  railties
   ransack
   rb-readline
   rvm1-capistrano3

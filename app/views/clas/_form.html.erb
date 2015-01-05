@@ -1,7 +1,7 @@
 <%= form_for(@cla) do |f| %>
   <% if @cla.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cla.errors.count, "error") %> prohibited this cla from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger ">
+      <h3>Пожалуйста, исправьте ошибки ниже:</h3>
 
       <ul>
       <% @cla.errors.full_messages.each do |message| %>

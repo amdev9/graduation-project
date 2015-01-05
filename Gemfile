@@ -34,8 +34,8 @@ gem 'bootstrap-sass'
 gem 'kaminari', github: 'amatsuda/kaminari'
 gem 'ransack'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'
-gem 'client_side_validations'
-
+gem 'railties'
+gem 'bootstrap-validator-rails'
 
 group :development do
   gem 'spring'

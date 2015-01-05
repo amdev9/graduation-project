@@ -15,5 +15,6 @@
 //= require jquery_ujs
 //= require jquery.gridster
 //= require bootstrap
+//= require bootstrapValidator
 //= require turbolinks
 //= require_tree .

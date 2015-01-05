@@ -34,6 +34,7 @@ gem 'bootstrap-sass'
 gem 'kaminari', github: 'amatsuda/kaminari'
 gem 'ransack'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'
+gem 'client_side_validations'
 
 
 group :development do
@@ -42,7 +43,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
-  gem 'capistrano', '~> 3.0.1'
+  #gem 'capistrano', '~> 3.0.1'
   gem 'rvm1-capistrano3', require: false
   gem 'capistrano-bundler'
   gem 'capistrano-rails'

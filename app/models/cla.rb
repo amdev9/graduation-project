@@ -1,4 +1,6 @@
 class Cla < ActiveRecord::Base
+	validates :duration, inclusion: {in: 1..12}
+	validates_presence_of :groups
 	belongs_to :professor    	
 	belongs_to :course
 	has_many :cla_groups

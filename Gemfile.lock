@@ -71,6 +71,7 @@ GEM
     capistrano-rails (1.1.0)
       capistrano (>= 3.0.0)
       capistrano-bundler (>= 1.0.0)
+    client_side_validations (3.2.6)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -212,11 +213,11 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  capistrano (~> 3.0.1)
   capistrano-bundler
   capistrano-db-tasks
   capistrano-nc
   capistrano-rails
+  client_side_validations
   coffee-rails (~> 4.0.0)
   devise
   gon

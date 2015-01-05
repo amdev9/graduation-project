@@ -5,7 +5,7 @@
       <%h = Hash.new { |h,k| h[k] = []}%>
  
   <%another = Hash.new { |d,c| d[c] = []}%>
- 
+ <!-- 
 <table class="table table-bordered">
   <thead>
     <tr>                                                                                                                                                                                                                                                                                                                                                                                                                          
@@ -23,11 +23,11 @@
     </tr>
   </thead>
 
-<tbody> 
+<tbody>  -->
 
 <div id="placeholder"></div>
  
- <div id: "courseevents">
+ <!-- <div id: "courseevents">
  
 
      <% @courseevents.each do |courseevent| %>
@@ -47,7 +47,7 @@
  <% end %>
  
 
-  </div>
+  </div> -->
 
   <%= content_tag :div, class: "courseevents_class", data: {courseevents: @courseevents} do %>
 <% end %>

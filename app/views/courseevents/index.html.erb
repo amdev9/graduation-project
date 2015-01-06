@@ -1,7 +1,7 @@
-<h1>Расписание</h1>
+<div class="page-header"><h1>Расписание
  
-<h3>Генерация и корректировка расписания</h3>
-  
+<br><small>Генерация и корректировка расписания</small></h1>
+  </div>
       <%h = Hash.new { |h,k| h[k] = []}%>
  
   <%another = Hash.new { |d,c| d[c] = []}%>
@@ -53,6 +53,8 @@
 <% end %>
 <%= content_tag :div, class: "rooms_class", data: {rooms: @rooms} do %>
 <% end %>
+<%= content_tag :div, class: "groups_class", data: {groups: @groups} do %>
+<% end %>
 </tbody>
 </table>
 <br>
@@ -64,11 +66,15 @@
 
 
   
-  <input type='button' id='hideshow' class='btn btn-large btn-primary' value='Скорректировать расписание'>
+  <input type='button' id='hideshow' class='btn btn-large btn-primary' value='Корректировать расписание'>
+ <button class='btn btn-large btn-default' id='generate'>Генерировать расписание</button>
+
  <br><br>
  <div id='correction-content' style="display:none">
 
  <button class='btn btn-large btn-success' id='save_gridster_data'>Сохранить расписание</button>
+
+
  
 <% @rooms.each do |room| %>
  <h2> <%= room.name %> </h2> 
@@ -90,7 +96,7 @@
       <% @courseevents.each do |courseevent| %>
 
     <% if courseevent.roomname.include? room.id.to_s %>  
-        <%another[ courseevent.id ] << courseevent.meetingday << courseevent.meetingtime << courseevent.courseduration << courseevent.coursename <<  courseevent.profname <<  courseevent.profname << courseevent.groupname << courseevent.roomname %>
+        <%another[ courseevent.id ] << courseevent.meetingday << courseevent.meetingtime << courseevent.courseduration << courseevent.coursename  <<  courseevent.profname << courseevent.groupname << courseevent.roomname %>
 
         <%h[courseevent.meetingday] << courseevent.meetingtime %>
 
@@ -110,7 +116,7 @@
       <% if  h[d].include? m   %>
         <%  another.each do |key, array| %>
          <% if array.take(2) == [d,m] and array[-1] == "37" %>
-             <li id="<%=key%>" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="<%= array[2]%>"> <%=another[key].to_s%></li>
+             <li id="<%=key%>" class="gridster-cell" data-row="<%= m %>" data-col="<%= d %>" data-sizex="1" data-sizey="<%= array[2]%>"><b><%=another[key][3]%><br><%=another[key][4]%></b><br>Группы №: <%=another[key][5]%></li>
  <%end%>
 <%end%>
        <%else %>

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
  #  root 'schedule#index'
   root 'courseevents#index'
   put 'save_gridster' => 'courseevents#save_gridster'
-  put 'generate' => 'courseevents#generate'
+  put 'generate' => 'courseevents#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

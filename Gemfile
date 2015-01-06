@@ -44,12 +44,12 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   #gem 'capistrano', '~> 3.0.1'
-  gem 'rvm1-capistrano3', require: false
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-nc'
+  # gem 'rvm1-capistrano3', require: false
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails'
+  # gem 'capistrano-nc'
   gem 'pry-rails'
-  gem 'capistrano-db-tasks', require: false
+  # gem 'capistrano-db-tasks', require: false
 
 end
 # Use ActiveModel has_secure_password

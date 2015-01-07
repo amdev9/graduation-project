@@ -29,4 +29,6 @@ $(document).ready ->
 
   $('#hideshow').click ->
     $('#correction-content').toggle('hide')
+  $('#save_gridster_data').click ->
+    $('#proverka').show('show')
 

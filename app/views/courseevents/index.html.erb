@@ -1,7 +1,14 @@
+<%if params[:d] == "true"%>
 <div class="page-header"><h1>Расписание
  
-<br><small>Генерация и корректировка расписания</small></h1>
+<br><small>Генерация нового расписания</small></h1>
   </div>
+  <% else%>
+ <div class="page-header"><h1>Расписание
+ 
+<br><small>Текущее расписание</small></h1>
+  </div>
+  <%end%>
       <%h = Hash.new { |h,k| h[k] = []}%>
  
   <%another = Hash.new { |d,c| d[c] = []}%>
@@ -62,17 +69,25 @@
 
 <br>
  
+<%if params[:d] == "true"%>
 
-
-
+<%= link_to "Генерировать новое расписание", root_path(d: true), class: 'btn btn-large btn-default'%>
+<%= link_to "Сохранить в текущее расписание", root_path, class: 'btn btn-large btn-success'%>
+<%else%>
   
   <input type='button' id='hideshow' class='btn btn-large btn-primary' value='Корректировать расписание'>
- <button class='btn btn-large btn-default' id='generate'>Генерировать расписание</button>
+ 
+ <%= link_to "Генерировать новое расписание", root_path(d: true), class: 'btn btn-large btn-default'%>
+
+ <%end%>
 
  <br><br>
  <div id='correction-content' style="display:none">
-
- <button class='btn btn-large btn-success' id='save_gridster_data'>Сохранить расписание</button>
+<!-- 
+ <div id='proverka' style="display:none">
+<%= link_to "Проверка расписания", root_path, class: 'btn btn-large btn-default'%><br><br>
+</div>
+ --> <button class='btn btn-large btn-success' id='save_gridster_data'>Сохранить расписание</button>
 
 
  

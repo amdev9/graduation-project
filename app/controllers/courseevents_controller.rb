@@ -1,5 +1,15 @@
 class CourseeventsController < ApplicationController
   def index
+    
+     if  params[:d] == "true"
+          @c = Schedule.new.res
+         @courseevents = Courseevent.order(:id)
+      
+     @rooms = Room.order(:id)
+     @groups = Group.order(:id)
+ 
+    #end
+     else
   	#c = Algorithm.new
         # @c = Schedule.new.res
   	#gon.courseevents = Courseevent.order(:id)
@@ -18,13 +28,13 @@ class CourseeventsController < ApplicationController
     #      @courseevents = Courseevent.order(:id).where (["cbrcase_id = :cbrid" ,{ cbrid: @cbrcase.id.to_s}])
     # else
     #     #run program genetic algo
-    #      @c = Schedule.new.res
+         # @c = Schedule.new.res
          @courseevents = Courseevent.order(:id)
     #end
      @rooms = Room.order(:id)
      @groups = Group.order(:id)
  
-      
+      end
  end
 
  
@@ -60,7 +70,7 @@ class CourseeventsController < ApplicationController
 
    def generate
      @c = Schedule.new.res
-         @courseevents = Courseevent.order(:id)
+    @courseevents = Courseevent.order(:id)
 
     end
 

@@ -431,12 +431,8 @@ total_overlap:
 							
 							/*
 							
-							onemaxscore = ?
+						
 							fullmaxscore = mymap[q][g].size();
-							
-							float one  = scoremaxone / onescore;
-							//where one score was inctremented
-							
 							float full = fullmaxscore / fullscore;
 							//like now
 							

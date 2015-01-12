@@ -427,6 +427,21 @@ total_overlap:
              				cout << score << "-scNONE" << endl;
             				//score= score + mymap[q][g].size();
             				//_criteria[ ci + 5 ] = !gp;
+							
+							
+							/*
+							
+							onemaxscore = ?
+							fullmaxscore = mymap[q][g].size();
+							
+							float one  = scoremaxone / onescore;
+							//where one score was inctremented
+							
+							float full = fullmaxscore / fullscore;
+							//like now
+							
+							
+							*/
             			}
             			iter --;
             		}
